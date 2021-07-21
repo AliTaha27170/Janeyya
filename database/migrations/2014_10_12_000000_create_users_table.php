@@ -35,7 +35,6 @@ class CreateUsersTable extends Migration
             $table->foreign("company")->references("id")->on("users")->onDelete('cascade');
              //"بحال كان مزارع , دلال , موظف إدخال , أو تاجر  "الشركة التابع لها 
              $table->bigInteger('farmer_id')->unsigned()->nullable();
-             $table->foreign("farmer_id")->references("id")->on("users")->onDelete('cascade');
              $table->integer('is_delete')->default(0);
              //0 لا
             // 1 تم حذفه 

@@ -1,6 +1,5 @@
-
 <!doctype html>
-<html lang="en">
+<html lang="ar">
 
 <head>
     <!-- Required meta tags -->
@@ -27,18 +26,18 @@
     <a class="navbar-brand" href="#index.html">
         <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
     </a> -->
-                
-<!--                
+
+                <!--                
                 <button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
                     data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
                     <span class="navbar-toggler-icon fa icon-close fa-times"></span>
                 </button>
--->                
-                
-                
-<!--
+-->
+
+
+                <!--
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav ml-lg-auto">
                         <li class="nav-item active">
@@ -67,9 +66,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Contact Us</a>
                         </li>
--->                        
-                        <!-- search button -->
-<!--                
+-->
+                <!-- search button -->
+                <!--                
                         <div class="search-right ml-lg-3">
                             <form action="error.html" method="GET" class="search-box position-relative">
                                 <div class="input-search">
@@ -81,21 +80,21 @@
                             </form>
                         </div>
 -->
-                        <!-- //search button -->
-<!--                
+                <!-- //search button -->
+                <!--                
                     </ul>
                 </div>
 -->
                 <!-- toggle switch for light and dark theme -->
-              {{-- comment --}}
-              
+                {{-- comment --}}
+
                 <div class="cont-ser-position">
                     <nav class="navigation">
                         <div class="theme-switch-wrapper">
                             <label class="theme-switch" for="checkbox">
                                 <input type="checkbox" id="checkbox">
                                 <div class="mode-container">
-                               
+
                                 </div>
                             </label>
                         </div>
@@ -113,54 +112,61 @@
         <div class="container pt-5 pb-md-4">
             <div class="row align-items-center">
                 <div class="col-md-6 pt-md-0 pt-4 " style="direction: rtl">
-                    <h3 class="right"> شيءٌ  <span class="text_y">جميل</span><br> سيكون هنا قريباً  <br>
+                    <h3 class="right"> شيءٌ <span class="text_y">جميل</span><br> سيكون هنا قريباً <br>
                         <span></span></h3>
-                        <br>
-                        
+                    <br>
 
-                            <form method="POST" action="{{ route('login') }}">
-                                @csrf
+
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="form__group field">
-                           
-                            <input type="email" class="form__field click" placeholder="Name" name="email" id='name' required   value="{{ old('email') }}" />
+
+                            <input type="email" class="form__field click" placeholder="Name" name="email" id='name'
+                                required value="{{ old('email') }}" />
                             <label for="name" class="form__label">البريد الإلكتروني </label>
-                          </div>
-
-                          <div class="form__group field">
-                            <input type="" class="form__field click" placeholder="Name" name="password" id='name' required />
-                            <label for="name" class="form__label">كلمة السر </label>
-                          </div>
-                          @error('email')
-                          <div class="form__group field text" >
-                            <label for="name" class="form__label "> <span class="text_WARNING"> الرجاء التأكد من صحة المعلومات المدخلة !</span>  </label>
-                          </div>
-                          @enderror
-
-                          @error('password')
-                          <div class="form__group field text">
-                            <label for="name" class="form__label "> <span class="text_WARNING" > الرجاء التأكد من صحة المعلومات المدخلة !</span>  </label>
-                          </div>
-                          @enderror
-
-                          <div class="form__group field">
-                          <div class="col text-left">
-                            <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="item_checkbox" name="item_checkbox" value="option1">
-                                <span class="custom-control-label text_span">&nbsp; تذكرني</span>
-                            </label>
                         </div>
-                          </div>
-                
-                          <div class="form__group field">
-                            <label for="name" class="form__label">نسيت كلمة السر ؟  <a  href="{{url('password/forget')}}"><small class="text_span">إعادة تعيين </small> </a></label>
-                          </div>
-<br>
 
-                    <div class="mt-md-5 mt-4 mb-lg-0 mb-4">
-                        <button class="btn btn-style" ><span class="text_login">  تسجيل الدخول</span> </button>
-                    </div>
+                        <div class="form__group field">
+                            <input type="" class="form__field click" placeholder="Name" name="password" id='name'
+                                required />
+                            <label for="name" class="form__label">كلمة السر </label>
+                        </div>
+                        @error('email')
+                        <div class="form__group field text">
+                            <label for="name" class="form__label "> <span class="text_WARNING"> الرجاء التأكد من صحة
+                                    المعلومات المدخلة !</span> </label>
+                        </div>
+                        @enderror
+
+                        @error('password')
+                        <div class="form__group field text">
+                            <label for="name" class="form__label "> <span class="text_WARNING"> الرجاء التأكد من صحة
+                                    المعلومات المدخلة !</span> </label>
+                        </div>
+                        @enderror
+
+                        <div class="form__group field">
+                            <div class="col text-left">
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="item_checkbox"
+                                        name="item_checkbox" value="option1">
+                                    <span class="custom-control-label text_span">&nbsp; تذكرني</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form__group field">
+                            <label for="name" class="form__label">نسيت كلمة السر ؟ <a
+                                    href="{{url('password/forget')}}"><small class="text_span">إعادة تعيين </small>
+                                </a></label>
+                        </div>
+                        <br>
+
+                        <div class="mt-md-5 mt-4 mb-lg-0 mb-4">
+                            <button class="btn btn-style"><span class="text_login"> تسجيل الدخول</span> </button>
+                        </div>
                 </div>
-            </form>
+                </form>
                 <div class="col-md-6 banner-right mt-md-0 mt-4 text-right">
                     <img class="img-fluid" src="assets/images/144.jpg" alt=" ">
                 </div>
@@ -633,7 +639,7 @@
     <!-- //Js scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
     $('.click').click(function () {
         $(".text").slideUp();
         

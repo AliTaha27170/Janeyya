@@ -9,6 +9,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DalalController;
+use App\Http\Controllers\DateController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\HomeController;
@@ -175,37 +176,104 @@ Route::group(['middleware' => 'auth'], function(){
 /******     company      *******/
 	Route::group(['middleware' => 'company'], function(){
 
+				/******************************************************/
+
 				//writer
-				route::get("/addWriter"			,[WriterController::class,'add'])->name('addWriter');
-				route::post("/storeWriter"		,[WriterController::class,'store'])->name('storeWriter');
-				route::get("/editWriter/{id}"	,[WriterController::class,'edit'])->name('editWriter');
-				route::post("/updateWriter/{id}",[WriterController::class,'update'])->name('updateWriter');
-				route::get("/deleteWriter/{id}"	,[WriterController::class,'delete'])->name('deleteWriter');
-				route::get("/showWriters"		,[WriterController::class,'show'])->name('showWriters');
+
+
+					//write
+					route::group(["middleware" => "role:1,'write'" ], function(){
+
+						route::get("/addWriter"			,[WriterController::class,'add'])->name('addWriter');
+						route::post("/storeWriter"		,[WriterController::class,'store'])->name('storeWriter');
+						route::get("/editWriter/{id}"	,[WriterController::class,'edit'])->name('editWriter');
+						route::post("/updateWriter/{id}",[WriterController::class,'update'])->name('updateWriter');
+
+					});
+
+					//Delete 
+					route::group(["middleware" => "role:1,'delete'"] , function(){
+						route::get("/deleteWriter/{id}"	,[WriterController::class,'delete'])->name('deleteWriter');
+					});
+
+
+					//Read 
+					route::group(["middleware" => "role:1,'read'" ], function(){
+						route::get("/showWriters"		,[WriterController::class,'show'])->name('showWriters');
+					});
+			
+				/******************************************************/
 
 				//Dalal
-				route::get("/addDalal"			,[DalalController::class,'add'])->name('addDalal');
-				route::post("/storeDalal"		,[DalalController::class,'store'])->name('storeDalal');
-				route::get("/editDalal/{id}"	,[DalalController::class,'edit'])->name('editDalal');
-				route::post("/updateDalal/{id}" ,[DalalController::class,'update'])->name('updateDalal');
-				route::get("/deleteDalal/{id}"	,[DalalController::class,'delete'])->name('deleteDalal');
-				route::get("/showD"				,[DalalController::class,'show'])->name('showDalals');
+
+				
+					//write
+					route::group(["middleware" => "role:2,'write'" ], function(){
+
+						route::get("/addDalal"			,[DalalController::class,'add'])->name('addDalal');
+						route::post("/storeDalal"		,[DalalController::class,'store'])->name('storeDalal');
+						route::get("/editDalal/{id}"	,[DalalController::class,'edit'])->name('editDalal');
+						route::post("/updateDalal/{id}" ,[DalalController::class,'update'])->name('updateDalal');
+					});
+
+
+						
+					//delete
+					route::group(["middleware" => "role:2,'delete'" ], function(){
+						route::get("/deleteDalal/{id}"	,[DalalController::class,'delete'])->name('deleteDalal');
+					});
+
+
+					//read
+					route::group(["middleware" => "role:2,'read'" ], function(){
+						route::get("/showD"				,[DalalController::class,'show'])->name('showDalals');
+					});
+
+
+
+				/******************************************************/
 
 				//Farmer
+
+				//write
+				route::group(["middleware" => "role:3,'write'" ], function(){
+
 				route::get("/addFarmer"			,[FarmerController::class,'add'])->name('addFarmer');
 				route::post("/storeFarmer"		,[FarmerController::class,'store'])->name('storeFarmer');
 				route::get("/editFarmer/{id}"	,[FarmerController::class,'edit'])->name('editFarmer');
 				route::post("/updateFarmer/{id}",[FarmerController::class,'update'])->name('updateFarmer');
+				});
+
+				//delete
+				route::group(["middleware" => "role:3,'delete'" ], function(){
 				route::get("/deleteFarmer/{id}" ,[FarmerController::class,'delete'])->name('deleteFarmer');
-				route::get("/showFarmers"		,[FarmerController::class,'show'])->name('showFarmers');
+				});
+
+				//read
+				route::group(["middleware" => "role:3,'read'" ], function(){
+					route::get("/showFarmers"   ,[FarmerController::class,'show'])->name('showFarmers');
+				});
+
+				/******************************************************/
 
 				//Dealer
+				route::group(["middleware" => "role:4,'write'" ], function(){
+
 				route::get("/addDealer"		    ,[DealerController::class,'add'])->name('addDealer');
 				route::post("/storeDealer" 		,[DealerController::class,'store'])->name('storeDealer');
 				route::get("/editDealer/{id}"	,[DealerController::class,'edit'])->name('editDealer');
 				route::post("/updateDealer/{id}",[DealerController::class,'update'])->name('updateDealer');
-				route::get("/deleteDealer/{id}" ,[DealerController::class,'delete'])->name('deleteDealer');
-				route::get("/showDealers"		,[DealerController::class,'show'])->name('showDealers');
+				});
+				//delete
+				route::group(["middleware" => "role:4,'delete'" ], function(){
+					route::get("/deleteDealer/{id}" ,[DealerController::class,'delete'])->name('deleteDealer');
+					});
+				//read
+				route::group(["middleware" => "role:4,'read'" ], function(){
+					route::get("/showDealers"		,[DealerController::class,'show'])->name('showDealers');
+				});
+
+				/******************************************************/
 
 			    //Worker
 				route::get("/addWorker"			,[WorkerController::class,'add'])->name('addWorker');
@@ -215,6 +283,7 @@ Route::group(['middleware' => 'auth'], function(){
 				route::get("/deleteWorker/{id}"	,[WorkerController::class,'delete'])->name('deleteWorker');
 				route::get("/showWorkers"		,[WorkerController::class,'show'])->name('showWorkers');
 
+				/******************************************************/
 
 				
 			    //Mot3aked
@@ -224,9 +293,42 @@ Route::group(['middleware' => 'auth'], function(){
 				route::post("/updateMot3aked/{id}"	,[Mot3akedController::class,'update'])->name('updateMot3aked');
 				route::get("/deleteMot3aked/{id}"	,[Mot3akedController::class,'delete'])->name('deleteMot3aked');
 				route::get("/showMot3akeds"			,[Mot3akedController::class,'show'])->name('showMot3akeds');
+				
+				/******************************************************/
 
+
+			
+				/******************************************************/
+
+				 //Dates 
+				 //write
+				 route::group(["middleware" => "role:6,'write'" ], function(){
+				 Route::post('storeDate'       ,  [DateController::class,'store'])->name('storeDate');
+				 Route::get('editDate/{id}'    ,  [DateController::class,'edit'])->name('editDate');
+				 Route::post('updateDate/{id}' ,  [DateController::class,'update'])->name('updateDate');
+				 });
+				//delete
+				route::group(["middleware" => "role:6,'delete'" ], function(){
+				 Route::get('deleteDate/{id}'  ,  [DateController::class,'delete'])->name('deleteDate');
+				});
+
+				//read
+					route::group(["middleware" => "role:6,'read'" ], function(){
+						Route::get('showDates'       ,  [DateController::class,'show'])->name('showDates');
+						Route::get('addDate'          ,  [DateController::class,'show'] )->name('addDate');
+
+					});
+
+
+				/******************************************************/
 
 				route::get("/showImage/{id}"			,[UserController::class,'getImage'])->name('showImage');
+
+
+
+		// GET DATA
+					//Dalals
+					route::get("/getDalals/{id}"			,[UserController::class,'getImage'])->name('showImage');
 
 
 	});
@@ -240,10 +342,13 @@ Route::group(['middleware' => 'auth'], function(){
 					route::get("/editBill/{id}"		,[BillController::class,'edit'])->name('editBill');
 					route::post("/updateBill/{id}"	,[BillController::class,'update'])->name('updateBill');
 					route::get("/deleteBill/{id}"	,[BillController::class,'delete'])->name('deleteBill');
-					route::get("/showBills"			,[BillController::class,'show'])->name('showBills');
+					route::get("/showBills2"		,[BillController::class,'show'])->name('showBills');
 					route::get("/showBills_today"	,[BillController::class,'show_today'])->name('showBills_today');
 
 	});
+	
+
+
 
 });
 

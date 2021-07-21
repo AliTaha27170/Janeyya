@@ -46,4 +46,10 @@ class User extends Authenticatable
 
         return $roles;
     }
+
+    public function check_role($u_id,$p_id,$type){
+       
+        $r  =  Roles::where('partId', $p_id)->where("userId",$u_id)->where($type,1)->get();
+        return count($r);
+    }
 }

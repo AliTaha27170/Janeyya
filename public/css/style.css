@@ -273,3 +273,20 @@
     opacity: 1;
   }
 }
+
+.pagination{
+  display: inline-flex;
+}
+.c-grey{
+  text-align: right;
+}
+.c-blue{
+  text-align: right;
+
+}
+
+.a-add{
+  color: #E91E63;
+  font-weight: 900;
+
+}

@@ -135,7 +135,7 @@
 
                                                     <div class="form-group">
                                                         <label for="name">رقم الجوال  الثاني      <span class="text-red">*</span></label>
-                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="CommercialRegistrationNo" value="{{ isset($user) ? $user->phone2 : '' }}" placeholder=" رقم الجوال الثاني" >
+                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="phone2" value="{{ isset($user) ? $user->phone2 : '' }}" placeholder=" رقم الجوال الثاني" >
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('name')
