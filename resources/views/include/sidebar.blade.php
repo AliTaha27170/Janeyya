@@ -236,7 +236,7 @@
                 @include('include.sidebar.Dalal')
                 @elseif (auth()->user()->role == 6)
                 @include('include.sidebar.Farmer')
-                @elseif (auth()->user()->role == 7)
+                @elseif (auth()->user()->role == 8)
                 @include('include.sidebar.Dealer')
                 @else
                 {{ "" }}

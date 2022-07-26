@@ -67,10 +67,13 @@ class Kernel extends HttpKernel
         'leader' => \App\Http\Middleware\Leader::class,
         //اذونات الكاتب 
         'writer' => \App\Http\Middleware\Writer::class,
+        //اذونات التاجر 
+        'dealer' => \App\Http\Middleware\dealer::class,
+
         //الشركة الأساسية 
         'company' => \App\Http\Middleware\Company::class,
-          //والكاتب  الشركة الأساسية 
-          'Company_Writer_Middleware' => \App\Http\Middleware\Company_Writer_Middleware::class,
+        //والكاتب  الشركة الأساسية 
+        'Company_Writer_Middleware' => \App\Http\Middleware\Company_Writer_Middleware::class,
         // صلاحيات الموظف 
         'role' => \App\Http\Middleware\preWorkersMiddleware::class,
 
