@@ -1,3 +1,7 @@
+@php
+    use App\helpers\bills;
+
+@endphp
 <style>
     .menu-item {
         background-color: #363a3b;
@@ -282,6 +286,11 @@
     <a href="{{ route('showBills') }}">
         <i class="ik ik-bar-chart-2"></i>
         <span> فواتير </span>
+        @if (bills::bill_new() and ! isset($a3) )
+        <!-- الإشعارات -->
+            <span class="badge badge-danger">{{ bills::bill_new() }}</span>
+        @endif
+        
     </a>
 </div>
 

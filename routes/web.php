@@ -173,7 +173,30 @@ Route::group(['middleware' => 'auth'], function(){
 
 	});
 
-/******     company      *******/
+/******     company and Writer     *******/
+
+Route::group(['middleware' => 'Company_Writer_Middleware'], function(){
+	route::get("/showD"				,[DalalController::class,'show'])->name('showDalals');
+
+	route::get("/showDealers"		,[DealerController::class,'show'])->name('showDealers');
+	route::get("/showFarmers"   ,[FarmerController::class,'show'])->name('showFarmers');
+
+					//read
+					route::group(["middleware" => "role:2,'read'" ], function(){
+					});
+				 //read
+				route::group(["middleware" => "role:4,'read'" ], function(){
+					
+				});
+
+					//read
+					route::group(["middleware" => "role:3,'read'" ], function(){
+					});
+	
+
+});
+
+
 	Route::group(['middleware' => 'company'], function(){
 
 				/******************************************************/
@@ -224,11 +247,7 @@ Route::group(['middleware' => 'auth'], function(){
 					});
 
 
-					//read
-					route::group(["middleware" => "role:2,'read'" ], function(){
-						route::get("/showD"				,[DalalController::class,'show'])->name('showDalals');
-					});
-
+					
 
 
 				/******************************************************/
@@ -249,11 +268,7 @@ Route::group(['middleware' => 'auth'], function(){
 				route::get("/deleteFarmer/{id}" ,[FarmerController::class,'delete'])->name('deleteFarmer');
 				});
 
-				//read
-				route::group(["middleware" => "role:3,'read'" ], function(){
-					route::get("/showFarmers"   ,[FarmerController::class,'show'])->name('showFarmers');
-				});
-
+			
 				/******************************************************/
 
 				//Dealer
@@ -268,10 +283,6 @@ Route::group(['middleware' => 'auth'], function(){
 				route::group(["middleware" => "role:4,'delete'" ], function(){
 					route::get("/deleteDealer/{id}" ,[DealerController::class,'delete'])->name('deleteDealer');
 					});
-				//read
-				route::group(["middleware" => "role:4,'read'" ], function(){
-					route::get("/showDealers"		,[DealerController::class,'show'])->name('showDealers');
-				});
 
 				/******************************************************/
 

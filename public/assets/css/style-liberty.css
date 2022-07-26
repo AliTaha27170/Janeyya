@@ -14052,7 +14052,7 @@ a.text-dark:focus {
 
 :root {
   --theme-color: #e40000;
-  --primary-color: #fbb034;
+  --primary-color: #CDC4A7;
   --secondary-color: #222222;
   --font-color: #707070;
   --bg-color: #fff;
@@ -14077,7 +14077,7 @@ a.text-dark:focus {
 
 [data-theme="dark"] {
   --theme-color: #e40000;
-  --primary-color: #fbb034;
+  --primary-color: #CDC4A7;
   --secondary-color: #fff;
   --font-color: #b7b7b7;
   --bg-color: #171717;
@@ -18174,7 +18174,7 @@ h5.texti {
 /* input */
 
 .text_y{
-  color: #fbb034;
+  color: #CDC4A7;
 
 }
 

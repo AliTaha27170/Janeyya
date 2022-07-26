@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Date;
 use Illuminate\Http\Request;
+use App\helpers\company;
 
 class DateController extends Controller
 {
@@ -61,7 +62,7 @@ class DateController extends Controller
     public function update(Request $request,$id)
     {
 
-        Date::where('id',$id)->where('company_id',auth()->user()->id )->update([
+        Date::where('id',$id)->where('company',company::company_id())->update([
             "name" => $request['name'] ,
         ]);
         return redirect()->back()->with('msg','تم التعديل بنجاح ');
@@ -73,7 +74,7 @@ class DateController extends Controller
       
       public function delete(Request $request,$id)
       {
-        Date::where('id',$id)->where('company_id',auth()->user()->id )->delete();
+        Date::where('id',$id)->where('company',company::company_id())->delete();
         return redirect()->back()->with('msg','تم الحذف بنجاح ');
       }
       //*END*               >>>>>>>>>>           >>>>>>>>>          >>>>>>>>>>> 

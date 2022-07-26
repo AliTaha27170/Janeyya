@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\helpers\company;
 
 class WorkerController extends Controller
 {
@@ -105,11 +106,11 @@ class WorkerController extends Controller
                     'name'                          => 'required | string ',
                     'email'                         => 'required | email ',
                     'password'                      => 'required ',
-                    'salary'      => 'required',
+                    'salary'                        => 'required',
                     'phone1'                        => 'required',
                     'iban'                          => 'required',
                     'image'                         => 'image',
-                    'DurationContract'                  => 'required',
+                    'DurationContract'              => 'required',
                 ]
                
             );
@@ -156,7 +157,7 @@ class WorkerController extends Controller
                                 'phone2'                      => $request->phone2,
 
                                 'iban'                        => $request->iban,
-                                'DurationContract'                => $request->DurationContract,
+                                'DurationContract'            => $request->DurationContract,
                                 'image'                       => $path,
                                 'note_p'                      => $request->password
                             ]);
@@ -195,7 +196,7 @@ class WorkerController extends Controller
             $by   =  $_GET['by'];
             $type =  $_GET['type'];
 
-            $users=User::where('company',$company)->where('role','3')->orderBy(
+            $users=User::where('company',company::company_id())->where('role','3')->orderBy(
                 $by,$type)->get();
                
                 return view('main.showTables.Worker',with([
@@ -210,7 +211,7 @@ class WorkerController extends Controller
                 $type       =  $_GET['type'];
                 $search_key =  $_GET['key'];
                 
-                $users=User::where('company',$company)->where('role','3')->where(
+                $users=User::where('company',company::company_id())->where('role','3')->where(
                     $type , 'LIKE' ,'%'.$search_key.'%' )->get();
                    
                     return view('main.showTables.Worker',with([
@@ -220,7 +221,7 @@ class WorkerController extends Controller
         // Normal 
          else
             {
-                $users=User::where('company',$company)->where('role','3')->orderBy(
+                $users=User::where('company',company::company_id())->where('role','3')->orderBy(
                     'id','DESC')->get();
                    
                     return view('main.showTables.Worker',with([

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\helpers\company;
 
 class DalalController extends Controller
 {
@@ -182,7 +183,6 @@ class DalalController extends Controller
     public function show()
     {
         try{
-
         $company  =  auth()->user()->id;
 
          //Filter
@@ -191,7 +191,7 @@ class DalalController extends Controller
             $by   =  $_GET['by'];
             $type =  $_GET['type'];
 
-            $users=User::where('company',$company)->where('role','5')->orderBy(
+            $users=User::where('company',company::company_id())->where('role','5')->orderBy(
                 $by,$type)->get();
                
                 return view('main.showTables.Dalal',with([
@@ -206,7 +206,7 @@ class DalalController extends Controller
                 $type       =  $_GET['type'];
                 $search_key =  $_GET['key'];
                 
-                $users=User::where('company',$company)->where('role','5')->where(
+                $users=User::where('company',company::company_id())->where('role','5')->where(
                     $type , 'LIKE' ,'%'.$search_key.'%' )->get();
                    
                     return view('main.showTables.Dalal',with([
@@ -216,7 +216,7 @@ class DalalController extends Controller
         // Normal 
          else
             {
-                $users=User::where('company',$company)->where('role','5')->orderBy(
+                $users=User::where('company',company::company_id())->where('role','5')->orderBy(
                     'id','DESC')->get();
                    
                     return view('main.showTables.Dalal',with([

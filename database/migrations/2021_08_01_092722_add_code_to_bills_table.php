@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUpDownToUsersTable extends Migration
+class AddCodeToBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddUpDownToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('up')->nullable()->comment('المطلوب');
-            $table->string('down')->nullable()->comment('المدفوع');
-                });
+        Schema::table('bills', function (Blueprint $table) {
+            $table->string('code')->default('SA271');
+        });
     }
 
     /**
@@ -26,7 +25,7 @@ class AddUpDownToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('bills', function (Blueprint $table) {
             //
         });
     }

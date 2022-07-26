@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use App\helpers\company;
 
 class WriterController extends Controller
 {
@@ -191,7 +192,7 @@ class WriterController extends Controller
             $by   =  $_GET['by'];
             $type =  $_GET['type'];
 
-            $users=User::where('company',$company)->where('role','4')->orderBy(
+            $users=User::where('company',company::company_id())->where('role','4')->orderBy(
                 $by,$type)->get();
                
                 return view('main.showTables.Writer',with([
@@ -206,7 +207,7 @@ class WriterController extends Controller
                 $type       =  $_GET['type'];
                 $search_key =  $_GET['key'];
                 
-                $users=User::where('company',$company)->where('role','4')->where(
+                $users=User::where('company',company::company_id())->where('role','4')->where(
                     $type , 'LIKE' ,'%'.$search_key.'%' )->get();
                    
                     return view('main.showTables.Writer',with([
@@ -216,7 +217,7 @@ class WriterController extends Controller
         // Normal 
          else
             {
-                $users=User::where('company',$company)->where('role','4')->orderBy(
+                $users=User::where('company',company::company_id())->where('role','4')->orderBy(
                     'id','DESC')->get();
                    
                     return view('main.showTables.Writer',with([

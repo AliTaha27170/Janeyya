@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\helpers\bills;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,4 +53,8 @@ class User extends Authenticatable
         $r  =  Roles::where('partId', $p_id)->where("userId",$u_id)->where($type,1)->get();
         return count($r);
     }
+
+    
+
+    
 }
