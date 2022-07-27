@@ -13,7 +13,7 @@ $a1="2";
  <style></style>
 
 
-    <div class="container-fluid big-font">
+    <div class="container-fluid big-font" style="direction: rtl">
     {{-- Start --}}
 
      <div class="row">

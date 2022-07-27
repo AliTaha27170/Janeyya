@@ -19,7 +19,7 @@ $a1="2";
      <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>{{ __('Users')}}</h3></div>
+                <div class="card-header"><h3>فواتير المزارع</h3></div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="data_table" class="table table-bordered text-center">

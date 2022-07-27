@@ -13,7 +13,9 @@ use App\Http\Controllers\DalalController;
 use App\Http\Controllers\DateController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\Dealers\BillController as DealersBillController;
+use App\Http\Controllers\Farmers\BillController as FarmersBillController;
 use App\Http\Controllers\Dealers\BondsController as DealersBondsController;
+use App\Http\Controllers\Farmers\BondsController as FarmersBondsController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -496,6 +498,26 @@ Route::group(['middleware' => 'auth'], function () {
 		route::post("/get/Bonds/date/receipt", [DealersBondsController::class, 'getBondsDate'])->name('getBondsDate');
 
 		route::post("/get/Bonds/date/paid", [DealersBondsController::class, 'getBondsDateReceipt'])->name('getBondsDateReceipt');
+		//.
+		//.
+
+
+	});
+	Route::middleware(['farmer'])->group(function () {
+
+		//Bills
+
+		route::get("/get/farmer/Bills", [FarmersBillController::class, 'index'])->name('getFarmerBills');
+		
+
+
+		//Bonds
+		route::get("/get/farmer/Bonds", [FarmersBondsController::class, 'index'])->name('getFarmerBonds');
+		route::get("/get/farmer/Bonds/receipt", [FarmersBondsController::class, 'getBonds1'])->name('getFarmerBondsReceipt');
+	    //.
+		route::post("/get/farmer/Bonds/date/receipt", [FarmersBondsController::class, 'getBondsDate'])->name('getFarmerBondsDate');
+
+		route::post("/get/farmer/Bonds/date/paid", [FarmersBondsController::class, 'getBondsDateReceipt'])->name('getFarmerBondsDateReceipt');
 		//.
 		//.
 

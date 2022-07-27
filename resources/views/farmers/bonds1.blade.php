@@ -19,9 +19,9 @@ $a1="2";
      <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>سندات قبض التاجر</h3></div>
+                <div class="card-header"><h3>سندات قبض المزارع</h3></div>
                 <div class="card-body">
-                    <form action="{{ route('getBondsDate') }}" method="post" enctype="multipart/form">
+                    <form action="{{ route('getFarmerBondsDate') }}" method="post" enctype="multipart/form">
                         @csrf
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-form-label">من</label>

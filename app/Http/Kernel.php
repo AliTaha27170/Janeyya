@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'writer' => \App\Http\Middleware\Writer::class,
         //اذونات التاجر 
         'dealer' => \App\Http\Middleware\dealer::class,
+        //اذونات المزارع 
+        'farmer' => \App\Http\Middleware\Farmer::class,
 
         //الشركة الأساسية 
         'company' => \App\Http\Middleware\Company::class,

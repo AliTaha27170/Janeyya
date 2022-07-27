@@ -19,9 +19,9 @@ $a1="2";
      <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>سندات قبض التاجر</h3></div>
+                <div class="card-header"><h3>سندات صرف المزارع</h3></div>
                 <div class="card-body">
-                    <form action="{{ route('getBondsDate') }}" method="post" enctype="multipart/form">
+                    <form action="{{ route('getFarmerBondsDateReceipt') }}" method="post" enctype="multipart/form">
                         @csrf
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-form-label">من</label>
@@ -43,9 +43,8 @@ $a1="2";
                                 <tr>
                                     
                                     <th>#id</th>
-                                    <th> علية</th>
-                                    <th> رصيد من التاجر</th>
-                                    <th> بيانات </th>
+                                    <th> عليه</th>
+                                    <th>  رصيد للتاجر</th>
                                     <th> تاريخ </th>
                                 </tr>
                             </thead>
@@ -55,7 +54,6 @@ $a1="2";
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->for_him }}</td>
                                         <td>{{ $item->tack_from_him}}</td>
-                                        <td>{{ $item->details }}</td>
                                         <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                     </tr>
                                 @endforeach
@@ -77,6 +75,13 @@ $a1="2";
     </div>
     {{-- End --}}
     </div>
+
+
+    <script type="text/javascript">
+        $(window).resize(function () {
+                $("table.data_table").resize();
+        });
+    </script>
 
     <!-- push external js -->
     @push('script')
