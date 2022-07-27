@@ -414,6 +414,43 @@ Route::group(['middleware' => 'auth'], function () {
 
 		/******************************************************/
 
+
+
+
+
+		/******************************************************/
+
+		//سندات القبض 
+		//write
+		route::group(["middleware" => "role:7,'write'"], function () {
+
+			// سند قبض
+			Route::get('Catch_Receipt',  [BondsController::class, 'Catch_Receipt'])->name('Catch_Receipt');
+			//سند صرف 
+			Route::get('receipt',  [DateController::class, 'receipt'])->name('receipt');
+			
+			Route::post('bond/{type}',  [DateController::class, 'bond'])->name('bond');
+
+		});
+
+
+		//read
+		route::group(["middleware" => "role:7,'read'"], function () {
+
+			// جدول سندات الصرف  
+			Route::get('receipts_table',  [BondsController::class, 'receipts_table'])->name('receipts_table');
+
+			// جدول سندات القبض  
+			Route::get('Catch_Receipts_table',  [BondsController::class, 'bonds_table'])->name('bonds_table');
+			
+		});
+
+
+		/******************************************************/
+
+
+
+
 		route::get("/showImage/{id}", [UserController::class, 'getImage'])->name('showImage');
 
 
@@ -423,18 +460,8 @@ Route::group(['middleware' => 'auth'], function () {
 		route::get("/getDalals/{id}", [UserController::class, 'getImage'])->name('showImage');
 	});
 
-	/******     Writer      *******/
-	Route::middleware(['writer'])->group(function () {
 
-		//Bill
-		route::get("/addBill", [BillController::class, 'add'])->name('addBill');
-		route::post("/storeBill", [BillController::class, 'store'])->name('storeBill');
-		route::get("/editBill/{id}", [BillController::class, 'edit'])->name('editBill');
-		route::post("/updateBill/{id}", [BillController::class, 'update'])->name('updateBill');
-		route::get("/deleteBill/{id}", [BillController::class, 'delete'])->name('deleteBill');
-		route::get("/showBills2", [BillController::class, 'show'])->name('showBills');
-		route::get("/showBills_today", [BillController::class, 'show_today'])->name('showBills_today');
-	});
+
 
 
 	/******     Writer      *******/
@@ -449,7 +476,9 @@ Route::group(['middleware' => 'auth'], function () {
 		route::get("/showBills2", [BillController::class, 'show'])->name('showBills');
 		route::get("/showBills_today", [BillController::class, 'show_today'])->name('showBills_today');
 	});
-	
+
+
+
 
 	/******     Dealer      *******/
 	Route::middleware(['dealer'])->group(function () {
@@ -459,15 +488,16 @@ Route::group(['middleware' => 'auth'], function () {
 		route::get("/get/Bills", [DealersBillController::class, 'index'])->name('getBills');
 		
 
-		
+
 		//Bonds
 		route::get("/get/Bonds", [DealersBondsController::class, 'index'])->name('getBonds');
 		route::get("/get/Bonds/receipt", [DealersBondsController::class, 'getBonds1'])->name('getBondsReceipt');
 	    //.
+
+
+		//.
 		//.
 
-	
+
 	});
-
-
 });
