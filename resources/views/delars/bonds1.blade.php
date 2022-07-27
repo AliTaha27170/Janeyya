@@ -21,6 +21,22 @@ $a1="2";
             <div class="card">
                 <div class="card-header"><h3>سندات قبض التاجر</h3></div>
                 <div class="card-body">
+                    <form action="{{ route('getBondsDate') }}" method="post" enctype="multipart/form">
+                        @csrf
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-form-label">من</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control w-50" name="from">
+                            </div>
+                            <label for="inputPassword" class="col-form-label">الي</label>
+                            <div class="col-sm-4">
+                                <input type="date" class="form-control w-50" name="to">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary w-50" type="submit">بحث</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="table-responsive">
                         <table id="data_table" class="table table-bordered text-center">
                             <thead>

@@ -493,8 +493,9 @@ Route::group(['middleware' => 'auth'], function () {
 		route::get("/get/Bonds", [DealersBondsController::class, 'index'])->name('getBonds');
 		route::get("/get/Bonds/receipt", [DealersBondsController::class, 'getBonds1'])->name('getBondsReceipt');
 	    //.
+		route::post("/get/Bonds/date/receipt", [DealersBondsController::class, 'getBondsDate'])->name('getBondsDate');
 
-
+		route::post("/get/Bonds/date/paid", [DealersBondsController::class, 'getBondsDateReceipt'])->name('getBondsDateReceipt');
 		//.
 		//.
 
