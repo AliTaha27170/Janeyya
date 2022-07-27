@@ -15,4 +15,5 @@ class BillController extends Controller
         ])->get();
         return view('delars.bills',compact('Invoices'));
     }
+    
 }

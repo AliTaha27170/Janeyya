@@ -13,6 +13,7 @@ use App\Http\Controllers\DalalController;
 use App\Http\Controllers\DateController;
 use App\Http\Controllers\DealerController;
 use App\Http\Controllers\Dealers\BillController as DealersBillController;
+use App\Http\Controllers\Dealers\BondsController as DealersBondsController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -460,7 +461,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 		
 		//Bonds
-
+		route::get("/get/Bonds", [DealersBondsController::class, 'index'])->name('getBonds');
+		route::get("/get/Bonds/receipt", [DealersBondsController::class, 'getBonds1'])->name('getBondsReceipt');
 	    //.
 		//.
 

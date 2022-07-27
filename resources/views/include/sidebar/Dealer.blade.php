@@ -6,8 +6,15 @@
 </div>
 
 <div class="nav-item {{ ($segment1 == ' ' || isset($a3)) ? 'active' : '' }}">
-    <a href="#">
+    <a href="{{ route('getBonds') }}">
         <i class="ik ik-bar-chart-2"></i>
-        <span> الكشوف </span>
+        <span>  (سندات القبض)الكشوف </span>
+    </a>
+</div>
+
+<div class="nav-item {{ ($segment1 == ' ' || isset($a3)) ? 'active' : '' }}">
+    <a href="{{ route('getBondsReceipt') }}">
+        <i class="ik ik-bar-chart-2"></i>
+        <span>  (سندات الصرف)الكشوف </span>
     </a>
 </div>
