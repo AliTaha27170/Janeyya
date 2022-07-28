@@ -20,10 +20,16 @@ $a1="2";
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>سندات القبض </h3>
+                    @if ($role == 6)
+                        <h3>كشف حساب مفصل مزارع</h3>
+                    @elseif ($role == 8)
+                        <h3>كشف حساب مفصل تاجر</h3>
+                    @else
+                        <h3>كشف حساب مفصل موظفين</h3>
+                    @endif
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('receipts_table') }}" method="get" enctype="multipart/form">
+                    <form action="{{ route('getBondAccount',$role) }}" method="get" enctype="multipart/form">
                         @csrf
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-form-label">تحديد نطاق زمني من : </label>

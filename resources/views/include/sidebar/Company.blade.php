@@ -28,7 +28,10 @@
     <a href="#"><i class="ik ik-edit"></i>الكشوف </a>
     {{--  الأبناء--}}
     <div class="submenu-content">
-        <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> كشف حساب مفصل </a>
+        <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item "> كشف حساب مفصل </a>
+        <a href="{{ route("getBondAccount",8) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  تاجر</a>
+        <a href="{{ route("getBondAccount",6) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  مزارع</a>
+        <a href="{{ route("getBondAccount",1) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  موظفين</a>
         <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف حساب بالاصناف </a>
         <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف بجميع الحسابات </a>
 

@@ -88,10 +88,12 @@ class BondsController extends Controller
     $assets       = $this->user($request['user_id'], "assets");
     $name_of_user = $this->user($request['user_id'], "name");
     $company_id   = $this->company_id();
+    $role = User::find($request['user_id'])->select('role')->get();
 
     Bill::create([
       "type"          => $type,
       "user_id"       => $request['user_id'],
+      'role'          => $role,
       "company_id"    => $company_id,
       "for_him"       => $assets >= 0 ? $assets : 0,
       "from_him"      => $assets <= 0 ? $assets : 0,

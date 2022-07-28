@@ -26,7 +26,7 @@ class CreateBondsTable extends Migration
             $table->text("details")->nullable();
             $table->bigInteger("company_id")->unsigned();
             $table->bigInteger("user_id")->unsigned();
-           
+            $table->string("role")->nullable();
             $table->foreign("company_id")->references("id")->on("users")->onDelete('cascade');
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();

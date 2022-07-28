@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\bonds\BondsController as BondsBondsController;
 use App\Http\Controllers\BondsController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Controller;
@@ -249,9 +250,10 @@ Route::get('/welcome', function () {
 Route::group(['middleware' => 'auth'], function () {
 
 
-
+	route::get("/bonds/Account/{id}", [BondsBondsController::class, 'getBonds'])->name('getBondAccount');
 	/******     Leader      *******/
 	Route::group(['middleware' => 'leader'], function () {
+
 
 		route::get("/addCompany", [CompanyController::class, 'add'])->name('addCompany');
 		route::post("/storeCompany", [CompanyController::class, 'store'])->name('storeCompany');
