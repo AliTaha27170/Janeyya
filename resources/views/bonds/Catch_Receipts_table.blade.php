@@ -1,110 +1,90 @@
-
 @php
-$segment1 ='Farmer';
+
+$a1="2";
 @endphp
 
-@extends('layouts.main') 
+@extends('layouts.main')
 @section('title', 'Data Tables')
 @section('content')
-    <!-- push external head elements to head -->
-    @push('head')
-        <link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
-    @endpush
- 
+<!-- push external head elements to head -->
+@push('head')
+<link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
+@endpush
+<style></style>
 
 
-    <div class="container-fluid big-font " >
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title left">
-                        <i class="ik ik-inbox bg-blue"></i>
-                        <div class="d-inline ">
-                            <h5>التجار  </h5>
-                            <span>العدد الكلي : {{ count($users) }}  تاجر  </span>
-                        </div>
-                        <br> <br>
-                        <div>
-                            <select name="" id=""  class="select">
-                                <option value="1">البحث عن طريق الاسم </option>
-                                <option value="5">البحث عن طريق رقم الهوية </option>
-                                <option value="2"> ID البحث عن طريق ال  </option>
-                            </select>
-                        </div>
+<div class="container-fluid big-font" style="direction: rtl">
+    {{-- Start --}}
 
-                        <br>
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>سندات القبض </h3>
                 </div>
-                <div class="col-lg-4" >
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header ar">
-                      
-                        <h3 > <a class="big-font add" href="{{ route('addDealer') }}">إضافة تاجر جديد  <i class="ik ik-file-plus big-font big"></i></a></h3>
-
-                    </div>
-                    <div class="card-body">
-                        <table id="data_table" class="table">
+                <div class="card-body">
+                    <form action="{{ route('receipts_table') }}" method="get" enctype="multipart/form">
+                        @csrf
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-form-label">تحديد نطاق زمني من : </label>
+                            <div class="col-sm-4">
+                                <input type="date" required class="form-control w-50" name="from">
+                            </div>
+                            <label for="inputPassword" class="col-form-label">الى </label>
+                            <div class="col-sm-4">
+                                <input type="date" required class="form-control w-50" name="to">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary w-50" type="submit">بحث</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table id="data_table" class="table table-bordered text-center">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Id')}}</th>
 
-                                    <th>اسم التاجر </th>
-                                    <th>رقم الجوال </th>
-                                    <th>اسم المؤسسة  </th>
-                                    <th> الايبان  </th>
-                                    <th>الإيميل</th>
-            
-                               
-                                    <th>صورة الهوية </th>
-                                    <th class="nosort">الإجراءات </th>
+                                    <th>#id</th>
+                                    <th> حررت للسيد </th>
+
+                                    <th> عليه</th>
+                                    <th> رصيد منه </th>
+                                    <th> بيانات </th>
+                                    <th> تاريخ </th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                @foreach ($users as $user)
-                                    <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->phone1 }}</td>
-                                        <td>{{ $user->company_name }}</td>
-                                        <td>{{ $user->iban }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td><a href="#pop-up" onclick="return imageClick('{{ route('showImage',$user->id) }}')">Click</a></td>
-                                        <td>
-                                            <div class="table-actions">
-                                                <a href="#"><i class="ik ik-eye"></i></a>
-                                                <a href="{{ route('editDealer',$user->id) }}"><i class="ik ik-edit-2"></i></a>
-                                                <a href="{{ route('deleteDealer',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                @foreach ($bonds as $item)
+                                <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->for_him }}</td>
+                                    <td>{{ $item->tack_from_him}}</td>
+                                    <td>{{ $item->details }}</td>
+                                    <td>{{ $item->created_at->format('m/d/Y') }}</td>
+                                </tr>
                                 @endforeach
-                               
-
                             </tbody>
+                            <tfoot>
+                                <tr class="res">
+                                    <td> المجموع النهائي</td>
+                                    <td>{{ $from_him }}</td>
+                                    <td>{{ $tack_from_him }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    {{-- End --}}
+</div>
 
-
-               
-
-    <!-- push external js -->
-    @push('script')
-        <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
-        <script src="{{ asset('js/datatables.js') }}"></script>
-    @endpush
+<!-- push external js -->
+@push('script')
+<script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
+<script src="{{ asset('js/datatables.js') }}"></script>
+@endpush
 @endsection
-      

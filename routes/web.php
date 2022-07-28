@@ -430,9 +430,8 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('Catch_Receipt',  [BondsController::class, 'Catch_Receipt'])->name('Catch_Receipt');
 			//سند صرف 
 			Route::get('receipt',  [DateController::class, 'receipt'])->name('receipt');
-			
-			Route::post('bond/{type}',  [DateController::class, 'bond'])->name('bond');
 
+			Route::post('bond/{type}',  [DateController::class, 'bond'])->name('bond');
 		});
 
 
@@ -443,8 +442,7 @@ Route::group(['middleware' => 'auth'], function () {
 			Route::get('receipts_table',  [BondsController::class, 'receipts_table'])->name('receipts_table');
 
 			// جدول سندات القبض  
-			Route::get('Catch_Receipts_table',  [BondsController::class, 'bonds_table'])->name('bonds_table');
-			
+			Route::get('Catch_Receipts_table',  [BondsController::class, 'Catch_Receipts_table'])->name('Catch_Receipts_table');
 		});
 
 
@@ -488,13 +486,13 @@ Route::group(['middleware' => 'auth'], function () {
 		//Bills
 
 		route::get("/get/Bills", [DealersBillController::class, 'index'])->name('getBills');
-		
+
 
 
 		//Bonds
 		route::get("/get/Bonds", [DealersBondsController::class, 'index'])->name('getBonds');
 		route::get("/get/Bonds/receipt", [DealersBondsController::class, 'getBonds1'])->name('getBondsReceipt');
-	    //.
+		//.
 		route::post("/get/Bonds/date/receipt", [DealersBondsController::class, 'getBondsDate'])->name('getBondsDate');
 
 		route::post("/get/Bonds/date/paid", [DealersBondsController::class, 'getBondsDateReceipt'])->name('getBondsDateReceipt');
@@ -508,13 +506,13 @@ Route::group(['middleware' => 'auth'], function () {
 		//Bills
 
 		route::get("/get/farmer/Bills", [FarmersBillController::class, 'index'])->name('getFarmerBills');
-		
+
 
 
 		//Bonds
 		route::get("/get/farmer/Bonds", [FarmersBondsController::class, 'index'])->name('getFarmerBonds');
 		route::get("/get/farmer/Bonds/receipt", [FarmersBondsController::class, 'getBonds1'])->name('getFarmerBondsReceipt');
-	    //.
+		//.
 		route::post("/get/farmer/Bonds/date/receipt", [FarmersBondsController::class, 'getBondsDate'])->name('getFarmerBondsDate');
 
 		route::post("/get/farmer/Bonds/date/paid", [FarmersBondsController::class, 'getBondsDateReceipt'])->name('getFarmerBondsDateReceipt');

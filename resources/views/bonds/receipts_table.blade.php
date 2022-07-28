@@ -1,6 +1,6 @@
-
 @php
-$segment1 ='Farmer';
+    
+$a1="2";
 @endphp
 
 @extends('layouts.main') 
@@ -10,97 +10,75 @@ $segment1 ='Farmer';
     @push('head')
         <link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
     @endpush
- 
-<select class="select" data-show-subtext="true" data-live-search="true">
-<option data-tokens="name">name</option>
-<option data-tokens="family">family</option>
-</select>
+ <style></style>
 
-    <div class="container-fluid big-font " >
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title left">
-                        <i class="ik ik-inbox bg-blue"></i>
-                        <div class="d-inline ">
-                            <h5>التجار  </h5>
-                            <span>العدد الكلي : {{ count($bonds) }}  تاجر  </span>
+
+    <div class="container-fluid big-font" style="direction: rtl">
+    {{-- Start --}}
+
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"><h3>سندات الصرف  </h3></div>
+                <div class="card-body">
+                    <form action="{{ route('receipts_table') }}" method="get" enctype="multipart/form">
+                        @csrf
+                        <div class="mb-3 row">
+                            <label for="inputPassword" class="col-form-label">تحديد نطاق زمني  من : </label>
+                            <div class="col-sm-4">
+                                <input type="date" required class="form-control w-50" name="from">
+                            </div>
+                            <label for="inputPassword" class="col-form-label">الى </label>
+                            <div class="col-sm-4">
+                                <input type="date" required class="form-control w-50" name="to">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary w-50" type="submit">بحث</button>
+                            </div>
                         </div>
-                        <br> <br>
-                        <div>
-                            <select name="" id=""  class="select">
-                                <option value="1">البحث عن طريق الاسم </option>
-                                <option value="5">البحث عن طريق رقم الهوية </option>
-                                <option value="2"> ID البحث عن طريق ال  </option>
-                            </select>
-                        </div>
-
-                        <br>
-                    </div>
-                </div>
-                <div class="col-lg-4" >
-                    <nav class="breadcrumb-container" aria-label="breadcrumb">
-
-                    </nav>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header ar">
-                      
-                        <h3 > <a class="big-font add" href="{{ route('addDealer') }}">إضافة تاجر جديد  <i class="ik ik-file-plus big-font big"></i></a></h3>
-
-                    </div>
-                    <div class="card-body">
-                        <table id="data_table" class="table">
+                    </form>
+                    <div class="table-responsive">
+                        <table id="data_table" class="table table-bordered text-center">
                             <thead>
                                 <tr>
-                                    <th>{{ __('Id')}}</th>
-
-                                    <th>حرر من قبل  </th>
-                                    <th>للسيد  </th>
+                                    
+                                    <th>#id</th>
+                                    <th> حررت للسيد </th>
                                     <th> له </th>
-                                    <th> عليه   </th>
-                                    <th>رصيد له </th>
-                                    <th> الصندوق </th>
-                                    <th>البيان</th>
-                               
-                                    <th class="nosort">الإجراءات </th>
+                                    <th> دفع له</th>
+                                    <th> البيانات </th>
+                                    <th> تاريخ التحرير </th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                @foreach ($bonds as $bond)
-                                    <tr>
-                                        <td>{{ $bond->id }}</td>
-                                        <td>{{ $bond->who_write->name }}</td>
-                                        <td>{{ $bond->user->name }}</td>
-                                        <td>{{ $bond->for_him }}</td>
-                                        <td>{{ $bond->from_him }}</td>
-                                        <td>{{ $bond->id  }}</td>
-                                        <td>{{ $bond->details  }}</td>
-                                        <td>
-                                            <div class="table-actions">
-                                                <a href="#"><i class="ik ik-eye"></i></a>
-                                            </div>
-                                        </td>
+                                @foreach ($bonds as $item)
+                                    <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name_of_user }}</td>
+                                        <td>{{ $item->for_him }}</td>
+                                        <td>{{ $item->tack_from_him}}</td>
+                                        <td>{{ $item->details }}</td>
+                                        <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                     </tr>
                                 @endforeach
-                               
-
                             </tbody>
+                            <tfoot>
+                                <tr class="res">
+                                    <td> المجموع النهائي</td>
+                                    <td>{{ $for_him }}</td>
+                                    <td>{{ $pay_him }}</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-
-               
+    </div>
+    {{-- End --}}
+    </div>
 
     <!-- push external js -->
     @push('script')

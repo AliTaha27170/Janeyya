@@ -301,7 +301,7 @@
 
 
 <div class="nav-item {{ ($segment1 == ' ') ? 'active' : '' }}">
-    <a href="#">
+    <a href="{{route('receipts_table')}}">
         <i class="ik ik-bar-chart-2"></i>
         <span> سندات صرف </span>
     </a>
@@ -315,7 +315,7 @@
 
 
 <div class="nav-item {{ ($segment1 == ' ') ? 'active' : '' }}">
-    <a href="#">
+    <a href="{{route('Catch_Receipts_table')}}">
         <i class="ik ik-bar-chart-2"></i>
         <span> سندات قبض </span>
     </a>
