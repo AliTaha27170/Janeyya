@@ -1,6 +1,6 @@
 @php
 
-$a1="2";
+$segmen = 5546;
 @endphp
 
 @extends('layouts.main')
@@ -20,8 +20,12 @@ $a1="2";
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>سندات القبض </h3>
+                    <h2>سندات القبض </h2>
+                    
                 </div>
+                <br>
+                    <a   href="{{route('Catch_Receipt')}}" class="btn btn-primary">سند جديد</a> <br><br><br>
+
                 <div class="card-body">
                     <form action="{{ route('receipts_table') }}" method="get" enctype="multipart/form">
                         @csrf
@@ -47,18 +51,19 @@ $a1="2";
 
                                     <th>#id</th>
                                     <th> حررت للسيد </th>
-
-                                    <th> عليه</th>
+                                    <th> الذمة</th>
                                     <th> رصيد منه </th>
                                     <th> بيانات </th>
                                     <th> تاريخ </th>
                                 </tr>
+
                             </thead>
                             <tbody>
                                 @foreach ($bonds as $item)
                                 <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->for_him }}</td>
+                                    <td>{{ $item->name_of_user }}</td>
+                                    <td>{{ $item->assets }}</td>
                                     <td>{{ $item->tack_from_him}}</td>
                                     <td>{{ $item->details }}</td>
                                     <td>{{ $item->created_at->format('m/d/Y') }}</td>
@@ -68,7 +73,8 @@ $a1="2";
                             <tfoot>
                                 <tr class="res">
                                     <td> المجموع النهائي</td>
-                                    <td>{{ $from_him }}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td>{{ $tack_from_him }}</td>
                                     <td></td>
                                     <td></td>

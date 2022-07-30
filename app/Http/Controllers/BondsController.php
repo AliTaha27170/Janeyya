@@ -9,6 +9,8 @@ use App\Traits\BondsTrait;
 use App\Traits\CompanyTrait;
 use App\User;
 
+use function PHPSTORM_META\type;
+
 class BondsController extends Controller
 {
   use BondsTrait;
@@ -25,14 +27,14 @@ class BondsController extends Controller
     else
       $bonds  = Bond::where("company_id", $this->company_id())->where("type", 0)->orderBy("id")->paginate(100);
 
-    $for_him = $bonds->sum("for_him");
+    $assets = $bonds->sum("assets");
     $pay_him  = $bonds->sum("pay_him");
 
-    return view('bonds.receipts_table', compact('bonds', 'for_him', 'pay_him'));
+    return view('bonds.receipts_table', compact('bonds', 'assets', 'pay_him'));
   }
 
 
-  
+
   // واجهة إضافة سند صرف  جدبد 
   public function Catch_Receipt()
   {
@@ -40,7 +42,7 @@ class BondsController extends Controller
     $users  = User::where("company", $company_id)->where("role", "!=", 271)
       ->where("role", "!=", 1)->orderBy("id")->paginate(100);
 
-    return view("bonds.receipt", compact("company_id", "users"));
+    return view("bonds.catch_receipt", compact("company_id", "users"));
   }
 
 
@@ -51,7 +53,7 @@ class BondsController extends Controller
     $company_id = $this->company_id();
     $users  = User::where("company", $company_id)->where("role", "!=", 271)
       ->where("role", "!=", 1)->orderBy("id")->paginate(100);
-      
+
     return view("bonds.receipt", compact("company_id", "users"));
   }
 
@@ -66,10 +68,10 @@ class BondsController extends Controller
     else
       $bonds  = Bond::where("company_id", $this->company_id())->where("type", 1)->orderBy("id")->paginate(100);
 
-    $from_him = $bonds->sum("from_him");
+    $assets = $bonds->sum("assets");
     $tack_from_him  = $bonds->sum("tack_from_him");
 
-    return view('bonds.Catch_Receipts_table', compact('bonds', 'from_him', 'tack_from_him'));
+    return view('bonds.Catch_Receipts_table', compact('bonds', 'assets', 'tack_from_him'));
   }
 
 
@@ -78,7 +80,7 @@ class BondsController extends Controller
 
   //معالجة وتخزين السند 
 
-  public function store(Request $request, $type)
+  public function bond(Request $request, $type)
   {
     $request->validate([
       'user_id'   => 'required',
@@ -87,20 +89,46 @@ class BondsController extends Controller
     //حساب الأصول للمزارع أو للتاجر 
     $assets       = $this->user($request['user_id'], "assets");
     $name_of_user = $this->user($request['user_id'], "name");
+    $role         = $this->user($request['user_id'], "role");
     $company_id   = $this->company_id();
-    $role = User::find($request['user_id'])->select('role')->get();
 
-    Bill::create([
+
+    Bond::create([
       "type"          => $type,
       "user_id"       => $request['user_id'],
       'role'          => $role,
       "company_id"    => $company_id,
-      "for_him"       => $assets >= 0 ? $assets : 0,
-      "from_him"      => $assets <= 0 ? $assets : 0,
+      "assets"        => $assets ,//$request['pay_him'] ? $assets-$request['pay_him'] : $assets+$request['tack_from_him'],
       "pay_him"       => $request['pay_him'] ?? null,
       "tack_from_him" => $request['tack_from_him'] ?? null,
       "details"       => $request['details'],
       "name_of_user"  => $name_of_user,
     ]);
+
+    if ($type) {
+      $user = User::where('company', $this->company_id())->where("id", $request["user_id"])->get()->first();
+      $user->update(
+        [
+          "assets" => $user->assets + $request['tack_from_him'],
+        ]
+      );
+    } else
+      //' '      صرف
+      $user = User::where('company', $this->company_id())->where("id", $request["user_id"])->get()->first();
+    $user->update(
+      [
+        "assets" => $user->assets - $request['pay_him'],
+      ]
+    );
+
+    //'شركة '      صرف
+    $user = User::where('id', $this->company_id())->get()->first();
+    $user->update(
+      [
+        "assets" => $user->assets - $request['pay_him'],
+      ]
+    );
+
+    return redirect()->back()->with("msg", "تمت الإضافة بنجاح .");
   }
 }

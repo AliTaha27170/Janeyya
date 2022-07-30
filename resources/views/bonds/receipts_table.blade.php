@@ -1,6 +1,6 @@
 @php
+$segmen = 4545;
     
-$a1="2";
 @endphp
 
 @extends('layouts.main') 
@@ -19,7 +19,10 @@ $a1="2";
      <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>سندات الصرف  </h3></div>
+                <div class="card-header"><h2>سندات الصرف  </h2></div>
+                <br>
+                <a   href="{{route('receipt')}}" class="btn btn-primary">سند جديد</a> <br><br><br>
+
                 <div class="card-body">
                     <form action="{{ route('receipts_table') }}" method="get" enctype="multipart/form">
                         @csrf
@@ -44,7 +47,7 @@ $a1="2";
                                     
                                     <th>#id</th>
                                     <th> حررت للسيد </th>
-                                    <th> له </th>
+                                    <th> الذمة </th>
                                     <th> دفع له</th>
                                     <th> البيانات </th>
                                     <th> تاريخ التحرير </th>
@@ -52,11 +55,11 @@ $a1="2";
                             </thead>
                             <tbody>
                                 @foreach ($bonds as $item)
-                                    <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                    <tr style="   {{   $item->notfic == '1'  ? 'background: #5d7261c2 ;color:#fff': ''}} ">
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name_of_user }}</td>
-                                        <td>{{ $item->for_him }}</td>
-                                        <td>{{ $item->tack_from_him}}</td>
+                                        <td>{{ $item->assets }}</td>
+                                        <td>{{ $item->pay_him}}</td>
                                         <td>{{ $item->details }}</td>
                                         <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                     </tr>
@@ -65,7 +68,8 @@ $a1="2";
                             <tfoot>
                                 <tr class="res">
                                     <td> المجموع النهائي</td>
-                                    <td>{{ $for_him }}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td>{{ $pay_him }}</td>
                                     <td></td>
                                     <td></td>

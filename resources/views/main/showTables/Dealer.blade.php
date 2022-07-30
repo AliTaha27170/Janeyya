@@ -59,6 +59,7 @@ $segment1 ='Farmer';
                                     <th>{{ __('Id')}}</th>
 
                                     <th>اسم التاجر </th>
+                                    <th>الذمة</th>
                                     <th>رقم الجوال </th>
                                     <th>اسم المؤسسة  </th>
                                     <th> الايبان  </th>
@@ -75,6 +76,7 @@ $segment1 ='Farmer';
                                     <tr>
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
+                                        <td>{!! $user->assets >=0 ? "<strong style='color:green'>". number_format($user->assets,2)."</strong>" : "<strong style='color:red'>".number_format($user->assets,2)."</strong>" !!}</td>
                                         <td>{{ $user->phone1 }}</td>
                                         <td>{{ $user->company_name }}</td>
                                         <td>{{ $user->iban }}</td>

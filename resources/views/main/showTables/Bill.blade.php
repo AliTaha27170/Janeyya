@@ -268,7 +268,7 @@ $a3="2";
                 @if (auth()->user()->role == 2)
                     {{ $item->read($item->id) }}
                 @endif
-                <td>{{ $item->code }}</td>
+                <td>{{ $item->id }}</td>
                 <td>{{ isset($item->name) ? $item->name : $item->get_dealer->name }}</td>
                 <td>{{ $item->get_who_write->name }}</td>
                 <td>{{ isset($item->total) ? $item->total : '' }} SR</td>

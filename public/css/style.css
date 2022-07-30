@@ -294,3 +294,29 @@
   margin-left: 25px ;
   margin-bottom: 25px;
 }
+.alert-second , .alert-shade , .alert-dismissible {
+  background: #5d7261;
+    direction: rtl;
+    color: #fff;
+    padding: 0px 47px 0px 0px;
+    min-height: 35px;
+}
+.rt{
+  direction: rtl;
+  text-align: right;
+}
+.form-control{
+  background-color: #faebd76b;
+  font-weight: 600;
+}
+.btn-primary {
+
+  max-width: 125px;
+  margin: 15px;
+  color: #fff!important;
+}
+
+.res{
+  background-color: #5d7261b8;
+  color: #fff;
+}

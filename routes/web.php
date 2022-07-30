@@ -431,9 +431,9 @@ Route::group(['middleware' => 'auth'], function () {
 			// سند قبض
 			Route::get('Catch_Receipt',  [BondsController::class, 'Catch_Receipt'])->name('Catch_Receipt');
 			//سند صرف 
-			Route::get('receipt',  [DateController::class, 'receipt'])->name('receipt');
+			Route::get('receipt',  [BondsController::class, 'receipt'])->name('receipt');
 
-			Route::post('bond/{type}',  [DateController::class, 'bond'])->name('bond');
+			Route::post('bond/{type}',  [BondsController::class, 'bond'])->name('bond');
 		});
 
 

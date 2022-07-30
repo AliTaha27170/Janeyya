@@ -9,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200&display=swap');
 
 :root {
-  --blue: #007bff;
+  --blue: #5d7261;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -17193,7 +17193,7 @@ label.price-label {
 .owl-theme .owl-nav [class*=owl-]:hover {
   background: #fff;
   opacity: 1;
-  color: #007bff;
+  color: #5d7261;
   text-decoration: none;
   outline: none;
   box-shadow: none;
