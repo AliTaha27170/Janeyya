@@ -20,10 +20,11 @@ $a1="2";
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                        <h3>كشف حساب مفصل موظفين</h3>
+                        <h3>كشف حساب مفصل مزارع</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('getBondAccount',$role) }}" method="get" enctype="multipart/form">
+                        
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-form-label">تحديد نطاق زمني من : </label>
                             <div class="col-sm-4">
@@ -39,11 +40,12 @@ $a1="2";
                         </div>
                     </form>
                     <form action="{{ route('getBondAccount',$role) }}" method="get" enctype="multipart/form">
+                        
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="sample-form">
                                     <div class="form-group text-right">
-                                        <label for="">موظفين </label>
+                                        <label for="">مزارعين </label>
                                         <select class="form-control select2 text-center" name="user">
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
