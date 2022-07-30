@@ -21,6 +21,8 @@ class BondsController extends Controller
   public function receipts_table(Request $request)
   {
 
+
+    // التاريخ 
     if (isset($request["start_at"]) and isset($request["end_at"]))
       $bonds  = Bond::where("company_id", $this->company_id())->where("type", 0)
         ->whereBetween('created_at', [$request["from"], $request["to"]])->orderBy("id")->paginate(100);
@@ -39,7 +41,7 @@ class BondsController extends Controller
   public function Catch_Receipt()
   {
     $company_id = $this->company_id();
-    $users  = User::where("company", $company_id)->where("role", "!=", 271)
+    $users  = User::where("company", $company_id)->where("role", "!=", 2)
       ->where("role", "!=", 1)->orderBy("id")->paginate(100);
 
     return view("bonds.catch_receipt", compact("company_id", "users"));
@@ -51,7 +53,7 @@ class BondsController extends Controller
   public function receipt()
   {
     $company_id = $this->company_id();
-    $users  = User::where("company", $company_id)->where("role", "!=", 271)
+    $users  = User::where("company", $company_id)->where("role", "!=", 2)
       ->where("role", "!=", 1)->orderBy("id")->paginate(100);
 
     return view("bonds.receipt", compact("company_id", "users"));
