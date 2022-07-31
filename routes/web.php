@@ -266,16 +266,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	// الإيرادات / السعي
-	route::get("/Revenue/quest", [RevenuesController::class, 'index'])->name('Revenue.quest');
+	route::get("/Revenue/quest", [RevenuesController::class, 'getQuest'])->name('Revenue.quest');
 
 	// الإيرادات / العقد
-	route::get("/Revenue/contract", [RevenuesController::class, 'index'])->name('Revenue.quest');
-
-	// الإيرادات / العقد
-	route::get("/Revenue/contract", [RevenuesController::class, 'index'])->name('Revenue.quest');
+	route::get("/Revenue/contract", [RevenuesController::class, 'getContract'])->name('Revenue.contract');
 
 	// الإيرادات / الرسوم
-	route::get("/Revenue/fee", [RevenuesController::class, 'index'])->name('Revenue.quest');
+	route::get("/Revenue/fee", [RevenuesController::class, 'getFee'])->name('Revenue.fee');
 
 	/******     Leader      *******/
 	Route::group(['middleware' => 'leader'], function () {

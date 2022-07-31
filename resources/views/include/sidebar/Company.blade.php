@@ -16,8 +16,9 @@
 
 <div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
     <a href="{{route('dashboard')}}">
-        <span> اللوحة الرئيسية</span>
         <i class="ik ik-bar-chart-2"></i>
+        <span> اللوحة الرئيسية</span>
+        
     </a>
 </div>
 
@@ -32,8 +33,8 @@
         <a href="{{ route("getBondAccount",8) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  تاجر</a>
         <a href="{{ route("getBondAccount",6) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  مزارع</a>
         <a href="{{ route("getBondAccount",1) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  موظفين</a>
-        <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف حساب بالاصناف </a>
-        <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف بجميع الحسابات </a>
+        <a href="{{ route('getItemAccount') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف حساب بالاصناف </a>
+        <a href="{{ route('getAllAccount') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف بجميع الحسابات </a>
 
         {{--  لوحة تحتوي على أبناء --}}
         <div
@@ -249,9 +250,9 @@
             <a href="#"><i class="ik ik-edit"></i>الإيرادات </a>
             {{--  الأبناء--}}
             <div class="submenu-content">
-                <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> السعي </a>
-                <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> رسوم عقود </a>
-                <a href="#" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> غرامات </a>
+                <a href="{{ route('Revenue.contract') }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> السعي </a>
+                <a href="{{ route('Revenue.fee') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> رسوم عقود </a>
+                <a href="{{ route('Revenue.quest') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> غرامات </a>
 
 
                 {{--   <a href="{{url('form-advance')}}" class="menu-item
