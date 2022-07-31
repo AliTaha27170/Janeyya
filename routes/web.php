@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\Revenues\RevenuesController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\WriterController;
 use Illuminate\Support\Facades\Redirect;
@@ -249,8 +251,32 @@ Route::get('/welcome', function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
-
+	// كشف حساب مفصل
 	route::get("/bonds/Account/{id}", [BondsBondsController::class, 'getBonds'])->name('getBondAccount');
+
+	// كشف  حساب المديونات
+	route::get("/Account/dept", [AccountController::class, 'getDeptAccount'])->name('getDeptAccount');
+
+	// كشف حساب بالاصناف
+	route::get("/Account/item", [AccountController::class, 'getItemAccount'])->name('getItemAccount');
+
+	// كشف حساب لجميع الحسابات
+	route::get("/All/Account/", [AccountController::class, 'getAllAccount'])->name('getAllAccount');
+
+
+
+	// الإيرادات / السعي
+	route::get("/Revenue/quest", [RevenuesController::class, 'index'])->name('Revenue.quest');
+
+	// الإيرادات / العقد
+	route::get("/Revenue/contract", [RevenuesController::class, 'index'])->name('Revenue.quest');
+
+	// الإيرادات / العقد
+	route::get("/Revenue/contract", [RevenuesController::class, 'index'])->name('Revenue.quest');
+
+	// الإيرادات / الرسوم
+	route::get("/Revenue/fee", [RevenuesController::class, 'index'])->name('Revenue.quest');
+
 	/******     Leader      *******/
 	Route::group(['middleware' => 'leader'], function () {
 
