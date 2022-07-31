@@ -13,7 +13,7 @@ $segment1 ='Farmer';
  
 
 
-    <div class="container-fluid big-font " >
+    <div class="container-fluid big-font " style="margin-right: 225px;">
         <div class="page-header">
             <div class="row align-items-end">
                 <div class="col-lg-8">

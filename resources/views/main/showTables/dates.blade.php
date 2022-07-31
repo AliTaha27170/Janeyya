@@ -13,7 +13,7 @@ $a1="2";
  
 
 
-    <div class="container-fluid big-font " style="direction: rtl">
+    <div class="container-fluid big-font " style="margin-right: 225px;">
     {{-- Start --}}
 
 @if (session()->has('msg'))

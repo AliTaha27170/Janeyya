@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
 <head>
 	<title>@yield('title','') | Radmin - Laravel Admin Starter</title>
 	<!-- initiate head with meta tags, css and script -->
@@ -18,9 +18,6 @@
 	    		<!-- yeild contents here -->
 	    		@yield('content')
 	    	</div>
-
-	    	<!-- initiate chat section-->
-	    	@include('include.chat')
 
 
 	    	<!-- initiate footer section-->

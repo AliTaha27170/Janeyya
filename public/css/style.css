@@ -214,6 +214,7 @@
 } 
 .sidebar-mini .app-sidebar {
     width: 70px !important;
+    left: none !important;
 }
 .sidebar-mini .app-sidebar .sidebar-content .nav-container .navigation-main .nav-item a span{
   display: none;

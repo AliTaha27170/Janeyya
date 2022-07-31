@@ -14,7 +14,7 @@ $a3="2";
  
 
 
-    <div class="container-fluid big-font " >
+    <div class="container-fluid big-font "  style="margin-right: 225px;">
         
 {{-- Start --}}
 

@@ -13,7 +13,7 @@ $segmen = 5546;
 
 
 
-<div class="container-fluid big-font ">
+<div class="container-fluid big-font " style="margin-right: 225px;">
 
     {{-- Start --}}
 
