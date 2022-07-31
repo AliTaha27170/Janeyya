@@ -29,9 +29,9 @@ class BondsController extends Controller
             $users = User::where("company", $this->company_id())->where("role",$role)->select("name","id")->orderBy("id")->get();
             if($role == 6){
                 
-                return view('accountBonds.bondsFarmer', compact('bonds', 'from_him', 'tack_from_him','role','users'));
+                return view('Accounts.accountBonds.bondsFarmer', compact('bonds', 'from_him', 'tack_from_him','role','users'));
             } else {
-                return view('accountBonds.bondsDealer', compact('bonds', 'from_him', 'tack_from_him','role','users'));
+                return view('Accounts.accountBonds.bondsDealer', compact('bonds', 'from_him', 'tack_from_him','role','users'));
             }
         } 
         if($id == 1){
@@ -47,7 +47,7 @@ class BondsController extends Controller
             $tack_from_him  = $bonds->sum("tack_from_him");
             $role = $id;
             $users = User::where("company", $this->company_id())->where("role",$role)->select("name","id")->orderBy("id")->get();
-            return view('accountBonds.bonds', compact('bonds', 'from_him', 'tack_from_him','role','users'));
+            return view('Accounts.accountBonds.bonds', compact('bonds', 'from_him', 'tack_from_him','role','users'));
         }
     
         
