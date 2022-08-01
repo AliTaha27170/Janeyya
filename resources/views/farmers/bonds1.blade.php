@@ -4,7 +4,7 @@ $a1="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'سندات القبض')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -37,9 +37,16 @@ $a1="2";
                             </div>
                         </div>
                     </form>
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-bordered text-center">
-                            <thead>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
+                        <table  class="table table-bordered text-center">
+                            <thead class="noExl">
                                 <tr>
                                     
                                     <th>#id</th>
@@ -77,7 +84,7 @@ $a1="2";
     </div>
     {{-- End --}}
     </div>
-
+   
     <!-- push external js -->
     @push('script')
         <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ asset('plugins/chartist/dist/chartist.min.css') }}">
     @endpush
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-right: 225px;">
     	<div class="row">
     		<!-- page statustic chart start -->
             <div class="col-xl-3 col-md-6">

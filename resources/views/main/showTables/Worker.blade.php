@@ -53,47 +53,49 @@ $segment1 ='Farmer';
 
                     </div>
                     <div class="card-body">
-                        <table id="data_table" class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Id')}}</th>
-
-                                    <th>اسم الموظف </th>
-                                    <th>رقم الجوال </th>
-                                    <th>الراتب   </th>
-                                    <th> الايبان  </th>
-                                    <th>الإيميل</th>
-            
-                               
-                                    <th>صورة الهوية </th>
-                                    <th class="nosort">الإجراءات </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              
-                                
-                                @foreach ($users as $user)
+                        <div class="table-responsive" id="myTable">
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->phone1 }}</td>
-                                        <td>{{ $user->salary}}</td>
-                                        <td>{{ $user->iban }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td><a href="#pop-up" onclick="return imageClick('{{ route('showImage',$user->id) }}')">Click</a></td>
-                                        <td>
-                                            <div class="table-actions">
-                                                <a href="#"><i class="ik ik-eye"></i></a>
-                                                <a href="{{ route('editWorker',$user->id) }}"><i class="ik ik-edit-2"></i></a>
-                                                <a href="{{ route('deleteWorker',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
-                                            </div>
-                                        </td>
+                                        <th>{{ __('Id')}}</th>
+
+                                        <th>اسم الموظف </th>
+                                        <th>رقم الجوال </th>
+                                        <th>الراتب   </th>
+                                        <th> الايبان  </th>
+                                        <th>الإيميل</th>
+                
+                                
+                                        <th>صورة الهوية </th>
+                                        <th class="nosort">الإجراءات </th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                
+                                    
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->phone1 }}</td>
+                                            <td>{{ $user->salary}}</td>
+                                            <td>{{ $user->iban }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td><a href="#pop-up" onclick="return imageClick('{{ route('showImage',$user->id) }}')">Click</a></td>
+                                            <td>
+                                                <div class="table-actions">
+                                                    <a href="#"><i class="ik ik-eye"></i></a>
+                                                    <a href="{{ route('editWorker',$user->id) }}"><i class="ik ik-edit-2"></i></a>
+                                                    <a href="{{ route('deleteWorker',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

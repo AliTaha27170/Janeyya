@@ -58,9 +58,16 @@ $a1="2";
                         
                         </div>
                     </form>
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-bordered table-striped text-center">
-                            {{-- <thead>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
+                        <table  class="table table-bordered table-striped text-center">
+                            {{-- <thead class="noExl">
                                 <tr>
 
                                     <th>#id</th>

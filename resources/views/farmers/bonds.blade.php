@@ -4,7 +4,7 @@ $a1="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'سندات الصرف')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -37,9 +37,19 @@ $a1="2";
                             </div>
                         </div>
                     </form>
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-bordered text-center">
-                            <thead>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                        <div class="col-sm-4">
+                           
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
+                        <table class="table table-bordered text-center">
+                            <thead class="noExl">
                                 <tr>
                                     
                                     <th>#id</th>
@@ -76,7 +86,30 @@ $a1="2";
     {{-- End --}}
     </div>
 
-
+    <script>
+  
+        function printDiv() {
+               var printContents = document.getElementById('myTable').innerHTML;
+               var originalContents = document.body.innerHTML;
+               document.body.innerHTML = printContents;
+               window.print();
+               document.body.innerHTML = originalContents;
+               location.reload();
+           }
+   
+       $("#myButton").click(function (e) {
+           $("#tableExcel").table2excel({
+               exclude: ".noExl",
+               name: "Worksheet Name",
+               filename: "Catch Receipts",
+               fileext: ".xls",
+               exclude_img: true,
+               exclude_links: true,
+               exclude_inputs: true
+           }); 
+       });   
+   
+   </script>
     <script type="text/javascript">
         $(window).resize(function () {
                 $("table.data_table").resize();
@@ -85,6 +118,10 @@ $a1="2";
 
     <!-- push external js -->
     @push('script')
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js">
+    </script>
         <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
         <script src="{{ asset('js/datatables.js') }}"></script>
     @endpush

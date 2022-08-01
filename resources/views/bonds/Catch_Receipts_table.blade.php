@@ -4,7 +4,7 @@ $segmen = 5546;
 @endphp
 
 @extends('layouts.main')
-@section('title', 'Data Tables')
+@section('title', 'سندات القبض')
 @section('content')
 <!-- push external head elements to head -->
 @push('head')
@@ -43,11 +43,20 @@ $segmen = 5546;
                             </div>
                         </div>
                     </form>
-                    
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-bordered table-striped text-center">
-                            <thead>
-                                <tr>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                        <div class="col-sm-4">
+                           
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
+                        <table class="table table-bordered table-striped text-center" id="tableExcel">
+                            <thead class="noExl">
+                                <tr >
 
                                     <th>#id</th>
                                     <th> حررت للسيد </th>
@@ -91,6 +100,7 @@ $segmen = 5546;
 
 <!-- push external js -->
 @push('script')
+
 <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
 <script src="{{ asset('js/datatables.js') }}"></script>
 @endpush

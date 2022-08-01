@@ -53,48 +53,58 @@ $segment1 ='Farmer';
 
                     </div>
                     <div class="card-body">
-                        <table id="data_table" class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Id')}}</th>
-
-                                    <th>اسم التاجر </th>
-                                    <th>الذمة</th>
-                                    <th>رقم الجوال </th>
-                                    <th>اسم المؤسسة  </th>
-                                    <th> الايبان  </th>
-                                    <th>الإيميل</th>
-            
-                               
-                                    <th>صورة الهوية </th>
-                                    <th class="nosort">الإجراءات </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($users as $user)
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button id="myButton" class="btn btn-primary">Excel</button>
+                                <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                                <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                            </div>
+                         
+                        </div>
+                        <div class="table-responsive" id="myTable">
+                            <table  class="table">
+                                <thead class="noExl">
                                     <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{!! $user->assets >=0 ? "<strong style='color:green'>". number_format($user->assets,2)."</strong>" : "<strong style='color:red'>".number_format($user->assets,2)."</strong>" !!}</td>
-                                        <td>{{ $user->phone1 }}</td>
-                                        <td>{{ $user->company_name }}</td>
-                                        <td>{{ $user->iban }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td><a href="#pop-up" onclick="return imageClick('{{ route('showImage',$user->id) }}')">Click</a></td>
-                                        <td>
-                                            <div class="table-actions">
-                                                <a href="#"><i class="ik ik-eye"></i></a>
-                                                <a href="{{ route('editDealer',$user->id) }}"><i class="ik ik-edit-2"></i></a>
-                                                <a href="{{ route('deleteDealer',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                               
+                                        <th>{{ __('Id')}}</th>
 
-                            </tbody>
-                        </table>
+                                        <th>اسم التاجر </th>
+                                        <th>الذمة</th>
+                                        <th>رقم الجوال </th>
+                                        <th>اسم المؤسسة  </th>
+                                        <th> الايبان  </th>
+                                        <th>الإيميل</th>
+                
+                                
+                                        <th>صورة الهوية </th>
+                                        <th class="nosort">الإجراءات </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{!! $user->assets >=0 ? "<strong style='color:green'>". number_format($user->assets,2)."</strong>" : "<strong style='color:red'>".number_format($user->assets,2)."</strong>" !!}</td>
+                                            <td>{{ $user->phone1 }}</td>
+                                            <td>{{ $user->company_name }}</td>
+                                            <td>{{ $user->iban }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td><a href="#pop-up" onclick="return imageClick('{{ route('showImage',$user->id) }}')">Click</a></td>
+                                            <td>
+                                                <div class="table-actions">
+                                                    <a href="#"><i class="ik ik-eye"></i></a>
+                                                    <a href="{{ route('editDealer',$user->id) }}"><i class="ik ik-edit-2"></i></a>
+                                                    <a href="{{ route('deleteDealer',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

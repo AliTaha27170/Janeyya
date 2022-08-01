@@ -65,31 +65,41 @@ $a1="2";
     </div>
 </div>
 <br><br><br>
-
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">اسم الفئة </th>
-        <th scope="col">الإجراءات</th>
-
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($items as $item)
+<div class="row">
+    <div class="col-sm-4">
+        <button id="myButton" class="btn btn-primary">Excel</button>
+        <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+        <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+    </div>
+    <div class="col-sm-4">
+       
+    </div>
+</div>
+<div class="table-responsive" id="myTable">
+    <table class="table">
+        <thead class="thead-dark noExl">
         <tr>
-            <td>{{ $item->id }}</td>
-            <td>{{ $item->name }}</td>
-            <td>
-                <a href="{{ route('editDate', $item->id) }}" class="btn btn-primary">تعديل<div class="ripple-container"></div></a>
-                <a href="{{ route('deleteDate',$item->id) }}" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف الفئة  {{ $item->name }}؟')">حذف<div class="ripple-container"></div></a>
-            </td>
-        </tr>    
-        @endforeach
+            <th scope="col">#</th>
+            <th scope="col">اسم الفئة </th>
+            <th scope="col">الإجراءات</th>
 
-    </tbody>
-  </table>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach ($items as $item)
+            <tr>
+                <td>{{ $item->id }}</td>
+                <td>{{ $item->name }}</td>
+                <td>
+                    <a href="{{ route('editDate', $item->id) }}" class="btn btn-primary">تعديل<div class="ripple-container"></div></a>
+                    <a href="{{ route('deleteDate',$item->id) }}" class="btn btn-danger" onclick="return confirm('هل أنت متأكد من حذف الفئة  {{ $item->name }}؟')">حذف<div class="ripple-container"></div></a>
+                </td>
+            </tr>    
+            @endforeach
 
+        </tbody>
+    </table>
+</div>
 
     @if ( ! count($items))
         <h4 class="c-grey  pt-3 pb-3 cen"> ما من فئات لعرضها !   </h4>
@@ -113,6 +123,7 @@ $a1="2";
     </style>
 
 {{-- End --}}
+
         </div>
 
 

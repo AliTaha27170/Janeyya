@@ -60,7 +60,14 @@ $a1="2";
                         
                         </div>
                     </form>
-                    <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
                         <table id="data_table" class="table table-bordered table-striped text-center">
                             <thead>
                                 <tr>

@@ -21,9 +21,19 @@ $a1="2";
             <div class="card">
                 <div class="card-header"><h3>فواتير المزارع</h3></div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="data_table" class="table table-bordered text-center">
-                            <thead>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="myButton" class="btn btn-primary">Excel</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
+                            <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
+                        </div>
+                        <div class="col-sm-4">
+                           
+                        </div>
+                    </div>
+                    <div class="table-responsive" id="myTable">
+                        <table class="table table-bordered text-center">
+                            <thead class="noExl">
                                 <tr>
                                     <th>###{{ __('Id')}}</th>
                                     <th>صاحب الفاتورة </th>
@@ -55,16 +65,13 @@ $a1="2";
     </div>
     {{-- End --}}
     </div>
-
-
-    <script type="text/javascript">
-        $(window).resize(function () {
-                $("table.data_table").resize();
-        });
-    </script>
+    
 
     <!-- push external js -->
     @push('script')
+  
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js">
+    </script>
         <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
         <script src="{{ asset('js/datatables.js') }}"></script>
     @endpush
