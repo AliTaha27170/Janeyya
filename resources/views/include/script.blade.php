@@ -16,7 +16,7 @@
        $("#tableExcel").table2excel({
            exclude: ".noExl",
            name: "Worksheet Name",
-           filename: "Catch Receipts",
+           filename: "Excel Sheet",
            fileext: ".xls",
            exclude_img: true,
            exclude_links: true,

@@ -4,7 +4,7 @@ $a1="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'الاصناف')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -13,7 +13,7 @@ $a1="2";
  
 
 
-    <div class="container-fluid big-font " style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
     {{-- Start --}}
 
 @if (session()->has('msg'))
@@ -76,7 +76,7 @@ $a1="2";
     </div>
 </div>
 <div class="table-responsive" id="myTable">
-    <table class="table">
+    <table class="table" id="tableExcel">
         <thead class="thead-dark noExl">
         <tr>
             <th scope="col">#</th>

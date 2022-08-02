@@ -13,7 +13,7 @@ $a1="2";
 <style></style>
 
 
-<div class="container-fluid big-font" style="direction: rtl">
+<div class="container-fluid big-font card-style">
     {{-- Start --}}
     
     <div class="row">
@@ -66,7 +66,7 @@ $a1="2";
                         </div>
                     </div>
                     <div class="table-responsive" id="myTable">
-                        <table class="table table-bordered table-striped text-center">
+                        <table class="table table-bordered table-striped text-center" id="tableExcel">
                             {{-- <thead class="noExl">
                                 <tr>
 

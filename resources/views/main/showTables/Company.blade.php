@@ -1,5 +1,5 @@
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'الشركات')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -8,7 +8,7 @@
  
 
 
-    <div class="container-fluid big-font " style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
         <div class="page-header">
             <div class="row align-items-end">
                 <div class="col-lg-8">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="table-responsive" id="myTable">
-                            <table  class="table">
+                            <table  class="table" id="tableExcel">
                                 <thead class="noExl">
                                     <tr>
                                         <th>{{ __('Id')}}</th>

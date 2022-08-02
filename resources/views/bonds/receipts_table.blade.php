@@ -13,7 +13,7 @@ $segmen = 4545;
  <style></style>
 
 
-    <div class="container-fluid big-font" style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
     {{-- Start --}}
 
      <div class="row">

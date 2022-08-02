@@ -3,7 +3,7 @@ $segmen = 5546;
 @endphp
 
 @extends('layouts.main')
-@section('title', 'Data Tables')
+@section('title', 'سند قبض')
 @section('content')
 <!-- push external head elements to head -->
 @push('head')
@@ -13,7 +13,7 @@ $segmen = 5546;
 
 
 
-<div class="container-fluid big-font " style="margin-right: 225px;">
+<div class="container-fluid big-font card-style">
 
     {{-- Start --}}
 

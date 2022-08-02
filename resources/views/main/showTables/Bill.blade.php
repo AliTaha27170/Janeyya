@@ -4,7 +4,7 @@ $a3="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'الفواتير')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -14,7 +14,7 @@ $a3="2";
  
 
 
-    <div class="container-fluid big-font "  style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
         
 {{-- Start --}}
 

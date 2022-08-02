@@ -4,7 +4,7 @@ $a1="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'سندات القبض')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -13,7 +13,7 @@ $a1="2";
  <style></style>
 
 
-    <div class="container-fluid big-font" style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
     {{-- Start --}}
 
      <div class="row">
@@ -45,7 +45,7 @@ $a1="2";
                         </div>
                     </div>
                     <div class="table-responsive" id="myTable">
-                        <table id="data_table" class="table table-bordered text-center">
+                        <table id="data_table" class="table table-bordered text-center" id="tableExcel">
                             <thead class="noExl">
                                 <tr>
                                     

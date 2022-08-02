@@ -4,7 +4,7 @@ $segment1 ='Farmer';
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'Data Tables')
+@section('title', 'الموظفين')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -13,7 +13,7 @@ $segment1 ='Farmer';
  
 
 
-    <div class="container-fluid big-font " style="margin-right: 225px;">
+    <div class="container-fluid big-font card-style">
         <div class="page-header">
             <div class="row align-items-end">
                 <div class="col-lg-8">
@@ -54,7 +54,7 @@ $segment1 ='Farmer';
                     </div>
                     <div class="card-body">
                         <div class="table-responsive" id="myTable">
-                            <table class="table">
+                            <table class="table" id="tableExcel">
                                 <thead>
                                     <tr>
                                         <th>{{ __('Id')}}</th>

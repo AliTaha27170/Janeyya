@@ -273,6 +273,9 @@
   .pricing .card:hover .btn {
     opacity: 1;
   }
+  .card-style {
+    margin-right: 225px;
+  }
 }
 
 .pagination{
