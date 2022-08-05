@@ -65,6 +65,15 @@
 </div>
 
 
+<div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
+    <a href="{{route('firm.index')}}">
+        <i class="ik ik-bar-chart-2"></i>
+        <span>الشركات</span>
+        
+    </a>
+</div>
+
+
 
 
 

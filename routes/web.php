@@ -19,10 +19,12 @@ use App\Http\Controllers\Farmers\BillController as FarmersBillController;
 use App\Http\Controllers\Dealers\BondsController as DealersBondsController;
 use App\Http\Controllers\Farmers\BondsController as FarmersBondsController;
 use App\Http\Controllers\FarmerController;
+use App\Http\Controllers\FirmController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Revenues\RevenuesController;
 use App\Http\Controllers\WorkerController;
 use App\Http\Controllers\WriterController;
@@ -163,9 +165,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/navbar', function () {
 		return view('pages.navbar');
 	});
-	Route::get('/profile', function () {
-		return view('pages.profile');
-	});
+	
 	Route::get('/project', function () {
 		return view('pages.project');
 	});
@@ -273,6 +273,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// الإيرادات / الرسوم
 	route::get("/Revenue/fee", [RevenuesController::class, 'getFee'])->name('Revenue.fee');
+
+	// الملف الشخصي
+	Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+	Route::post('/profile', [ProfileController::class, 'Updateprofile'])->name('profile.update');
+	
+	
+	Route::get('/firm', [FirmController::class,'index'])->name('firm.index');
+	Route::get('/firm/create', [FirmController::class,'create'])->name('firm.create');
+	Route::post('/firm/store', [FirmController::class,'store'])->name('firm.store');
+	Route::get('/firm/edit/{id}', [FirmController::class,'edit'])->name('firm.edit');
+	Route::post('/firm/update', [FirmController::class,'update'])->name('firm.update');
+	Route::get('/firm/delete/{id}', [FirmController::class,'delete'])->name('firm.delete');
 
 	/******     Leader      *******/
 	Route::group(['middleware' => 'leader'], function () {
