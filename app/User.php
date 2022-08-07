@@ -54,6 +54,11 @@ class User extends Authenticatable
         return count($r);
     }
 
+    public function firm()
+    {
+        return $this->hasOne('App\Firm');
+    }
+
     
 
     

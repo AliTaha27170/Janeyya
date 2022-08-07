@@ -37,19 +37,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center"> 
-                            <img src="../img/user.jpg" class="rounded-circle" width="150" />
-                            <h4 class="card-title mt-10">{{ $user->name}}</h4>
-                            <p class="card-subtitle">{{ $user->company_name }}</p>
+                            <img src="{{ $firm->logo }}" class="rounded-circle" width="150" />
+                            <h4 class="card-title mt-10">{{ $firm->name}}</h4>
+                            <p class="card-subtitle">{{ $firm->company_name }}</p>
                         </div>
                     </div>
                     <hr class="mb-0"> 
                     <div class="card-body"> 
-                        <small class="text-muted d-block">{{ __('Email address')}} </small>
-                        <h6>{{ $user->email }}</h6> 
+                        <small class="text-muted d-block">{{ __('Company Name')}} </small>
+                        <h6>{{ $firm->name }}</h6> 
                         <small class="text-muted d-block pt-10">{{ __('Phone')}}</small>
-                        <h6>{{ $user->phone }}</h6> 
+                        <h6>{{ $firm->phone1 }}</h6> 
                         <small class="text-muted d-block pt-10">{{ __('Address')}}</small>
-                        <h6>{{ $user->address }}</h6>
+                        <h6>{{ $firm->address }}</h6>
                         <small class="text-muted d-block pt-30">{{ __('Social Profile')}}</small>
                     </div>
                 </div>
@@ -67,28 +67,36 @@
                                 <form class="form-horizontal" action="{{ route('profile.update') }}" method="post">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="example-name">الاسم</label>
-                                        <input type="text" placeholder="Johnathan Doe" class="form-control" name="name" id="example-name" value={{ $user->name }}>
+                                        <label for="example-name">اسم الشركة</label>
+                                        <input type="text" class="form-control" name="name" id="example-name" value={{ $firm->name }}>
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-email">البريد الالكتروني</label>
-                                        <input type="email" placeholder="johnathan@admin.com" class="form-control" name="email" id="example-email" value={{ $user->email }}>
+                                        <label for="example-email">الشعار</label>
+                                        <input type="file" class="form-control" name="logo">
                                     </div>
                                     <div class="form-group">
                                         <label for="example-password">الرقم السري</label>
-                                        <input type="password" class="form-control" name="password" id="example-password">
+                                        <input type="text" class="form-control" name="password" id="example-password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-phone">رقم الهاتف</label>
-                                        <input type="text" id="example-phone" name="phone1" class="form-control" value={{ $user->phone1 }}>
+                                        <label for="example-phone1">رقم الهاتف</label>
+                                        <input type="text" id="example-phone1" name="phone1" class="form-control" value={{ $firm->phone1 }}>
                                     </div>
                                     <div class="form-group">
-                                        <label for="example-phone">رقم هاتف اخر</label>
-                                        <input type="text" id="example-phone" name="phone2" class="form-control" value={{ $user->phone2 }}>
+                                        <label for="example-phone2">رقم هاتف اخر</label>
+                                        <input type="text" id="example-phone2" name="phone2" class="form-control" value={{ $firm->phone2 }}>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-phone3">رقم هاتف اخر</label>
+                                        <input type="text" id="example-phone3" name="phone3" class="form-control" value={{ $firm->phone3 }}>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-map">لينك الخريطة</label>
+                                        <input type="text" id="example-map" name="link_map" class="form-control" value={{ $firm->link_map }}>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-message">العنوان</label>
-                                        <textarea  name="adress" rows="5" class="form-control" value={{ $user->adress}}></textarea>
+                                        <input type="text" id="example-message" name="address" class="form-control" value={{ $firm->address }}>
                                     </div>
                                     <button class="btn btn-success" type="submit">تحديث</button>
                                 </form>

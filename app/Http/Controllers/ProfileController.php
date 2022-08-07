@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Firm;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,8 +11,11 @@ use Illuminate\Support\Facades\Validator;
 class ProfileController extends Controller
 {
     public function index(){
-        $user = User::findOrFail(auth()->user()->id);
-        return view('profile',compact('user'));
+        $firm_id = User::where('id', '=',auth()->user()->id)->select('firm_id')->first();
+        // dd($firm_id->firm_id);
+        $firm = Firm::where('id',$firm_id->firm_id)->first();
+        
+        return view('profile',compact('firm'));
     }
     
     public function Updateprofile(Request $request)

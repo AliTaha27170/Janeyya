@@ -277,17 +277,17 @@ Route::group(['middleware' => 'auth'], function () {
 	// الملف الشخصي
 	Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 	Route::post('/profile', [ProfileController::class, 'Updateprofile'])->name('profile.update');
-	
-	
-	Route::get('/firm', [FirmController::class,'index'])->name('firm.index');
-	Route::get('/firm/create', [FirmController::class,'create'])->name('firm.create');
-	Route::post('/firm/store', [FirmController::class,'store'])->name('firm.store');
-	Route::get('/firm/edit/{id}', [FirmController::class,'edit'])->name('firm.edit');
-	Route::post('/firm/update', [FirmController::class,'update'])->name('firm.update');
-	Route::get('/firm/delete/{id}', [FirmController::class,'delete'])->name('firm.delete');
 
 	/******     Leader      *******/
 	Route::group(['middleware' => 'leader'], function () {
+
+		// شركة
+		Route::get('/firm', [FirmController::class,'index'])->name('firm.index');
+		Route::get('/firm/create', [FirmController::class,'create'])->name('firm.create');
+		Route::post('/firm/store', [FirmController::class,'store'])->name('firm.store');
+		Route::get('/firm/edit/{id}', [FirmController::class,'edit'])->name('firm.edit');
+		Route::post('/firm/update', [FirmController::class,'update'])->name('firm.update');
+		Route::get('/firm/delete/{id}', [FirmController::class,'delete'])->name('firm.delete');
 
 
 		route::get("/addCompany", [CompanyController::class, 'add'])->name('addCompany');
