@@ -49,6 +49,9 @@ $segmen = 4545;
                        
                     </div>
                     <div class="table-responsive">
+                        <div class="logo-print text-center">
+                            <img src="{{ $logo->logo }}"  id="logo" title="logo" class="logo-firm" style="visibility:hidden">
+                        </div>
                         <table class="table table-bordered text-center">
                             <thead class="noExl">
                                 <tr>

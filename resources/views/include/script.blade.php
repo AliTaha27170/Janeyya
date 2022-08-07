@@ -4,12 +4,13 @@
 <script>
   
     function printDiv() {
-           var printContents = document.getElementById('myTable').innerHTML;
-           var originalContents = document.body.innerHTML;
-           document.body.innerHTML = printContents;
-           window.print();
-           document.body.innerHTML = originalContents;
-           location.reload();
+        document.getElementById('logo').style.visibility='visible';
+        var printContents = document.getElementById('myTable').innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        location.reload();
        }
 
    $("#myButton").click(function (e) {

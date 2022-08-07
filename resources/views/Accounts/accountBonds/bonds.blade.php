@@ -67,6 +67,9 @@ $a1="2";
                         
                     </div>
                     <div class="table-responsive" id="myTable">
+                        <div class="logo-print text-center">
+                            <img src="{{ $logo->logo }}"  id="logo" title="logo" class="logo-firm" style="visibility:hidden">
+                        </div>
                         <table  class="table table-bordered table-striped text-center" id="tableExcel">
                             <thead class="noExl">
                                 <tr>

@@ -64,8 +64,9 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
                             <div class="card-body">
-                                <form class="form-horizontal" action="{{ route('profile.update') }}" method="post">
+                                <form class="form-horizontal" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="id" value="{{$firm->id}}" />
                                     <div class="form-group">
                                         <label for="example-name">اسم الشركة</label>
                                         <input type="text" class="form-control" name="name" id="example-name" value={{ $firm->name }}>
@@ -89,6 +90,10 @@
                                     <div class="form-group">
                                         <label for="example-phone3">رقم هاتف اخر</label>
                                         <input type="text" id="example-phone3" name="phone3" class="form-control" value={{ $firm->phone3 }}>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-tax_reg_number">رقم السجل الضريبي</label>
+                                        <input type="text" id="example-tax_reg_number" name="tax_reg_number" class="form-control" value={{ $firm->tax_reg_number }}>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-map">لينك الخريطة</label>
