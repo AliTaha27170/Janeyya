@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" id="MyBill">
             <div class="card-header"><h3 class="d-block w-100">{{ __('ThemeKit')}}<small class="float-right">{{ __('Date: 12/11/2018')}}</small></h3></div>
             <div class="card-body">
                 <div class="row invoice-info">
@@ -56,7 +56,7 @@
 
                 <div class="row">
                     <div class="col-12 table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="myTable2">
                             <thead>
                                 <tr>
                                     <th>{{ __('Qty')}}</th>
@@ -145,6 +145,15 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            var printContents = document.getElementById('myTable2').innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        });
+    </script>
 
 @endsection
 

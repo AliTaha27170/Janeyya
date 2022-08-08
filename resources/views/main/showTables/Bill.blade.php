@@ -50,10 +50,7 @@ $a3="2";
     @csrf
             <div class="form-row align-items-center" style="direction: rtl" id="{{ isset($bill) ? '' : 'rowM' }}">
                 @if (auth()->user()->role != 4 )
-
-
                 @endif
-
                 <div class="col-md-4  col-lg-4   col-12">
                     <select class="form-control" id="" name="dalal_id"  >
                         

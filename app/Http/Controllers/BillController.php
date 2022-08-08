@@ -165,7 +165,7 @@ class BillController extends Controller
             );
 
 
-            return redirect()->back()->with("msg", "تمت الإضافة بنجاح .");
+            return redirect()->route('printBill');
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -338,5 +338,10 @@ class BillController extends Controller
         return redirect()->back()->with('msg', 'تم الحذف بنجاح ');
     }
     //*END*               >>>>>>>>>>           >>>>>>>>>          >>>>>>>>>>> 
+
+    public function print()
+    {
+        return view('bill_print');
+    }
 
 }
