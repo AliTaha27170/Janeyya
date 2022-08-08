@@ -512,6 +512,7 @@ Route::group(['middleware' => 'auth'], function () {
 		route::get("/deleteBill/{id}", [BillController::class, 'delete'])->name('deleteBill');
 		route::get("/showBills2", [BillController::class, 'show'])->name('showBills');
 		route::get("/showBills_today", [BillController::class, 'show_today'])->name('showBills_today');
+		route::get("/printBill", [BillController::class, 'print'])->name('printBill');
 	});
 
 

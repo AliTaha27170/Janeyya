@@ -102,7 +102,7 @@
 
                 <div class="row">
                     <div class="col-6">
-                        <p class="lead">Payment Methods')}}:</p>
+                        <p class="lead">Payment Methods</p>
                         <img src="../img/credit/visa.png" alt="Visa">
                         <img src="../img/credit/mastercard.png" alt="Mastercard">
                         <img src="../img/credit/american-express.png" alt="American Express">

@@ -235,9 +235,7 @@ $a3="2";
     
                 </div>
                 <button type="submit" class="btn btn-primary">حفظ</button> <br><br><br>
-
             </div>
-          
         </form>
     </div>
 </div>
