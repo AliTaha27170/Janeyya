@@ -7,7 +7,7 @@
     @endpush
 
     
-    <div class="container-fluid">
+    <div class="container-fluid card-style">
     	<div class="page-header">
             <div class="row align-items-end">
                 <div class="col-lg-8">

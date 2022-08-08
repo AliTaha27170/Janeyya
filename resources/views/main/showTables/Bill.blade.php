@@ -249,42 +249,43 @@ $a3="2";
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="?today=on" class="a-add" style="color: rgb(54, 118, 51)">عرض فواتير اليوم   </a></h4>
 
 @endif
+<div class="table-responsive" id="myTable">
+    <table  class="table">
+        <thead>
+            <tr>
+                <th>{{ __('Id')}}</th>
+                <th>صاحب الفاتورة </th>
+                <th> قام بتنظيمها </th>
+                <th> قيمة الفاتورة </th>
+                <th> تاريخ الإضافة </th>
 
-<table id="data_table" class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Id')}}</th>
-            <th>صاحب الفاتورة </th>
-            <th> قام بتنظيمها </th>
-            <th> قيمة الفاتورة </th>
-            <th> تاريخ الإضافة </th>
-
-            <th class="nosort">الإجراءات </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($items as $item)
-            <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
-                @if (auth()->user()->role == 2)
-                    {{ $item->read($item->id) }}
-                @endif
-                <td>{{ $item->id }}</td>
-                <td>{{ isset($item->name) ? $item->name : $item->get_dealer->name }}</td>
-                <td>{{ $item->get_who_write->name }}</td>
-                <td>{{ isset($item->total) ? $item->total : '' }} SR</td>
-                <td>{{ $item->created_at->format('m/d/Y') }}</td>
-                <td>
-                    <div class="table-actions">
-                        <a href="{{ route('editBill',$item->id) }}"><i class="ik ik-eye"></i></a>
-                        <a href="{{ route('deleteBill',$item->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
-                    </div>
-                </td>
-                
-            
+                <th class="nosort">الإجراءات </th>
             </tr>
-        @endforeach
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach ($items as $item)
+                <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                    @if (auth()->user()->role == 2)
+                        {{ $item->read($item->id) }}
+                    @endif
+                    <td>{{ $item->id }}</td>
+                    <td>{{ isset($item->name) ? $item->name : $item->get_dealer->name }}</td>
+                    <td>{{ $item->get_who_write->name }}</td>
+                    <td>{{ isset($item->total) ? $item->total : '' }} SR</td>
+                    <td>{{ $item->created_at->format('m/d/Y') }}</td>
+                    <td>
+                        <div class="table-actions">
+                            <a href="{{ route('editBill',$item->id) }}"><i class="ik ik-eye"></i></a>
+                            <a href="{{ route('deleteBill',$item->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                        </div>
+                    </td>
+                    
+                
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
 
   
@@ -304,12 +305,12 @@ $a3="2";
 
 {{-- End --}}
 
-<script>
-    $(document).ready(function(){
-      $("#add").click(function(){
-        $("#myForm").slideToggle();
-      });
-    });
+    <script>
+        $(document).ready(function(){
+        $("#add").click(function(){
+            $("#myForm").slideToggle();
+        });
+        });
     </script>
 
     <script>
@@ -336,9 +337,6 @@ $a3="2";
         
     </script>
 
-
-
-    </div>
     <script>
         $('#new').click(
          
