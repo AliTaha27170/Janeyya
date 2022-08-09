@@ -44,7 +44,10 @@ $a1="2";
                     </div>
                     <div class="table-responsive" id="myTable">
                         <div class="logo-print text-center">
-                            <img src="{{ $logo->logo }}"  id="logo" title="logo" class="logo-firm" style="visibility:hidden">
+                            @if ($logo)
+                            <img src="{{$logo->getFirstMediaUrl('logo')}}"  id="logo" title="logo" class="logo-firm" style="visibility:hidden">
+                            @endif
+                           
                         </div>
                         <table class="table table-bordered text-center" id="tableExcel">
                             <thead class="noExl">
@@ -63,7 +66,7 @@ $a1="2";
                                         
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td><img src="{{ asset($item->logo) }}" style="width: 150px; height: 100px;"></td>
+                                        <td><img  style="width: 150px; height: 100px;" src="{{$item->getFirstMediaUrl('logo')}}"></td>
                                         <td>{{ $item->phone1}}</td>
                                         <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                         <td>

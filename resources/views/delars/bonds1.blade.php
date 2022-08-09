@@ -45,8 +45,14 @@ $a1="2";
                         </div>
                     </div>
                     <div class="table-responsive" id="myTable">
-                        <div class="logo-print text-center">
-                            <img src="{{ $logo->logo }}"  id="logo" title="logo" class="logo-firm" style="visibility:hidden">
+                        <div class="mb-2 d-none" id="logo">
+                            <div class="text-right mr-2">
+                                <span>الشركة:<h1>{{ $logo->name }}</h1></span>
+                                <span>رقم الهاتف:<h1>{{ $logo->phone1 }}</h1></span>
+                            </div>
+                            <div class="logo-print text-center">
+                                <img src="{{$logo->getFirstMediaUrl('logo')}}"  title="logo" class="logo-firm img-fluid" style="width: 150px; height: 100px;">
+                            </div>
                         </div>
                         <table id="data_table" class="table table-bordered text-center" id="tableExcel">
                             <thead class="noExl">

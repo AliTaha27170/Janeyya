@@ -17,7 +17,6 @@ class CreateFirmsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('logo');
             $table->string('phone1');
             $table->string('phone2');
             $table->string('phone3');

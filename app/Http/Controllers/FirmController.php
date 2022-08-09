@@ -20,13 +20,9 @@ class FirmController extends Controller
     }
     public function store(FirmRequest $request)
     {
-        $file = $request->file('logo');
+       
 
-        // Generate a file name with extension
-        $fileName = 'firms-'.time().'.'.$file->getClientOriginalExtension();
-
-        // Save the file
-        $path = $file->storeAs(''.'/صور الهوية', $fileName);
+      
       
         $firm = new Firm();
         $firm->name = $request->name;
@@ -36,8 +32,10 @@ class FirmController extends Controller
         $firm->address = $request->address;
         $firm->link_map = $request->link_map;
         $firm->tax_reg_number = $request->tax_reg_number;
-        $firm->logo = $path;
         $firm->save();
+        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+            $firm->addMediaFromRequest('logo')->toMediaCollection('logo');
+        }
         return redirect()->route('firm.index');
     }
     public function edit($id)
@@ -48,16 +46,6 @@ class FirmController extends Controller
     public function update(FirmRequest $request)
     {
         $firm =  Firm::findOrFail($request->id);
-
-        $file = $request->file('logo');
-        if($file) 
-        {
-             // Generate a file name with extension
-            $fileName = 'firms-'.time().'.'.$file->getClientOriginalExtension();
-            // Save the file
-            $path = $file->storeAs(''.'/صور الهوية', $fileName);
-            $firm->logo = $path;
-        }
         $firm->name = $request->name;
         $firm->phone1 = $request->phone1;
         $firm->phone2 = $request->phone2;
@@ -65,8 +53,11 @@ class FirmController extends Controller
         $firm->address = $request->address;
         $firm->link_map = $request->link_map;
         $firm->tax_reg_number = $request->tax_reg_number;
-        
         $firm->save();
+        if($request->hasFile('logo') && $request->file('logo')->isValid()){
+            $firm->clearMediaCollection('logo');
+            $firm->addMediaFromRequest('logo')->toMediaCollection('logo');
+        }
         return redirect()->route('firm.index');
     }
 

@@ -245,65 +245,48 @@ $a3="2";
 
 @endif
 @if (Request::is('printBill') && isset($bill_print))
-    <div class="card" id="Mybill_print">
-        <div class="card-header"><h3 class="d-block w-100">{{ $bill_print->name }}<small class="float-right">رقم الهاتف {{ $bill_print->phone }}</small></div>
-        <div class="card-body">
-            <div class="row invoice-info">
-                <div class="col-sm-3 invoice-col">
-                    التاجر
-                    <address>
-                        <strong>{{ $bill_print->get_dealer->name }}</strong>
-                    </address>
-                </div>
-                <div class="col-sm-3 invoice-col">
-                    المزارع
-                    <address>
-                        <strong>{{ $bill_print->get_farmer->name }}</strong>
-                    </address>
-                </div>
-                <div class="col-sm-3 invoice-col">
-                    الكاتب
-                    <address>
-                        <strong>{{ $bill_print->get_who_write->name }}</strong>
-                    </address>
-                </div>
-                <div class="col-sm-3 invoice-col">
-                    <b>رقم الفاتورة {{ $bill_print->code }}</b><br>
-                    <br>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12 table-responsive">
-                    <table class="table table-striped" id="myTable2">
-                        <thead>
-                            <tr>
-                                <th>الصنف</th>
-                                <th>الكمية</th>
-                                <th>السعر</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bill_print->Dates as $item)
-                            <tr>
-                                <td>{{ $item->name }}</td>
-                                 <td>{{ $item->pivot->quantity}}</td>
-                                <td>{{ $item->pivot->price }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td> المجموع النهائي</td>
-                                <td></td>
-                                <td>{{ $bill_print->total }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
+<div class="card m-auto text-center" style="width: 29rem;" id="Mybill_print">
+    <img class="card-img-top m-auto mt-5" src="{{$logo->getFirstMediaUrl('logo')}}" alt="Card image cap" style="width:30%">
+    <div class="card-body">
+        <h2 class="card-title font-weight-bold">{{ $logo->name }} </h2>
+        <h2 class="card-title font-weight-bold">رقم الفاتورة:{{ $logo->id }} </h2>
+        <p class="card-text text-right">تاريخ:</p>
+        <p class="card-text text-right">الرقم الضريبي:</p>
     </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>الصنف</th>
+                    <th>الكمية</th>
+                    <th>السعر</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($bill_print->Dates as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                     <td>{{ $item->pivot->quantity}}</td>
+                    <td>{{ $item->pivot->price }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+              <tfoot>
+                <tr>
+                    <td> المجموع النهائي</td>
+                    <td></td>
+                    <td>{{ $bill_print->total }}</td>
+                </tr>
+            </tfoot>
+        </table>
+      </li>
+    </ul>
+    <div class="card-body">
+        <h2 class="card-title font-weight-bold">التاجر:{{ $bill_print->get_dealer->name }} </h2>
+        <h2 class="card-title font-weight-bold">الكاتب:{{ $bill_print->get_who_write->name }} </h2>
+    </div>
+  </div>
 @endif
 <div class="table-responsive" id="myTable">
     <table  class="table">
@@ -365,13 +348,17 @@ $a3="2";
                     var printContents = document.getElementById('Mybill_print').innerHTML;
                     window.document.write('<html><head><title>اصدار فاتورة</title>');
                     window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
-                                            <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">`);
+                                            <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">
+                                            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+                                            `);
                     window.document.write('</head><body>');
                     window.document.write(printContents);  
                     window.document.write('</body></html>');
                     window.document.close();
                     window.print();
                     //window.location.replace("http://127.0.0.1:8000/showBills2");
+                    var page = 'http://127.0.0.1:8000/showBills2';
+                    var myWindow = window.open(page, "_blank");
             });
            
         </script>

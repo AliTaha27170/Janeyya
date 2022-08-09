@@ -59,8 +59,6 @@ class BondsController extends Controller
     return view("bonds.receipt", compact("company_id", "users"));
   }
 
-
-
   // جدول سندات القبض
   public function Catch_Receipts_table()
   {

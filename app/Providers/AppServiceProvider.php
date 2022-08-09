@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             {
                 if (Auth::check()) {
                     $firm_id = User::where('id', '=',Auth::user()->id)->select('firm_id')->first();
-                    $logo = Firm::where('id',$firm_id->firm_id)->select('logo')->first();
+                    $logo = Firm::where('id',$firm_id->firm_id)->first();
                     //...with this variable
                     $view->with('logo', $logo );   
                 } 

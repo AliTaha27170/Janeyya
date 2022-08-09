@@ -4,7 +4,8 @@
 <script>
   
     function printDiv() {
-        document.getElementById('logo').style.visibility='visible';
+        var element = document.getElementById("logo");
+        element.classList.remove("d-none");
         var printContents = document.getElementById('myTable').innerHTML;
         var originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents;
