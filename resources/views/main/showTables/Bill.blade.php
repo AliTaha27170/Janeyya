@@ -244,6 +244,67 @@ $a3="2";
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="?today=on" class="a-add" style="color: rgb(54, 118, 51)">عرض فواتير اليوم   </a></h4>
 
 @endif
+@if (Request::is('printBill') && isset($bill_print))
+    <div class="card" id="Mybill_print">
+        <div class="card-header"><h3 class="d-block w-100">{{ $bill_print->name }}<small class="float-right">رقم الهاتف {{ $bill_print->phone }}</small></div>
+        <div class="card-body">
+            <div class="row invoice-info">
+                <div class="col-sm-3 invoice-col">
+                    التاجر
+                    <address>
+                        <strong>{{ $bill_print->get_dealer->name }}</strong>
+                    </address>
+                </div>
+                <div class="col-sm-3 invoice-col">
+                    المزارع
+                    <address>
+                        <strong>{{ $bill_print->get_farmer->name }}</strong>
+                    </address>
+                </div>
+                <div class="col-sm-3 invoice-col">
+                    الكاتب
+                    <address>
+                        <strong>{{ $bill_print->get_who_write->name }}</strong>
+                    </address>
+                </div>
+                <div class="col-sm-3 invoice-col">
+                    <b>رقم الفاتورة {{ $bill_print->code }}</b><br>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 table-responsive">
+                    <table class="table table-striped" id="myTable2">
+                        <thead>
+                            <tr>
+                                <th>الصنف</th>
+                                <th>الكمية</th>
+                                <th>السعر</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bill_print->Dates as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                 <td>{{ $item->pivot->quantity}}</td>
+                                <td>{{ $item->pivot->price }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td> المجموع النهائي</td>
+                                <td></td>
+                                <td>{{ $bill_print->total }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="table-responsive" id="myTable">
     <table  class="table">
         <thead>
@@ -281,17 +342,41 @@ $a3="2";
         </tbody>
     </table>
 </div>
-
-
-  
-
-    <div class="cen">
-        <center class="cen">
-
-        </center>
-
-    </div>
-
+    @if (Request::is('printBill'))
+        <script type="text/javascript">
+            $(window).bind('load', function() { 
+                    printpage();
+                });
+            function printpage() {
+                // var printContents = document.getElementById('Mybill_print').innerHTML;
+                // var originalContents = document.body.innerHTML;
+                // document.body.innerHTML = printContents;
+                // window.print();
+                // document.body.innerHTML = originalContents;
+            }
+        </script>
+        <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+            <script type="text/javascript">
+            
+            $(window).load(function(){
+                    var printContents = document.getElementById('Mybill_print').innerHTML;
+                    window.document.write('<html><head><title>اصدار فاتورة</title>');
+                    window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
+                                            <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">`);
+                    window.document.write('</head><body>');
+                    window.document.write(printContents);  
+                    window.document.write('</body></html>');
+                    window.document.close();
+                    window.print();
+                    //window.location.replace("http://127.0.0.1:8000/showBills2");
+            });
+           
+        </script>
+        
+    @endif
     <style>
         .pagination{
             display: inline-flex;

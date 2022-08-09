@@ -39,6 +39,10 @@ class Bill extends Model
     {
         return $this->hasMany(Date_Bill::class,'bill_id' , 'id');
     }
+    public function Dates()
+    {
+        return $this->belongsToMany(Date::class,'date__bills')->withPivot(['quantity','price']);
+    }
     
     //جعل الإشعار مقروء
     public function read($id)

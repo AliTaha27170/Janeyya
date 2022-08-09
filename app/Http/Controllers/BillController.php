@@ -40,6 +40,7 @@ class BillController extends Controller
         $writers  =   User::where('company', company::company_id())->where('role', 4)->orderBy('name', 'DESC')->get();
         $farmers  =   User::where('company', company::company_id())->where('role', 6)->orderBy('name', 'DESC')->get();
         $dates    =   Date::where('company_id', company::company_id())->orderBy('name', 'DESC')->get();
+        $bill_print = Bill::latest()->first();
 
         return view('main.showTables.Bill')->with([
             "items"     =>  $items,
@@ -48,6 +49,7 @@ class BillController extends Controller
             "writers"   =>  $writers,
             "farmers"   =>  $farmers,
             "dates"     =>  $dates,
+            "bill_print"      => $bill_print,
         ]);
     }
     //*END*               >>>>>>>>>>           >>>>>>>>>          >>>>>>>>>>> 
@@ -341,7 +343,34 @@ class BillController extends Controller
 
     public function print()
     {
-        return view('bill_print');
+         //bills
+         if (auth()->user()->role == 4)
+            $items    =   Bill::where('company_id', company::company_id())->where('who_write', auth()->user()->id)->orderBy('id', 'DESC');
+        // else if(auth()->user()->role == 3)
+        // $items    =   Bill::where('company_id' , company::company_id() )->where('who_write' , auth()->user()->id )->orderBy('id','DESC');
+        else
+            $items    =   Bill::where('company_id', company::company_id())->orderBy('id', 'DESC');
+
+        if (isset($_GET['today']))
+            $items    =  $items->where('created_at', '>=', Carbon::today())->paginate(100);
+        else
+            $items    =  $items->where('bill_id', null)->paginate(100);
+        $dalals   =   User::where('company', company::company_id())->where('role', 5)->orderBy('name', 'DESC')->get();
+        $dealers  =   User::where('company', company::company_id())->where('role', 8)->orderBy('name', 'DESC')->get();
+        $writers  =   User::where('company', company::company_id())->where('role', 4)->orderBy('name', 'DESC')->get();
+        $farmers  =   User::where('company', company::company_id())->where('role', 6)->orderBy('name', 'DESC')->get();
+        $dates    =   Date::where('company_id', company::company_id())->orderBy('name', 'DESC')->get();
+        $bill_print = Bill::latest()->first();
+
+        return view('main.showTables.Bill')->with([
+            "items"     =>  $items,
+            "dalals"    =>  $dalals,
+            "dealers"   =>  $dealers,
+            "writers"   =>  $writers,
+            "farmers"   =>  $farmers,
+            "dates"     =>  $dates,
+            "bill_print"      => $bill_print,
+        ]);
     }
 
 }
