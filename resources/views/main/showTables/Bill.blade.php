@@ -245,48 +245,52 @@ $a3="2";
 
 @endif
 @if (Request::is('printBill') && isset($bill_print))
-<div class="card m-auto text-center" style="width: 29rem;" id="Mybill_print">
-    <img class="card-img-top m-auto mt-5" src="{{$logo->getFirstMediaUrl('logo')}}" alt="Card image cap" style="width:30%">
-    <div class="card-body">
-        <h2 class="card-title font-weight-bold">{{ $logo->name }} </h2>
-        <h2 class="card-title font-weight-bold">رقم الفاتورة:{{ $logo->id }} </h2>
-        <p class="card-text text-right">تاريخ:</p>
-        <p class="card-text text-right">الرقم الضريبي:</p>
+<div  id="Mybill_print" class="printPage">
+    <div class="card m-auto text-center" style="width: 29rem;margin-top: 150px !important;">
+        <img class="card-img-top m-auto mt-5" src="{{$logo->getFirstMediaUrl('logo')}}" alt="Card image cap" style="width:30%">
+        <div class="card-body">
+            <h2 class="card-title font-weight-bold">{{ $logo->name }} </h2>
+            <h2 class="card-title font-weight-bold">رقم الفاتورة:{{ $logo->id }} </h2>
+            <p class="card-text text-right">تاريخ:</p>
+            <p class="card-text text-right">الرقم الضريبي:</p>
+        </div>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>الصنف</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($bill_print->Dates as $item)
+                    <tr>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->pivot->quantity}}</td>
+                        <td>{{ $item->pivot->price }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td> المجموع النهائي</td>
+                        <td></td>
+                        <td>{{ $bill_print->total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </li>
+        </ul>
+        <div class="card-body">
+            <h2 class="card-title font-weight-bold">التاجر:{{ $bill_print->get_dealer->name }} </h2>
+            <h2 class="card-title font-weight-bold">الكاتب:{{ $bill_print->get_who_write->name }} </h2>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>الصنف</th>
-                    <th>الكمية</th>
-                    <th>السعر</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($bill_print->Dates as $item)
-                <tr>
-                    <td>{{ $item->name }}</td>
-                     <td>{{ $item->pivot->quantity}}</td>
-                    <td>{{ $item->pivot->price }}</td>
-                </tr>
-                @endforeach
-              </tbody>
-              <tfoot>
-                <tr>
-                    <td> المجموع النهائي</td>
-                    <td></td>
-                    <td>{{ $bill_print->total }}</td>
-                </tr>
-            </tfoot>
-        </table>
-      </li>
-    </ul>
-    <div class="card-body">
-        <h2 class="card-title font-weight-bold">التاجر:{{ $bill_print->get_dealer->name }} </h2>
-        <h2 class="card-title font-weight-bold">الكاتب:{{ $bill_print->get_who_write->name }} </h2>
-    </div>
-  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 @endif
 <div class="table-responsive" id="myTable">
     <table  class="table">
@@ -326,18 +330,15 @@ $a3="2";
     </table>
 </div>
     @if (Request::is('printBill'))
-        <script type="text/javascript">
-            $(window).bind('load', function() { 
-                    printpage();
-                });
-            function printpage() {
-                // var printContents = document.getElementById('Mybill_print').innerHTML;
-                // var originalContents = document.body.innerHTML;
-                // document.body.innerHTML = printContents;
-                // window.print();
-                // document.body.innerHTML = originalContents;
+        <style>
+            @page {
+                margin-top:auto;
+                size: auto;
+                size: A3;
+                margin: 0mm;
             }
-        </script>
+        </style>
+       
         <script
             src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -345,24 +346,22 @@ $a3="2";
             <script type="text/javascript">
             
             $(window).load(function(){
+                    
                     var printContents = document.getElementById('Mybill_print').innerHTML;
-                    window.document.write('<html><head><title>اصدار فاتورة</title>');
+                    window.document.write('<html lang="ar" dir="rtl"><head><title>اصدار فاتورة</title>');
                     window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
                                             <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">
                                             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+                                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
                                             `);
                     window.document.write('</head><body>');
                     window.document.write(printContents);  
                     window.document.write('</body></html>');
                     window.document.close();
                     window.print();
-                    //window.location.replace("http://127.0.0.1:8000/showBills2");
-                    var page = 'http://127.0.0.1:8000/showBills2';
-                    var myWindow = window.open(page, "_blank");
+                    window.open('http://127.0.0.1:8000/showBills2', '_blank');     
             });
-           
         </script>
-        
     @endif
     <style>
         .pagination{
