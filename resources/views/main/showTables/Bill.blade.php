@@ -333,9 +333,8 @@ $a3="2";
         <style>
             @page {
                 margin-top:auto;
-                size: auto;
-                size: A3;
-                margin: 0mm;
+                size: landscape;
+                margin: 2mm;
             }
         </style>
        
