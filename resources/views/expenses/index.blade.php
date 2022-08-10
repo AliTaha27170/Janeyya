@@ -4,7 +4,7 @@ $a1="2";
 @endphp
 
 @extends('layouts.main') 
-@section('title', 'الشركات')
+@section('title', 'المصاريف')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -24,22 +24,38 @@ $a1="2";
             </button>
         </div>
     @endif
-
-    <a href="{{ route('firm.create') }}" class="btn btn-primary">اضافة شركة جديدة</a>
-
      <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>الشركات</h3></div>
+                <div class="card-header"><h3>المصاريف</h3></div>
+                <form action="{{ route('expenses.store') }}" method="post" enctype="multipart/form">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group text-right mr-15 mt-5">
+                                <label for="exampleFormControlTextarea1">المبلغ</label>
+                                <input type="text" class="form-control" name="price" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group text-right mr-15 mt-5">
+                                <label for="exampleFormControlTextarea1">بيان مصاريف</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-right mr-15 mt-5">
+                        <button type="submit" class="btn btn-primary text-right">حفظ</button>
+                    </div>
+                </form>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
                             <button id="myButton" class="btn btn-primary">Excel</button>
                             <button id="myButton2" onclick="printDiv()" class="btn btn-danger">print</button>
                             <button id="myButton2" onclick="printDiv()" class="btn btn-dark mr-5">pdf</button>
-                        </div>
-                        <div class="col-sm-4">
-                           
                         </div>
                     </div>
                     <div class="table-responsive" id="myTable">
@@ -56,25 +72,23 @@ $a1="2";
                             <thead class="noExl">
                                 <tr>
                                     <th>###{{ __('Id')}}</th>
-                                    <th>اسم الشركة</th>
-                                    <th> لوجو</th>
-                                    <th> رقم الشركة</th>
+                                    <th>المبلغ</th>
+                                    <th>البيان</th>
                                     <th> تاريخ الإضافة </th>
                                     <th>التحكم</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($firms as $item)
-                                    <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                @foreach ($expenses as $expens)
+                                    <tr style="   {{   $expens->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                                         
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name }}</td>
-                                        <td><img  style="width: 150px; height: 100px;" src="{{$item->getFirstMediaUrl('logo')}}"></td>
-                                        <td>{{ $item->phone1}}</td>
-                                        <td>{{ $item->created_at->format('m/d/Y') }}</td>
+                                        <td>{{ $expens->id }}</td>
+                                        <td>{{ $expens->price }}</td>
+                                        <td>{{ $expens->description }}</td>
+                                        <td>{{ $expens->created_at->format('m/d/Y') }}</td>
                                         <td>
-                                            <a href="{{ route('firm.edit',$item->id) }}"><i class="ik ik-edit-2"></i></a>
-                                            <a href="{{ route('firm.delete',$item->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                            <a href="{{ route('expenses.edit',$expens->id) }}"><i class="ik ik-edit-2"></i></a>
+                                            <a href="{{ route('expenses.delete',$expens->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

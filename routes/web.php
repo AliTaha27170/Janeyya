@@ -17,6 +17,7 @@ use App\Http\Controllers\DealerController;
 use App\Http\Controllers\Dealers\BillController as DealersBillController;
 use App\Http\Controllers\Farmers\BillController as FarmersBillController;
 use App\Http\Controllers\Dealers\BondsController as DealersBondsController;
+use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\Farmers\BondsController as FarmersBondsController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\FirmController;
@@ -289,6 +290,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/firm/update', [FirmController::class,'update'])->name('firm.update');
 		Route::get('/firm/delete/{id}', [FirmController::class,'delete'])->name('firm.delete');
 
+		
 
 		route::get("/addCompany", [CompanyController::class, 'add'])->name('addCompany');
 		route::post("/storeCompany", [CompanyController::class, 'store'])->name('storeCompany');
@@ -324,7 +326,12 @@ Route::group(['middleware' => 'auth'], function () {
 		/******************************************************/
 
 		//writer
-
+		// المصاريف
+		Route::get('/expenses', [ExpensesController::class,'index'])->name('expenses.index');
+		Route::post('/expenses/store', [ExpensesController::class,'store'])->name('expenses.store');
+		Route::get('/expenses/edit/{id}', [ExpensesController::class,'edit'])->name('expenses.edit');
+		Route::post('/expenses/update', [ExpensesController::class,'update'])->name('expenses.update');
+		Route::get('/expenses/delete/{id}', [ExpensesController::class,'delete'])->name('expenses.delete');
 
 		//write
 		route::group(["middleware" => "role:1,'write'"], function () {

@@ -64,7 +64,13 @@
     </div>
 </div>
 
-
+<div class="nav-item {{ ($segment1 == 'dashboard') ? 'active' : '' }}">
+    <a href="{{route('expenses.index')}}">
+        <i class="ik ik-bar-chart-2"></i>
+        <span>المصاريف</span>
+        
+    </a>
+</div>
 
 {{--  لوحة تحتوي على أبناء --}}
 <div
