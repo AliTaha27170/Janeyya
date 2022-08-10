@@ -251,8 +251,8 @@ $a3="2";
         <div class="card-body">
             <h2 class="card-title font-weight-bold">{{ $logo->name }} </h2>
             <h2 class="card-title font-weight-bold">رقم الفاتورة:{{ $logo->id }} </h2>
-            <p class="card-text text-right">تاريخ:</p>
-            <p class="card-text text-right">الرقم الضريبي:</p>
+            <p class="card-text text-right">تاريخ: {{ $logo->created_at->format('m/d/Y') }}</p>
+            <p class="card-text text-right">الرقم الضريبي: {{ $logo->code }}</p>
         </div>
         <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -345,7 +345,8 @@ $a3="2";
             <script type="text/javascript">
             
             $(window).load(function(){
-                    
+                    window.open('http://127.0.0.1:8000/showBills2');
+                    window.open('http://127.0.0.1:8000/printBill', '_blank');
                     var printContents = document.getElementById('Mybill_print').innerHTML;
                     window.document.write('<html lang="ar" dir="rtl"><head><title>اصدار فاتورة</title>');
                     window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
@@ -358,7 +359,9 @@ $a3="2";
                     window.document.write('</body></html>');
                     window.document.close();
                     window.print();
-                    window.open('http://127.0.0.1:8000/showBills2', '_blank');     
+                    // window.open('http://127.0.0.1:8000/showBills2', '_blank');
+                    // window.location = "http://www.smkproduction.eu5.org";
+                    // target = "_blank";  
             });
         </script>
     @endif
