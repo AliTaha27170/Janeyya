@@ -20,7 +20,7 @@ class BillController extends Controller
 {
 
     //*START* >>>>>>>>>>
-    public function show()
+    public function show($mo = null)
     {
         //bills
         if (auth()->user()->role == 4)
@@ -166,8 +166,8 @@ class BillController extends Controller
                 ]
             );
 
-
-            return redirect()->route('printBill');
+            $mo=1;
+            return redirect()->route('showBills',$mo);
         } catch (\Throwable $th) {
             dd($th);
         }

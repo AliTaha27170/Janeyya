@@ -244,8 +244,7 @@ $a3="2";
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="?today=on" class="a-add" style="color: rgb(54, 118, 51)">عرض فواتير اليوم   </a></h4>
 
 @endif
-@if (Request::is('printBill') && isset($bill_print))
-<div  id="Mybill_print" class="printPage">
+<div  id="Mybill_print" class="printPage d-none">
     <div class="card m-auto text-center" style="width: 29rem;margin-top: 150px !important;">
         <img class="card-img-top m-auto mt-5" src="{{$logo->getFirstMediaUrl('logo')}}" alt="Card image cap" style="width:30%">
         <div class="card-body">
@@ -291,7 +290,6 @@ $a3="2";
 </div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-@endif
 <div class="table-responsive" id="myTable">
     <table  class="table">
         <thead>
@@ -329,7 +327,7 @@ $a3="2";
         </tbody>
     </table>
 </div>
-    @if (Request::is('printBill'))
+    @if (Request::is('showBills2/1'))
         <style>
             @page {
                 margin-top:auto;
@@ -341,28 +339,26 @@ $a3="2";
         <script
             src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-            crossorigin="anonymous"></script>
-            <script type="text/javascript">
-            
+            crossorigin="anonymous">
+        </script>
+        <script type="text/javascript">
             $(window).load(function(){
-                    window.open('http://127.0.0.1:8000/showBills2');
-                    window.open('http://127.0.0.1:8000/printBill', '_blank');
-                    var printContents = document.getElementById('Mybill_print').innerHTML;
-                    window.document.write('<html lang="ar" dir="rtl"><head><title>اصدار فاتورة</title>');
-                    window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
-                                            <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">
-                                            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-                                            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-                                            `);
-                    window.document.write('</head><body>');
-                    window.document.write(printContents);  
-                    window.document.write('</body></html>');
-                    window.document.close();
-                    window.print();
-                    // window.open('http://127.0.0.1:8000/showBills2', '_blank');
-                    // window.location = "http://www.smkproduction.eu5.org";
-                    // target = "_blank";  
+                var printContents = document.getElementById('Mybill_print').innerHTML;
+                window.document.write('<html lang="ar" dir="rtl"><head><title>اصدار فاتورة</title>');
+                window.document.write(` <link rel="stylesheet" href="{{ asset('all.css') }}">
+                                        <link rel="stylesheet" href="{{ asset('dist/css/theme.css') }}">
+                                        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+                                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                                        `);
+                window.document.write('</head><body>');
+                window.document.write(printContents);  
+                window.document.write('</body></html>');
+                window.document.close();
+                window.print();
             });
+            setTimeout(function () {
+                window.location.href = 'http://127.0.0.1:8000/showBills2';
+            }, 5000);
         </script>
     @endif
     <style>
