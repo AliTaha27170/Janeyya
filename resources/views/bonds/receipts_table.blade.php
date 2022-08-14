@@ -64,36 +64,41 @@ $segmen = 4545;
                                     
                                     <th>#id</th>
                                     <th> حررت للسيد </th>
-                                    <th> الذمة </th>
-                                    <th> دفع له</th>
-                                    <th> البيانات </th>
+                                    <th> من </th>
+                                    <th> المبلغ</th>
+                                    <th> التفاصيل </th>
                                     <th> تاريخ التحرير </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($bonds as $item)
-                                    <tr style="   {{   $item->notfic == '1'  ? 'background: #5d7261c2 ;color:#fff': ''}} ">
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->name_of_user }}</td>
-                                        <td>{{ $item->assets }}</td>
-                                        <td>{{ $item->pay_him}}</td>
-                                        <td>{{ $item->details }}</td>
-                                        <td>{{ $item->created_at->format('m/d/Y') }}</td>
-                                    </tr>
+                                <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->name_of_user }}</td>
+                                    <td>{{ $item->fund_name }}</td>
+
+                                    <td>{{ number_format($item->amount,2) }} </td>
+                                    <td>{{ $item->details }}</td>
+                                    <td>{{ $item->created_at->format('m/d/Y') }}</td>
+                                </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
-                                <tr class="res">
+                                {{-- <tr class="res">
                                     <td> المجموع النهائي</td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{ $pay_him }}</td>
+                                    <td>{{ number_format($pay_him) }} ريال</td>
                                     <td></td>
                                     <td></td>
-                                </tr>
+                                </tr> --}}
                             </tfoot>
                         </table>
                     </div>
+                    <center>
+                        {{ $bonds->links('pagination::bootstrap-4') }}
+
+                    </center>
                 </div>
             </div>
         </div>

@@ -15,6 +15,7 @@ use App\Writer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\helpers\users;
+use App\Move;
 
 class BillController extends Controller
 {
@@ -69,26 +70,43 @@ class BillController extends Controller
     {
         try {
 
+            //إذا كانت العملية آجل والزبون ليس بتاجر
+            if ( ($request->pay_type == 1) and ( !isset($request["dealer_id"]) || $request["dealer_id"] =='') ) {
+                return back()->with("error" ,"لا يمكن الشراء بالآجل لغير التاجر ");
+            }
+
+            if( (!isset($request["dealer_id"]) ||  $request["dealer_id"] =='') and ( (!isset($request["name"]) ||  $request["name"] =='')  ) )
+                return back()->with("error"," الرجاء تحديد تاجر");
+
+
+
             $name     = null;
             $read     = 0;
-            $writer   =  $request->writer_id;
+            $writer   =  auth()->user()->id;
+            $request["writer_id"] =  $writer ;
 
 
-            $type_who =  2;
+            //$type_who = 1 writer   2 company
+            //$pay_type =   1 آجل   
+            //2 نقدي
+
+            if(auth()->user()->role == 2)
+                $type_who =  2;
+            else
+                $type_who = 1;
+
             $company  =   auth()->user()->company;
 
 
 
             if (isset($request['dealer_id'])) {
+                //type اذا كان تاجر او لا 
                 $type     =  1;
             } else {
                 $type     =  2;
             }
 
-            if (count(Bill::get()))
-                $id = Bill::orderBy('id', "DESC")->get()->first()->id . rand(1000, 9999);
-            else
-                $id = 0;
+
 
             $bill =  Bill::create([
                 "name"       =>    $request->name,
@@ -101,6 +119,7 @@ class BillController extends Controller
                 "farmer_id"  =>    $request->farmer_id,
                 "type_who"   =>    $type_who,
                 "type"       =>    $type,
+                  
                 "company_id" =>    $company,
                 "pay_type"   =>    $request->pay_type,
                 "notfic"     =>    $read,
@@ -109,9 +128,15 @@ class BillController extends Controller
 
             $i  = 0;
             $up = 0;
+            $details = "";
             foreach ($request['date_id'] as $key) {
+
+                $d = Date::find($key);
+
                 $price    =  $request['price'][$i];
                 $quantity =  $request['quantity'][$i];
+
+                $details =   $details .  number_format($price,2) . " * " .  $quantity ." ".$d->name ."  ..  ";
 
                 Date_Bill::create([
                     "bill_id"   =>  $bill->id,
@@ -134,40 +159,166 @@ class BillController extends Controller
             //type = 1 آجل
 
             // تحديث الذمة 
-            if ($bill->type == 2) {
+            if ( $request->pay_type == 2) {
+
                 $user = User::where('company', company::company_id())->where("id", $request["writer_id"])->get()->first();
+                $assets = $user->assets - $up ;
+
                 $user->update(
                     [
-                        "assets" => $user->assets - $up,
+                        "assets" =>  $assets,
                     ]
                 );
+                
+
+                //إضافة للكشوف الخاصة بالكاتب
+                Move::create([
+
+                    "from_him" => $up  ,
+                    "for_him"  => 0  ,
+
+                    "pay_him"  =>  $assets > 0 ?  abs($assets) : 0 ,
+                    "tack_from_him"  => $assets < 0 ?  abs($assets) : 0 ,
+
+                    "fund_id"    => $request["fund_id"]  ,
+                    "company_id" => company::company_id()  ,
+                    "user_id"    => $request["writer_id"] ,
+
+                    "details" => $details  ,
+                    "user_name" => $user->name  ,
+
+                ]);
+
             } else {
-                $user = User::where('company', company::company_id())->where("id", $request["dealer_id"])->get()->first();
+                if(isset($request["dealer_id"]) and $request["dealer_id"] !='')
+                    $user = User::where('company', company::company_id())->where("id", $request["dealer_id"])->get()->first();
+                else 
+                    return back()->with("error","الرجاء تحديد تاجر");
+
+
+
+                $assets = $user->assets - $up ;
+
                 $user->update(
                     [
-                        "assets" => $user->assets - $up,
+                        "assets" =>  $assets,
                     ]
                 );
+                
+                //إضافة للكشوف الخاصة بالتاجر 
+                Move::create([
+
+                    "from_him" => $up  ,
+                    "for_him"  => 0  ,
+
+
+                    "pay_him"  =>  $assets > 0 ?  abs($assets) : 0 ,
+                    "tack_from_him"  => $assets < 0 ?  abs($assets) : 0 ,
+
+                    "fund_id"    => $request["fund_id"]  ,
+                    "company_id" => company::company_id()  ,
+                    "user_id"    => $request["dealer_id"] ,
+
+                    "details" => $details  ,
+                    "user_name" => $user->name  ,
+
+
+                ]);
             }
 
-            //إضافة المبلغ لأصول الشركة 
-            $user = User::where('id', company::company_id())->get()->first();
-            $user->update(
-                [
-                    "assets" => $user->assets + $up,
-                ]
-            );
+            // //إضافة المبلغ لأصول الشركة 
+            // $user = User::where('id', company::company_id())->get()->first();
+            // $user->update(
+            //     [
+            //         "assets" => $user->assets + $up,
+            //     ]
+            // );
 
             //إضافة المبلغ لأصول المزارع 
             $user = User::where('company', company::company_id())->where("id", $request["farmer_id"])->get()->first();
+
+            $assets = $user->assets + $up ;
+
+
             $user->update(
                 [
-                    "assets" => $user->assets + $up,
+                    "assets" =>  $assets ,
                 ]
             );
 
             $mo=1;
             return redirect()->route('showBills',$mo);
+                            
+                //إضافة للكشوف الخاصة بالمزارع  
+                Move::create([
+
+                    "from_him" => 0  ,
+                    "for_him"  => $up ,
+
+                    // النسبة لحساب الميلغ مع السعي لكل سطر في كشوف المزارع 
+                    "rate"   => $user->rate , 
+
+                    "pay_him"  =>  $assets > 0 ?  abs($assets) : 0 ,
+                    "tack_from_him"  => $assets < 0 ?  abs($assets) : 0 ,
+
+                    "fund_id"    => $request["fund_id"]  ,
+                    "company_id" => company::company_id() ,
+                    "user_id"    => $request["farmer_id"] ,
+
+                    "details" => $details  ,
+                    "user_name" => $user->name  ,
+
+
+
+                ]);
+
+                //قيمة السعي 
+                $s3ee =  (($up*$user["rate"]) / 100 ) ;
+
+                //الضريبة المضافة للسعي 
+                $s3ee +=  ($s3ee*15)/100 ;
+                
+                // خصم السعي من المزاراع 
+                $assets = $user["assets"] - $s3ee;
+
+
+                $user->update(
+                    [
+                        "assets" =>  $assets ,
+                    ]
+                );
+    
+
+
+                // إضافة سعي المزارع   لصندوق السعي 
+                Move::create([
+
+                    "from_him" => $s3ee  ,
+                    "for_him"  => 0 ,
+
+                    "pay_him"  =>  $assets > 0 ?  abs($assets) : 0 ,
+                    "tack_from_him"  => $assets < 0 ?  abs($assets) : 0 ,
+
+                    // "fund_id"    => $request["fund_id"]  ,
+                    "company_id" => company::company_id() ,
+                    "user_id"    => $request["farmer_id"] ,
+
+                    "details" => $details . " سعي "  ,
+                    "user_name" => $user->name  ,
+
+                    "type" => "سعي"
+
+
+
+                ]);
+
+                
+
+
+
+
+
+            return redirect()->route('printBill');
         } catch (\Throwable $th) {
             dd($th);
         }

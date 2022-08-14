@@ -19,15 +19,19 @@ class CreateBondsTable extends Migration
              //0 سند صرف 
             //1 سند قبض 
 
-            $table->string("from_him")->nullable();
-            $table->string("for_him")->nullable();
-            $table->string("pay_him")->nullable();
-            $table->string("tack_from_him")->nullable();
+            $table->string("name_of_user")->nullable();
+            $table->string("fund_name")->nullable();
+
+
+            $table->string("amount")->nullable();
+
             $table->text("details")->nullable();
             $table->bigInteger("company_id")->unsigned();
             $table->bigInteger("user_id")->unsigned();
+            $table->bigInteger("fund_id")->unsigned();
             $table->string("role")->nullable();
             $table->foreign("company_id")->references("id")->on("users")->onDelete('cascade');
+            $table->foreign("fund_id")->references("id")->on("funds")->onDelete('cascade');
             $table->foreign("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();
         });

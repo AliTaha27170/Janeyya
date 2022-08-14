@@ -15,15 +15,7 @@ $a1="2";
 
     <div class="container-fluid big-font card-style">
     {{-- Start --}}
-    
-    @if (session()->has('msg'))
-        <div class="alert col-12  alert-second alert-shade alert-dismissible fade show " role="alert" style="background: #2dce89">
-            <h4 class="c-grey  pt-3 pb-3 "> {{ session('msg') }} </h4>
-            <button type="button" class="close " data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true" >×</span>
-            </button>
-        </div>
-    @endif
+
 
     <a href="{{ route('firm.create') }}" class="btn btn-primary">اضافة شركة جديدة</a>
 

@@ -17,7 +17,7 @@ $a3="2";
     <div class="container-fluid big-font card-style">
         
 {{-- Start --}}
-
+{{-- 
 @if (session()->has('msg'))
 
 
@@ -29,7 +29,7 @@ $a3="2";
 </div>
 
 
-@endif
+@endif --}}
 
 
 <div class="row pt-4">
@@ -98,7 +98,7 @@ $a3="2";
                 @endif
 
                 <div class="col-md-4  col-lg-4  col-12">
-                    <select class="form-control" id="" name="farmer_id"  >
+                    <select class="form-control" id="" name="farmer_id" required >
                        
                         @if (isset($bill->farmer_id))
                         <option value="{{ $bill->get_farmer->id }}"> {{ $bill->get_farmer->name }}</option>
@@ -240,6 +240,7 @@ $a3="2";
 @if (isset($_GET['today']))
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="{{ route('showBills') }}" class="a-add" style="color: rgb(54, 118, 51)">عرض  جميع الفواتير   </a></h4>
 
+
 @else
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="?today=on" class="a-add" style="color: rgb(54, 118, 51)">عرض فواتير اليوم   </a></h4>
 
@@ -251,7 +252,7 @@ $a3="2";
             <h2 class="card-title font-weight-bold">{{ $logo->name }} </h2>
             <h2 class="card-title font-weight-bold">رقم الفاتورة:{{ $logo->id }} </h2>
             <p class="card-text text-right">تاريخ: {{ $logo->created_at->format('m/d/Y') }}</p>
-            <p class="card-text text-right">الرقم الضريبي: {{ $logo->code }}</p>
+            <p class="card-text text-right">الرقم الضريبي: {{ $logo->code ?? ''}}</p>
         </div>
         <ul class="list-group list-group-flush">
         <li class="list-group-item">
@@ -280,6 +281,7 @@ $a3="2";
                     </tr>
                 </tfoot>
             </table>
+
         </li>
         </ul>
         <div class="card-body">
@@ -304,6 +306,8 @@ $a3="2";
             </tr>
         </thead>
         <tbody>
+            @if (count($items))
+                
             @foreach ($items as $item)
                 <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                     @if (auth()->user()->role == 2)
@@ -312,22 +316,34 @@ $a3="2";
                     <td>{{ $item->id }}</td>
                     <td>{{ isset($item->name) ? $item->name : $item->get_dealer->name }}</td>
                     <td>{{ $item->get_who_write->name }}</td>
-                    <td>{{ isset($item->total) ? $item->total : '' }} SR</td>
+                    <td>{{ isset($item->total) ? number_format($item->total) : '' }} </td>
                     <td>{{ $item->created_at->format('m/d/Y') }}</td>
                     <td>
                         <div class="table-actions">
                             <a href="{{ route('editBill',$item->id) }}"><i class="ik ik-eye"></i></a>
-                            <a href="{{ route('deleteBill',$item->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                            {{-- <a href="{{ route('deleteBill',$item->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a> --}}
                         </div>
                     </td>
                     
                 
                 </tr>
             @endforeach
+                
+            @else
+            <center><h3>ما من فواتير لعرضها ! </h3></center>
+                
+            @endif
         </tbody>
     </table>
+    <br><br>
+    <center>
+        {{ $items->links('pagination::bootstrap-4') }}
+
+    </center>
 </div>
     @if (Request::is('showBills2/1'))
+
+    {{-- @if (Request::is('printBill')) --}}
         <style>
             @page {
                 margin-top:auto;

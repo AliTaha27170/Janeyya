@@ -155,6 +155,24 @@
                                                         @enderror
                                                     </div>
                                                 </td>
+
+                                                <td>
+
+                                                    <div class="form-group">
+                                                        <label for="password"> نسبة السعي  <span class="text-red">*</span></label>
+                                                        <input id="password" type="number" class="form-control @error('password') is-invalid @enderror" name="rate" placeholder="نسبة السعي" required value="{{  isset($user) ? $user->rate  :'' }}" @if ($has_bills)
+                                                            readonly
+                                                        @endif>
+                                                        <div class="help-block with-errors"></div>
+                
+                                                        @error('password')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                </td>
+                                                
                                                 <td>
 
                                                     <div class="form-group">

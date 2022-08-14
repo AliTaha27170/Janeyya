@@ -21,6 +21,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\Farmers\BondsController as FarmersBondsController;
 use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\FirmController;
+use App\Http\Controllers\FundController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
@@ -461,6 +462,11 @@ Route::group(['middleware' => 'auth'], function () {
 		/******************************************************/
 
 
+		//الصناديق
+		Route::get('showFunds',  [FundController::class, 'show'])->name('showFunds');
+		Route::post('storeFund',  [FundController::class, 'store'])->name('storeFund');
+		Route::get('editFund/{id}',  [FundController::class, 'edit'])->name('editFund');
+		Route::post('updateFund/{id}',  [FundController::class, 'update'])->name('updateFund');
 
 
 

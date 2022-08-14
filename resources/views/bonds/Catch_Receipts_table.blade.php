@@ -69,10 +69,10 @@ $segmen = 5546;
 
                                     <th>#id</th>
                                     <th> حررت للسيد </th>
-                                    <th> الذمة</th>
-                                    <th> رصيد منه </th>
-                                    <th> بيانات </th>
-                                    <th> تاريخ </th>
+                                    <th> إلى </th>
+                                    <th> المبلغ</th>
+                                    <th> التفاصيل </th>
+                                    <th> تاريخ التحرير</th>
                                 </tr>
 
                             </thead>
@@ -81,25 +81,32 @@ $segmen = 5546;
                                 <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name_of_user }}</td>
-                                    <td>{{ $item->assets }}</td>
-                                    <td>{{ $item->tack_from_him}}</td>
+                                    <td>{{ $item->fund_name }}</td>
+
+                                    <td>{{ number_format($item->amount,2) }} </td>
                                     <td>{{ $item->details }}</td>
                                     <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
-                                <tr class="res">
+                                {{-- <tr class="res">
                                     <td> المجموع النهائي</td>
                                     <td></td>
+                                    <td>{{ number_format($tack_from_him) }} ريال</td>
                                     <td></td>
-                                    <td>{{ $tack_from_him }}</td>
                                     <td></td>
-                                    <td></td>
-                                </tr>
+                                </tr> --}}
                             </tfoot>
                         </table>
+
+
                     </div>
+                    <center>
+                        {{ $bonds->links('pagination::bootstrap-4') }}
+
+                    </center>
+
                 </div>
             </div>
         </div>

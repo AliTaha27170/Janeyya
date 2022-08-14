@@ -17,19 +17,6 @@ $segmen = 4545;
 
     {{-- Start --}}
 
-    @if (session()->has('msg'))
-
-
-    <div class="alert col-12  alert-second alert-shade alert-dismissible fade show " role="alert">
-        <h4 class="c-grey  pt-3 pb-3 "> {{ session('msg') }} </h4>
-        <button type="button" class="close " data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-
-
-    @endif
-
 
     <div class="row pt-4">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -87,10 +74,31 @@ $segmen = 4545;
                             </div>
 
 
-                            <div class="col-md-3  col-lg-3  col-12">
-                                <p> قيمة السند </p>
+                            <div class="col-md-2  col-lg-2  col-12">
 
-                                <input type="number" placeholder="المبلغ  " name="pay_him" class="form-control"
+                                <p> من الصندوق</p>
+
+                                <select class="form-control" id="" name="fund_id" required>
+
+
+                                    <option value="" id="user">- الصندوق  -</option>
+
+                                    @foreach ($funds as $item)
+
+                                    <option value="{{ $item->id }}" > {{ $item->name }}
+                                    </option>
+
+                                    @endforeach
+
+
+
+                                </select>
+                            </div>
+
+                            <div class="col-md-3  col-lg-3  col-12">
+                                <p> المبلغ  </p>
+
+                                <input type="number" placeholder="المبلغ  " name="amount" class="form-control"
                                     required>
                             </div>
 

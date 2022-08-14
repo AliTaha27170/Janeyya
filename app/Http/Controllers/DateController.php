@@ -30,11 +30,22 @@ class DateController extends Controller
     //*START* >>>>>>>>>>
     public function store(Request $request)
     {
-        Date::create([
-            "name"        => $request->name,
-            "company_id"  => auth()->user()->id,
-
-        ]);
+        if (auth()->user()->role == 2) {
+            Date::create([
+                "name"        => $request->name,
+                "company_id"  => auth()->user()->id,
+    
+            ]);
+        }
+        else
+        {
+            Date::create([
+                "name"        => $request->name,
+                "company_id"  => company::company_id() ,
+    
+            ]);
+        }
+        
         return redirect()->back()->with("msg", "تمت الإضافة بنجاح .");
     }
     //*END*               >>>>>>>>>>           >>>>>>>>>          >>>>>>>>>>> 

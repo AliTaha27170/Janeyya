@@ -15,20 +15,6 @@ $segmen = 5546;
 
 <div class="container-fluid big-font card-style">
 
-    {{-- Start --}}
-
-    @if (session()->has('msg'))
-
-
-    <div class="alert col-12  alert-second alert-shade alert-dismissible fade show " role="alert">
-        <h4 class="c-grey  pt-3 pb-3 "> {{ session('msg') }} </h4>
-        <button type="button" class="close " data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-
-
-    @endif
 
 
     <div class="row pt-4">
@@ -66,12 +52,12 @@ $segmen = 5546;
 
                             <div class="col-md-2  col-lg-2  col-12">
 
-                                <p> الاسم </p>
+                                <p> من السيد </p>
 
                                 <select class="form-control" id="" name="user_id" required>
 
 
-                                    <option value="" id="user">- السيد -</option>
+                                    <option value="" id="user">- من  -</option>
 
                                     @foreach ($users as $item)
 
@@ -85,11 +71,33 @@ $segmen = 5546;
                                 </select>
                             </div>
 
+                            <div class="col-md-2  col-lg-2  col-12">
+
+                                <p> إلى الصندوق</p>
+
+                                <select class="form-control" id="" name="fund_id" required>
+
+
+                                    <option value="" id="user">- الصندوق  -</option>
+
+                                    @foreach ($funds as $item)
+
+                                    <option value="{{ $item->id }}" > {{ $item->name }}
+                                    </option>
+
+                                    @endforeach
+
+
+
+                                </select>
+                            </div>
+
+
 
                             <div class="col-md-3  col-lg-3  col-12">
-                                <p> قيمة السند </p>
+                                <p> المبلغ</p>
 
-                                <input type="number" placeholder="المبلغ  " name="tack_from_him" class="form-control"
+                                <input type="number" placeholder="المبلغ  " name="amount" class="form-control"
                                     required>
                             </div>
 

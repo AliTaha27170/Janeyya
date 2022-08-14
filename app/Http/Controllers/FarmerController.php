@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bill;
 use App\User;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,7 +73,9 @@ class FarmerController extends Controller
                         'adress'                      => $request->adress,
                         'company'                     => auth()->user()->id,
                         'image'                       => $path,
-                        'note_p'                      => $request->password
+                        'note_p'                      => $request->password ,
+
+                        'rate'                      => $request->rate ,
                     ]);
 
                     //بحال هنالك متعاقد 
@@ -133,10 +136,12 @@ class FarmerController extends Controller
             return back();
 
         $user1 =  User::where('farmer_id',$user->id)->first();
+        $bills =  Bill::where("farmer_id",$id)->get();
        
         return view('main.Store&Edit.Farmer')->with([
-            "user" => $user,
-            "user1"=>$user1,
+            "user"     => $user,
+            "user1"    =>$user1,
+            "has_bills"=>count($bills)
         ]);
     }
 
@@ -211,16 +216,39 @@ class FarmerController extends Controller
                     }
                 
                     
-                     User::find($id)->update([
-                                'name'     => $request->name,
-                                'email'    => $request->email,
-                                'password' => Hash::make($request->password),
-                                'phone1'                      => $request->phone1,
-                                'iban'                        => $request->iban,
-                                'adress'                      => $request->adress,
-                                'image'                       => $path,
-                                'note_p'                      => $request->password
-                            ]);
+                   
+
+                            //جلب الفواتير والتحقق بحال لو كان المزارع يملك فواتير , لانستطيع تحديث نسبته
+                            $bills = Bill::where("farmer_id" , $id )->get();
+                            if(count($bills))
+                            {
+
+                                User::find($id)->update([
+                                    'name'     => $request->name,
+                                    'email'    => $request->email,
+                                    'password' => Hash::make($request->password),
+                                    'phone1'                      => $request->phone1,
+                                    'iban'                        => $request->iban,
+                                    'adress'                      => $request->adress,
+                                    'image'                       => $path,
+                                    'note_p'                      => $request->password ,
+                                ]);  
+                            }
+                            else{
+                                User::find($id)->update([
+                                    'name'     => $request->name,
+                                    'email'    => $request->email,
+                                    'password' => Hash::make($request->password),
+                                    'phone1'                      => $request->phone1,
+                                    'iban'                        => $request->iban,
+                                    'adress'                      => $request->adress,
+                                    'image'                       => $path,
+                                    'note_p'                      => $request->password ,
+                                    'rate'                      => $request->rate
+                                ]);
+                            }
+
+
                        
                              //بحال أراد إضافة متعاقد 
                              if($request['key']=='1')

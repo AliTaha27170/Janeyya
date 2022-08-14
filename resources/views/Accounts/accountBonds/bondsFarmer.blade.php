@@ -1,6 +1,6 @@
 @php
 
-$a1="2";
+$segm = 56457;
 @endphp
 
 @extends('layouts.main')
@@ -15,16 +15,16 @@ $a1="2";
 
 <div class="container-fluid big-font card-style">
     {{-- Start --}}
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                        <h3>كشف حساب مفصل مزارع</h3>
+                    <h3>كشف حساب مفصل مزارع</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('getBondAccount',$role) }}" method="get" enctype="multipart/form">
-                        
+{{-- 
                         <div class="mb-3 row">
                             <label for="inputPassword" class="col-form-label">تحديد نطاق زمني من : </label>
                             <div class="col-sm-4">
@@ -37,27 +37,30 @@ $a1="2";
                             <div class="col-sm-2">
                                 <button class="btn btn-primary w-50" type="submit">بحث</button>
                             </div>
-                        </div>
+                        </div> --}}
                     </form>
                     <form action="{{ route('getBondAccount',$role) }}" method="get" enctype="multipart/form">
-                        
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="sample-form">
                                     <div class="form-group text-right">
-                                        <label for="">مزارعين </label>
-                                        <select class="form-control select2 text-center" name="user">
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        <label for="">تحديد المزارع </label>
+                                        <select class="form-control select2 text-center" required name="user">
+                                            <option value=""> -اختر من القائمة -</option>
+
+                                            @foreach ($users as $item)
+                                            
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-2 mt-3">
-                                <button class="btn btn-primary w-50" type="submit">بحث</button>
+                                <button class="btn btn-primary w-100" type="submit">عرض الكشوف</button>
                             </div>
-                        
+
                         </div>
                     </form>
                     <div class="row">
@@ -74,41 +77,106 @@ $a1="2";
                                 <span>رقم الهاتف:<h1>{{ $logo->phone1 }}</h1></span>
                             </div>
                             <div class="logo-print text-center">
-                                <img src="{{$logo->getFirstMediaUrl('logo')}}"  title="logo" class="logo-firm img-fluid" style="width: 150px; height: 100px;">
+                                <img src="{{$logo->getFirstMediaUrl('logo')}}" title="logo" class="logo-firm img-fluid"
+                                    style="width: 150px; height: 100px;">
                             </div>
                         </div>
                         <table class="table table-bordered table-striped text-center" id="tableExcel">
                             <thead class="noExl">
+                                @if (isset($user))
+                                <center><h3>كشوف السيد {{$user->name}} <br></h3></center>
+                                    
+                                @endif
                                 <tr>
 
                                     <th>#id</th>
-                                    <th> حررت للسيد </th>
+                                    {{-- <th> حررت للسيد </th> --}}
 
-                                    <th> عليه</th>
-                                    <th> رصيد منه </th>
-                                    <th> بيانات </th>
-                                    <th> تاريخ </th>
+                                    <th> منه </th>
+
+                                    <th> له </th>
+                                    <th> رصيد منه</th>
+                                    <th> رصيد له </th>
+                                    <th> البيان</th>
+                                    <th> تاريخ السند</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($bonds as $item)
+
+                                @if (!count($moves))
+                                <center>
+                                    <h3>اختر مزارع من القائمة لعرض كشوفه</h3>
+                                </center>
+                                @else
+
+                                @php
+                                $assets = 0 ;
+                                $amount_with_rate = 0 ;
+                                @endphp
+
+                                @foreach ($moves as $item)
+
+
+                                @if ($item->type == "سعي" )
+                                @continue
+                                @endif
+
                                 <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->for_him }}</td>
-                                    <td>{{ $item->tack_from_him}}</td>
+                                    <td>{{ number_format($item->from_him , 2) }} </td>
+                                    <td>{{ number_format($item->for_him , 2) }} </td>
+
+                                    @php
+                                    $assets -= $item->from_him ;
+                                    $assets += $item->for_him ;
+                                    //سند كشف المزارع بعد اصدار الفاتورة فقط من يملك نسبة مئوية
+                                    //في حال تغير نسبة السعي كل فاتورة لها نسبة سعي
+                                    $amount_with_rate += isset($item->rate) ? ( (($item->for_him * $item->rate ) /100 )+ (((($item->for_him * $item->rate ) /100)*15)/100) ): 0 ;
+
+                                    @endphp
+
+                                    <td>{{ number_format($assets < 0 ? $assets : 0 , 2) }} </td>
+                                    <td>{{ number_format($assets > 0 ? $assets : 0 , 2) }} </td>
+
                                     <td>{{ $item->details }}</td>
                                     <td>{{ $item->created_at->format('m/d/Y') }}</td>
                                 </tr>
                                 @endforeach
+
+                                @if ($from_him )
+
+
+                                <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                    <td></td>
+                                    <td>{{ number_format($amount_with_rate, 2) }} </td>
+                                    <td>{{ number_format(0 , 2) }} </td>
+
+
+
+                                    <td>{{ number_format($tack_from_him , 2) }}</td>
+                                    <td>{{number_format($pay_him , 2) }} </td>
+
+                                    <td>مجموع السعي شامل الضريبة المضافة</td>
+                                    <td></td>
+                                </tr>
+
+                                @endif
+
                             </tbody>
                             <tfoot>
                                 <tr class="res">
                                     <td> المجموع النهائي</td>
-                                    <td>{{ $from_him }}</td>
-                                    <td>{{ $tack_from_him }}</td>
+                                    <td>{{ number_format($from_him , 2 )}} ريال</td>
+                                    <td>{{number_format( $for_him , 2) }} ريال</td>
+                                    <td>{{ number_format($tack_from_him , 2) }} ريال</td>
+                                    <td>{{ number_format($pay_him , 2) }} ريال</td>
                                     <td></td>
                                     <td></td>
                                 </tr>
+                                
+                                @endif
+
+
                             </tfoot>
                         </table>
                     </div>

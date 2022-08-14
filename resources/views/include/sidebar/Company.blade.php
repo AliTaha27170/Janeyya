@@ -24,23 +24,23 @@
 
 {{--  لوحة تحتوي على أبناء --}}
 <div
-    class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
+    class="nav-item {{  ( isset($segm) and( $segm == 56456 || $segm == 56457)) ? 'active open' : '' }} has-sub">
     {{--  الأب --}}
     <a href="#"><i class="ik ik-edit"></i>الكشوف </a>
     {{--  الأبناء--}}
     <div class="submenu-content">
         <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item "> كشف حساب مفصل </a>
-        <a href="{{ route("getBondAccount",8) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  تاجر</a>
-        <a href="{{ route("getBondAccount",6) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  مزارع</a>
-        <a href="{{ route("getBondAccount",1) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  موظفين</a>
+        <a href="{{ route("getBondAccount",8) }}" class="menu-item {{ (isset($segm) and( $segm == 56456)) ? 'active' : '' }} nav-item">-- كشف حساب مفصل  تاجر</a>
+        <a href="{{ route("getBondAccount",6) }}" class="menu-item {{ (isset($segm) and( $segm == 56457)) ? 'active' : '' }} nav-item">-- كشف حساب مفصل  مزارع</a>
+        {{-- <a href="{{ route("getBondAccount",1) }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }} nav-item">-- كشف حساب مفصل  موظفين</a>
         <a href="{{ route('getItemAccount') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف حساب بالاصناف </a>
-        <a href="{{ route('getAllAccount') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف بجميع الحسابات </a>
+        <a href="{{ route('getAllAccount') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> كشف بجميع الحسابات </a> --}}
 
         {{--  لوحة تحتوي على أبناء --}}
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#" style="background-color: #5c7160"><i class="ik ik-edit"></i>كشف المديونات </a>
+            {{-- <a href="#" style="background-color: #5c7160"><i class="ik ik-edit"></i>كشف المديونات </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> التجار </a>
@@ -83,7 +83,7 @@
 
         {{-- عنوان يظهر فوق اللوحة  --}}
         <div class="nav-lavel">
-            <p style="font-size: 12px; color:#cbc2a6"> الأصول </p>
+            {{-- <p style="font-size: 12px; color:#cbc2a6"> الأصول </p> --}}
         </div>
 
 
@@ -91,7 +91,7 @@
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#"><i class="ik ik-edit"></i> الأصول </a>
+            {{-- <a href="#"><i class="ik ik-edit"></i> الأصول </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}">الصندوق والبنك </a>
@@ -111,7 +111,7 @@
 
         {{-- عنوان يظهر فوق اللوحة  --}}
         <div class="nav-lavel">
-            <p style="font-size: 12px; color:#cbc2a6"> الخصوم </p>
+            {{-- <p style="font-size: 12px; color:#cbc2a6"> الخصوم </p> --}}
         </div>
 
 
@@ -123,7 +123,7 @@
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#"><i class="ik ik-edit"></i>المزارعون </a>
+            {{-- <a href="#"><i class="ik ik-edit"></i>المزارعون </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}">المالك </a>
@@ -141,9 +141,9 @@
 
 
         <div class="nav-item {{ ($segment1 == ' ') ? 'active' : '' }}">
-            <a href="#">
+            {{-- <a href="#"> --}}
                 <i class="ik ik-bar-chart-2"></i>
-                <span> الزكاة والدخل </span>
+                {{-- <span> الزكاة والدخل </span> --}}
             </a>
         </div>
 
@@ -155,7 +155,7 @@
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#"><i class="ik ik-edit"></i>الدائنون </a>
+            {{-- <a href="#"><i class="ik ik-edit"></i>الدائنون </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}">شركات الأسمدة </a>
@@ -173,14 +173,14 @@
 
         {{-- عنوان يظهر فوق اللوحة  --}}
         <div class="nav-lavel">
-            <p style="font-size: 12px; color:#cbc2a6"> المصروفات </p>
+            {{-- <p style="font-size: 12px; color:#cbc2a6"> المصروفات </p> --}}
         </div>
 
         {{--  لوحة تحتوي على أبناء --}}
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#"><i class="ik ik-edit"></i>مصروفات إدارية </a>
+            {{-- <a href="#"><i class="ik ik-edit"></i>مصروفات إدارية </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> كهرباء وماء </a>
@@ -201,7 +201,7 @@
         <div
             class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
             {{--  الأب --}}
-            <a href="#"><i class="ik ik-edit"></i>مصروفات تسويقية </a>
+            {{-- <a href="#"><i class="ik ik-edit"></i>مصروفات تسويقية </a> --}}
             {{--  الأبناء--}}
             <div class="submenu-content">
                 <a href="#" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> رواتب و عمولات </a>
@@ -252,9 +252,9 @@
             <a href="#"><i class="ik ik-edit"></i>الإيرادات </a>
             {{--  الأبناء--}}
             <div class="submenu-content">
-                <a href="{{ route('Revenue.contract') }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> السعي </a>
-                <a href="{{ route('Revenue.fee') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> رسوم عقود </a>
-                <a href="{{ route('Revenue.quest') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> غرامات </a>
+                <a href="#"href="{{ route('Revenue.contract') }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}"> السعي </a>
+                <a  href="#"href="{{ route('Revenue.fee') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> رسوم عقود </a>
+                <a  href="#"href="{{ route('Revenue.quest') }}" class="menu-item {{ ($segment1 == 'form-addon') ? 'active' : '' }}"> غرامات </a>
 
 
                 {{--   <a href="{{url('form-advance')}}" class="menu-item
@@ -274,6 +274,18 @@
 
 
 
+
+
+
+{{-- عنصر واحد  --}}
+{{-- comment --}}
+
+<div class="nav-item {{ (isset($segmen ) and $segmen == 4546) ? 'active' : '' }}">
+    <a href="{{route('showFunds')}}">
+        <i class="ik ik-bar-chart-2"></i>
+        <span> الصناديق</span>
+    </a>
+</div>
 
 
 
@@ -306,6 +318,7 @@
 
 
 
+
 <div class="nav-item {{ (isset($segmen ) and $segmen == 4545) ? 'active' : '' }}">
     <a href="{{route('receipts_table')}}">
         <i class="ik ik-bar-chart-2"></i>
@@ -314,9 +327,12 @@
 </div>
 
 
-
 {{-- عنصر واحد  --}}
 {{-- comment --}}
+
+
+
+
 
 
 
@@ -334,12 +350,12 @@
 
 
 
-<div class="nav-item {{ ($segment1 == ' ') ? 'active' : '' }}">
+{{-- <div class="nav-item {{ ($segment1 == ' ') ? 'active' : '' }}">
     <a href="#">
         <i class="ik ik-bar-chart-2"></i>
         <span> قيود </span>
     </a>
-</div>
+</div> --}}
 
 
 {{--  لوحة تحتوي على أبناء --}}

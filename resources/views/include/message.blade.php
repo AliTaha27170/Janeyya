@@ -1,4 +1,4 @@
-<div class="col-md-12">
+{{-- <div class="col-md-12">
     @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
@@ -16,4 +16,4 @@
 
     </div>
     @endif
-</div>
+</div> --}}
