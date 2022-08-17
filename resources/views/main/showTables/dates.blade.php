@@ -2,7 +2,6 @@
     
 $a1="2";
 @endphp
-
 @extends('layouts.main') 
 @section('title', 'الاصناف')
 @section('content')
@@ -76,6 +75,15 @@ $a1="2";
     </div>
 </div>
 <div class="table-responsive" id="myTable">
+    <div class="mb-2 d-none" id="logo">
+        <div class="text-right mr-2">
+            <span>الشركة:<h1>{{ $logo->name }}</h1></span>
+            <span>رقم الهاتف:<h1>{{ $logo->phone1 }}</h1></span>
+        </div>
+        <div class="logo-print text-center">
+            <img src="{{$logo->getFirstMediaUrl('logo')}}"  title="logo" class="logo-firm img-fluid" style="width: 150px; height: 100px;">
+        </div>
+    </div>
     <table class="table" id="tableExcel">
         <thead class="thead-dark noExl">
         <tr>
@@ -123,16 +131,6 @@ $a1="2";
     </style>
 
 {{-- End --}}
-
         </div>
-
-
-               
-
-    <!-- push external js -->
-    @push('script')
-        <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
-        <script src="{{ asset('js/datatables.js') }}"></script>
-    @endpush
 @endsection
       

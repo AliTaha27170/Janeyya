@@ -48,6 +48,11 @@ Route::get('test2', function () {
 	Storage::disk('local')->put('/صور الهوية' . '/' . auth()->user()->id . '/التجار' . '/example.txt', 'Contents');
 });
 
+Route::get('/home', function () {
+	return view('landing.index');
+});
+
+
 Route::get('/', function () {
 	return redirect()->to('/dashboard');
 });

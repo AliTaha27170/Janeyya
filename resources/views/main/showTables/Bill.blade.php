@@ -264,30 +264,35 @@ $a3="2";
                         <th>السعر</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($bill_print->Dates as $item)
-                    <tr>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->pivot->quantity}}</td>
-                        <td>{{ $item->pivot->price }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td> المجموع النهائي</td>
-                        <td></td>
-                        <td>{{ $bill_print->total }}</td>
-                    </tr>
-                </tfoot>
+                @if (isset($bill_print))
+                    <tbody>
+                        
+                            @foreach ($bill_print->Dates as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->pivot->quantity}}</td>
+                                <td>{{ $item->pivot->price }}</td>
+                            </tr>
+                            @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td> المجموع النهائي</td>
+                            <td></td>
+                            <td>{{ $bill_print->total }}</td>
+                        </tr>
+                    </tfoot>
+                @endif
             </table>
 
         </li>
         </ul>
+        @if (isset($bill_print))
         <div class="card-body">
             <h2 class="card-title font-weight-bold">التاجر:{{ $bill_print->get_dealer->name }} </h2>
             <h2 class="card-title font-weight-bold">الكاتب:{{ $bill_print->get_who_write->name }} </h2>
         </div>
+        @endif
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

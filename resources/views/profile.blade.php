@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center"> 
-                            <img src="{{ $firm->logo }}" class="rounded-circle" width="150" />
+                            <img src="{{$firm->getFirstMediaUrl('logo')}}" class="rounded-circle" width="150" />
                             <h4 class="card-title mt-10">{{ $firm->name}}</h4>
                             <p class="card-subtitle">{{ $firm->company_name }}</p>
                         </div>
