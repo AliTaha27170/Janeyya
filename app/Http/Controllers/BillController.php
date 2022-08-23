@@ -39,8 +39,9 @@ class BillController extends Controller
         $dalals   =   User::where('company', company::company_id())->where('role', 5)->orderBy('name', 'DESC')->get();
         $dealers  =   User::where('company', company::company_id())->where('role', 8)->orderBy('name', 'DESC')->get();
         $writers  =   User::where('company', company::company_id())->where('role', 4)->orderBy('name', 'DESC')->get();
-        $farmers  =   User::where('company', company::company_id())->where('role', 6)->orderBy('name', 'DESC')->get();
+        $farmers  =   User::where('company', company::company_id())->where("has_mt3aked",0)->where('role' , 6 )->orWhere("role",7)->orderBy('name', 'DESC')->get();
         $dates    =   Date::where('company_id', company::company_id())->orderBy('name', 'DESC')->get();
+        
         $bill_print = Bill::latest()->first();
 
         return view('main.showTables.Bill')->with([
@@ -77,6 +78,10 @@ class BillController extends Controller
 
             if( (!isset($request["dealer_id"]) ||  $request["dealer_id"] =='') and ( (!isset($request["name"]) ||  $request["name"] =='')  ) )
                 return back()->with("error"," الرجاء تحديد تاجر");
+
+                
+            // if( (isset($request["dealer_id"]) ) and ( (isset($request["name"]) )  ) )
+            //     return back()->with("error","  الرجاء تحديد تاجر أو زبون , وليس كليهما "  );
 
 
 
@@ -242,12 +247,13 @@ class BillController extends Controller
 
             $user->update(
                 [
-                    "assets" =>  $assets ,
+                    "assets"      =>  $assets ,
+                    "has_mt3aked" => 1,
                 ]
             );
 
-            $mo=1;
-            return redirect()->route('showBills',$mo);
+            // $mo=1;
+            // return redirect()->route('showBills',$mo);
                             
                 //إضافة للكشوف الخاصة بالمزارع  
                 Move::create([
@@ -275,6 +281,8 @@ class BillController extends Controller
                 //قيمة السعي 
                 $s3ee =  (($up*$user["rate"]) / 100 ) ;
 
+// dd($s3ee);
+
                 //الضريبة المضافة للسعي 
                 $s3ee +=  ($s3ee*15)/100 ;
                 
@@ -289,8 +297,7 @@ class BillController extends Controller
                 );
     
 
-
-                // إضافة سعي المزارع   لصندوق السعي 
+                // إضافة سعي المزارع     
                 Move::create([
 
                     "from_him" => $s3ee  ,
@@ -318,7 +325,7 @@ class BillController extends Controller
 
 
 
-            return redirect()->route('printBill');
+            return back()->with("msg", " تم تحرير الفاتورة  بنجاح ");
         } catch (\Throwable $th) {
             dd($th);
         }

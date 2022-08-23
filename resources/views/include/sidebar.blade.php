@@ -229,7 +229,7 @@
                 @elseif (auth()->user()->role == 2)
                 @include('include.sidebar.Company')
                 @elseif (auth()->user()->role == 3)
-                @include('include.sidebar.Company')
+                {{-- @include('include.sidebar.Company') --}}
                 @elseif (auth()->user()->role == 4)
                 @include('include.sidebar.Writer')
                 @elseif (auth()->user()->role == 5)

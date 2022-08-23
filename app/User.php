@@ -59,7 +59,16 @@ class User extends Authenticatable
         return $this->hasOne('App\Firm');
     }
 
-    
+    public function farmer()
+    {
+        return $this->belongsTo('App\User' , 'farmer_id');
+    }
+
+
+    public function mt3aked()
+    {
+        return $this->hasOne(User::class, 'farmer_id', 'id');
+    }
 
     
 }

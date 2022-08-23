@@ -111,6 +111,7 @@ $segm = 56457;
 
                                 @php
                                 $assets = 0 ;
+                                // السعي
                                 $amount_with_rate = 0 ;
                                 @endphp
 
@@ -129,13 +130,14 @@ $segm = 56457;
                                     @php
                                     $assets -= $item->from_him ;
                                     $assets += $item->for_him ;
+                                    
                                     //سند كشف المزارع بعد اصدار الفاتورة فقط من يملك نسبة مئوية
                                     //في حال تغير نسبة السعي كل فاتورة لها نسبة سعي
                                     $amount_with_rate += isset($item->rate) ? ( (($item->for_him * $item->rate ) /100 )+ (((($item->for_him * $item->rate ) /100)*15)/100) ): 0 ;
 
                                     @endphp
 
-                                    <td>{{ number_format($assets < 0 ? $assets : 0 , 2) }} </td>
+                                    <td>{{ number_format($assets < 0 ? abs($assets) : 0 , 2) }} </td>
                                     <td>{{ number_format($assets > 0 ? $assets : 0 , 2) }} </td>
 
                                     <td>{{ $item->details }}</td>
@@ -143,7 +145,7 @@ $segm = 56457;
                                 </tr>
                                 @endforeach
 
-                                @if ($from_him )
+                                @if ($from_him and $amount_with_rate )
 
 
                                 <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">

@@ -95,8 +95,8 @@
 
                                                 <td>
                                                     <div class="form-group">
-                                                        <label for="name"> الإيبان البنكي    <span class="text-red">*</span></label>
-                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="iban"   placeholder=" الايبان" required value="{{  isset($user) ? $user->iban  :'' }}">
+                                                        <label for="name"> الإيبان البنكي    <span class="text-red"></span></label>
+                                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="iban"   placeholder=" الايبان"  value="{{  isset($user) ? $user->iban  :'' }}">
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('name')
@@ -129,8 +129,8 @@
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
-                                                        <label for="email">البريد الألكتروني <span class="text-red">*</span></label>
-                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder=" البريد    " required value="{{  isset($user) ? $user->email  :'' }}">
+                                                        <label for="email">البريد الألكتروني <span class="text-red"></span></label>
+                                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  placeholder=" البريد    "  value="{{  isset($user) ? $user->email  :'' }}">
                                                         <div class="help-block with-errors" ></div>
                 
                                                         @error('email')
@@ -145,7 +145,7 @@
 
                                                     <div class="form-group">
                                                         <label for="password">كلمة السر <span class="text-red">*</span></label>
-                                                        <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="كلمة السر " required value="{{  isset($user) ? $user->note_p  :'' }}">
+                                                        <input id="password" type="text" class="form-control @error('password') is-invalid @enderror password" name="password" placeholder="كلمة السر " required value="{{  isset($user) ? $user->note_p  :'' }}">
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('password')
@@ -159,8 +159,8 @@
                                                 <td>
 
                                                     <div class="form-group">
-                                                        <label for="password"> نسبة السعي  <span class="text-red">*</span></label>
-                                                        <input id="password" type="number" class="form-control @error('password') is-invalid @enderror" name="rate" placeholder="نسبة السعي" required value="{{  isset($user) ? $user->rate  :'' }}" @if ($has_bills)
+                                                        <label for="password"> <small>النسبة المئوية للسعي </small> <span class="text-red">*</span></label>
+                                                        <input id="password" type="number" class="form-control @error('password') is-invalid @enderror" name="rate" placeholder="نسبة السعي" required value="{{  isset($user) ? $user->rate  :'' }}" @if ( isset($has_bills) and $has_bills )
                                                             readonly
                                                         @endif>
                                                         <div class="help-block with-errors"></div>
@@ -176,8 +176,8 @@
                                                 <td>
 
                                                     <div class="form-group">
-                                                        <label for="password">موقع  المزرعة  <span class="text-red">*</span></label>
-                                                        <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="adress" placeholder=" الموقع " required value="{{  isset($user) ? $user->note_p  :'' }}">
+                                                        <label for="password">موقع  المزرعة  <span class="text-red"></span></label>
+                                                        <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="adress" placeholder=" الموقع "  value="{{  isset($user) ? $user->note_p  :'' }}">
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('password')
@@ -197,17 +197,18 @@
                                         <br><hr>
                                         <div class="form-group">
                                             <label for="password-confirm">صورة الهوية   </label>
-                                            <input id="password-confirm" type="file" class="form-control" name="image" placeholder="تأكيد الكلمة "  value="{{  isset($user) ? ''  :'required' }}"  >
+                                            <input id="password-confirm" type="file" class="form-control" name="image" placeholder="تأكيد الكلمة "    >
                                             <div class="help-block with-errors"></div>
                                         </div>
 <br>
  
+@if(isset($user1) || !isset($user))
                                         @if (isset($user1))
                                         <a href="#2" id="" style="color: #f5365c"><h4>معلومات المتعاقد</h4></a>
                                         @else
                                        <a href="#271" id="flip" style="color: #f5365c"><h4>إضافة متعاقد</h4></a>
                                         @endif
-                   
+@endif
                                     
                                 
                                 </div>
@@ -250,8 +251,8 @@
 
                                                 <td>
                                                     <div class="form-group">
-                                                        <label for="name"> الإيبان البنكي    <span class="text-red">*</span></label>
-                                                        <input id="name" type="text" class="req form-control  @error('name') is-invalid @enderror" name="iban1"   placeholder=" الايبان" value="{{   isset($user1) ? $user1->iban :'' }}">
+                                                        <label for="name"> الإيبان البنكي    </span></label>
+                                                        <input id="name" type="text" class=" form-control  @error('name') is-invalid @enderror" name="iban1"   placeholder=" الايبان" value="{{   isset($user1) ? $user1->iban :'' }}">
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('name')
@@ -284,8 +285,8 @@
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
-                                                        <label for="email">البريد الألكتروني <span class="text-red">*</span></label>
-                                                        <input id="email" type="email" class="req form-control @error('email') is-invalid @enderror" name="email1" value="{{ isset($user1) ? $user1->email:''}}" placeholder=" البريد    " value="{{   isset($user1) ? $user1->email :'' }}">
+                                                        <label for="email">البريد الإلكتروني </span></label>
+                                                        <input id="email" type="email" class=" form-control @error('email') is-invalid @enderror" name="email1" value="{{ isset($user1) ? $user1->email:''}}" placeholder=" البريد    " value="{{   isset($user1) ? $user1->email :'' }}">
                                                         <div class="help-block with-errors" ></div>
                 
                                                         @error('email')
@@ -296,11 +297,25 @@
                                                     </div>
                                                    
                                                 </td>
+                                                <div class="form-group">
+                                                    <label for="password"> <small>النسبة المئوية للسعي </small> <span class="text-red">*</span></label>
+                                                    <input id="" type="number" class="req form-control @error('password') is-invalid @enderror" name="rate1" placeholder="نسبة السعي"  value="{{  isset($user1) ? $user1->rate  :'' }}" @if ( isset($has_bills) and $has_bills )
+                                                        readonly
+                                                    @endif>
+                                                    <div class="help-block with-errors"></div>
+            
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+
                                                 <td>
 
                                                     <div class="form-group">
                                                         <label for="password">كلمة السر <span class="text-red">*</span></label>
-                                                        <input id="password" type="text" class="req form-control @error('password') is-invalid @enderror" name="password1" placeholder="كلمة السر " value="{{   isset($user1) ? $user1->note_p :'' }}">
+                                                        <input id="password1" type="text" class="req form-control password1 @error('password') is-invalid @enderror" name="password1" placeholder="كلمة السر " value="{{   isset($user1) ? $user1->note_p :'' }}">
                                                         <div class="help-block with-errors"></div>
                 
                                                         @error('password')
@@ -319,10 +334,17 @@
                                         
                                                     
                                                     <td>
+                                                        
 
                                                         <div class="form-group">
+
                                                             <label for="password">قيمة العقد   <span class="text-red">*</span></label>
-                                                            <input id="password" type="number" class="req form-control @error('password') is-invalid @enderror" name="t3akdPrice" placeholder="قيمة العقد   " value="{{   isset($user1) ? $user1->t3akdPrice :''}}">
+                                                            <input
+                                                            @if(isset($user1) )
+                                                            disabled
+                                                            @endif
+
+                                                            id="password" type="number" class="req form-control @error('password') is-invalid @enderror" name="t3akdPrice" placeholder="قيمة العقد   " value="{{   isset($user1) ? $user1->t3akdPrice :''}}">
                                                             <div class="help-block with-errors"></div>
                     
                                                             @error('password')
@@ -330,6 +352,7 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
+
                                                         </div>
                                                     </td>
 
@@ -344,8 +367,8 @@
                                     <br><hr>
                                     <div class="form-group">
                                         <label for="password-confirm">صورة هوية المتعاقد   </label>
-                                        <input id="password-confirm" type="file" class=" {{   isset($user1) ? '':'req' }} form-control" name="image1" placeholder="  " >
-                                        <div class="help-block with-errors"></div>
+                                        <input  id="password-confirm" type="file" class="form-control" name="image1" placeholder="  " >
+                                        <div  class="help-block with-errors"></div>
                                     </div>
                                     
                                     
@@ -394,7 +417,15 @@
         </style>
        <script>
         $("#key").val('1');
+    
+
        </script>
     @endif
+    <script>
+        $("#key").val('1');
+        $("#password").val(Math.random().toString(6).slice(-4) + Math.random().toString(36).slice(-1));
+        $("#password1").val(Math.random().toString(6).slice(-4) + Math.random().toString(36).slice(-1));
+
+       </script>
     @endpush
 @endsection

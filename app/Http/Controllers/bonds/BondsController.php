@@ -14,7 +14,12 @@ class BondsController extends Controller
     use CompanyTrait;
     public function getBonds($id, Request $request){
         $role = $id;
-        $users = User::where("company", $this->company_id())->where("role",$role)->select("name","id")->orderBy("id")->get();
+        if($role ==6 )
+            //جلب المزارعين والمتعاقدين (المزارعين المستأجرين)
+            $users = User::where("company", $this->company_id())->where("role",$role)->orWhere("role",7)->orderBy("id")->get();
+        else
+            $users = User::where("company", $this->company_id())->where("role",$role)->orderBy("id")->get();
+
         if($id ==8 )
         {
             if(!isset($request['user']) || $request['user'] =='')

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\helpers\company;
+use App\Move;
 
 class FarmerController extends Controller
 {
@@ -36,12 +37,10 @@ class FarmerController extends Controller
         
         $validator = Validator::make($request->all(), [
             'name'                          => 'required | string ',
-            'email'                         => 'required | email | unique:users',
+            // 'email'                         => 'required | email | unique:users',
             'password'                      => 'required ',
             'phone1'                        => 'required',
-            'image'                         =>  'required',
-            'iban'                          => 'required',
-            'adress'                        => 'required',
+          
         ]
        
     );
@@ -53,6 +52,10 @@ class FarmerController extends Controller
         {
             
                 $file = $request->file('image');
+                $path = null;
+                if (isset($file))
+                {
+
 
                 // Generate a file name with extension
                 $fileName = 'profile-'.time().'.'.$file->getClientOriginalExtension();
@@ -60,8 +63,8 @@ class FarmerController extends Controller
                 // Save the file
                 $path = $file->storeAs(''.'/صور الهوية'.'/'.auth()->user()->name.'/المزارعون/'.$request['name'], $fileName);
               
-           
-            
+            }
+        
             // store user information
             $user = User::create([
                         'name'     => $request->name,
@@ -79,9 +82,13 @@ class FarmerController extends Controller
                     ]);
 
                     //بحال هنالك متعاقد 
-                    if($request['key']=='1')
+                    if($request['key']=='1' and isset($request['name1']))
                     {
+                        $path =null;
                         $file = $request->file('image1');
+                        if(isset($file))
+                        {
+
 
                         // Generate a file name with extension
                         $fileName = 'profile-'.time().'.'.$file->getClientOriginalExtension();
@@ -89,8 +96,9 @@ class FarmerController extends Controller
                         // Save the file
                         $path = $file->storeAs(''.'/صور الهوية'.'/'.auth()->user()->name.'/المتعاقدون/'.$request['name1'], $fileName);
               
+                    }
                         
-                         User::create([
+                        $user2 = User::create([
                             'name'     => $request->name1,
                             'email'    => $request->email1,
                             'password' => Hash::make($request->password1),
@@ -101,8 +109,62 @@ class FarmerController extends Controller
                             'image'                       => $path,
                             't3akdPrice'                  => $request->t3akdPrice,
                             'farmer_id'                   => $user->id,
-                            'note_p'                      => $request->password1
+                            'note_p'                      => $request->password1 ,
+                            "assets" => ($request->t3akdPrice)*-1,
+                            'rate'                        => $request->rate1
+
                         ]);
+
+                        //إضافة قيمة العقد لأصول المزارع 
+                        $user->update([
+                            "assets" => ($request->t3akdPrice) ,
+                            "has_mt3aked" => 1,
+                        ]);
+
+                    // قيمة العقد  إضافة للكشوف الخاصة بالمزارع  
+                Move::create([
+
+                    "from_him" => 0  ,
+                    "for_him"  => $request->t3akdPrice ,
+
+                    //"rate"   => $user->rate , 
+
+                    "pay_him"  => $request->t3akdPrice ,
+                    "tack_from_him"  => 0 ,
+
+                    //"fund_id"    => $request["fund_id"]  ,
+                    "company_id" => company::company_id() ,
+                    "user_id"    => $user["id"] ,
+
+                    "details" => "قيمة العقد من المستأجر " .$user2->name ,
+                    "user_name" => $user->name  ,
+
+
+
+                ]);
+
+                    // قيمة العقد  إضافة للكشوف الخاصة بالمستأجر  
+                    Move::create([
+
+                        "from_him" => $request->t3akdPrice ,
+                        "for_him"  =>  0,
+    
+                        // النسبة لحساب الميلغ مع السعي لكل سطر في كشوف المزارع 
+                        //"rate"   => $user->rate , 
+    
+                        "pay_him"  => 0 ,
+                        "tack_from_him"  => $request->t3akdPrice ,
+    
+                        //"fund_id"    => $request["fund_id"]  ,
+                        "company_id" => company::company_id() ,
+                        "user_id"    => $user2["id"] ,
+    
+                        "details" => "قيمة العقد للمالك  " .$user->name ,
+                        "user_name" => $user2->name  ,
+    
+    
+                    ]);
+
                     }
 
             if($user){ 
@@ -136,7 +198,10 @@ class FarmerController extends Controller
             return back();
 
         $user1 =  User::where('farmer_id',$user->id)->first();
-        $bills =  Bill::where("farmer_id",$id)->get();
+
+        $bills=[];
+        if($user->has_mt3aked)
+        $bills =  Bill::where("farmer_id", $user1->id)->get();
        
         return view('main.Store&Edit.Farmer')->with([
             "user"     => $user,
@@ -219,8 +284,10 @@ class FarmerController extends Controller
                    
 
                             //جلب الفواتير والتحقق بحال لو كان المزارع يملك فواتير , لانستطيع تحديث نسبته
-                            $bills = Bill::where("farmer_id" , $id )->get();
-                            if(count($bills))
+                            $bills  = Bill::where("farmer_id" , $id )->get();
+                            //بحال كان صاحب الفواتير المتعاقد
+                            $bills2 = Bill::where("farmer_id" , User::where("farmer_id",$id )->first()->id )->get();
+                            if(count($bills) || count($bills2 ))
                             {
 
                                 User::find($id)->update([
@@ -251,7 +318,8 @@ class FarmerController extends Controller
 
                        
                              //بحال أراد إضافة متعاقد 
-                             if($request['key']=='1')
+                             //!! غير فعالة الآن تم الغائها من الواجهة , بحيث لما بتم انشاء مزارع دون متعاقد لايمكن الاضافة مرة ثانية بالتعديل
+                             if($request['key']=='1' and isset($request['name1']) )
                              {
                                 $user1=User::where('farmer_id',$user->id)->first();
 
@@ -284,6 +352,13 @@ class FarmerController extends Controller
                                         $path = $file->storeAs(''.'/صور الهوية'.'/'.auth()->user()->name.'/المتعاقدون/'.$request['name1'], $fileName);
                                     
                     }
+                                                //جلب الفواتير والتحقق بحال لو كان المزارع يملك فواتير , لانستطيع تحديث نسبته
+                                                $bills  = Bill::where("farmer_id" , $id )->get();
+                                                //بحال كان صاحب الفواتير المتعاقد
+                                                $bills2 = Bill::where("farmer_id" , User::where("farmer_id",$id )->first()->id )->get();
+                                                if(count($bills) || count($bills2 ))
+                                                {
+
                                     User::find($user1->id)->update([
                                         'name'     => $request->name1,
                                         'email'    => $request->email1,
@@ -291,9 +366,25 @@ class FarmerController extends Controller
                                         'phone1'                      => $request->phone11,
                                         'iban'                        => $request->iban1,
                                         'image'                       => $path,
-                                        't3akdPrice'                  => $request->t3akdPrice,
-                                        'note_p'                      => $request->password1
+                                        // 't3akdPrice'                  => $request->t3akdPrice,
+                                        'note_p'                      => $request->password1,
+
                                     ]);
+                                }
+                                else
+                                {   User::find($user1->id)->update([
+                                    'name'     => $request->name1,
+                                    'email'    => $request->email1,
+                                    'password' => Hash::make($request->password1),
+                                    'phone1'                      => $request->phone11,
+                                    'iban'                        => $request->iban1,
+                                    'image'                       => $path,
+                                    // 't3akdPrice'                  => $request->t3akdPrice,
+                                    'note_p'                      => $request->password1 ,
+                                    'rate'                        => $request->rate1
+
+                                ]);
+                                }
                                 }
                                  //بحال المتعاقد غير موجود وأراد الإضافة  
                                 else
@@ -397,7 +488,7 @@ class FarmerController extends Controller
             $by   =  $_GET['by'];
             $type =  $_GET['type'];
 
-            $users=User::where('company',company::company_id())->where('role',6)->orderBy(
+            $users=User::where('company',company::company_id())->where('role',6)->orWhere('role',7)->orderBy(
                 $by,$type)->get();
                
                 return view('main.showTables.Farmer',with([
@@ -412,7 +503,7 @@ class FarmerController extends Controller
                 $type       =  $_GET['type'];
                 $search_key =  $_GET['key'];
                 
-                $users=User::where('company',company::company_id())->where('role',6)->where(
+                $users=User::where('company',company::company_id())->where('role',6)->orWhere('role',7)->where(
                     $type , 'LIKE' ,'%'.$search_key.'%' )->get();
                    
                     return view('main.showTables.Farmer',with([
@@ -422,7 +513,7 @@ class FarmerController extends Controller
         // Normal 
          else
             {
-                $users=User::where('company',company::company_id())->where('role',6)->orderBy(
+                $users=User::where('company',company::company_id())->where('role',6)->orWhere('role',7)->orderBy(
                     'id','DESC')->get();
                    
                     return view('main.showTables.Farmer',with([

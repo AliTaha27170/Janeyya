@@ -84,7 +84,7 @@ $segment1 ='Farmer';
                                     @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{!! $user->name ."<span style='color: #8383839e'>".( $user->role == 7 ? (" | مستأجر من  " . $user->farmer->name) :( $user->has_mt3aked ? " | قام بتأجير  ".$user->mt3aked->name : '' ) ) . "</span>" !!}</td>
                                         <td>{!! $user->assets >=0 ? "<strong style='color:green'>". number_format($user->assets,2)."</strong>" : "<strong style='color:red'>".number_format($user->assets,2)."</strong>" !!}</td>
                                         <td>{{ $user->phone1 }}</td>
                                         <td>{{ $user->adress }}</td>
@@ -94,8 +94,8 @@ $segment1 ='Farmer';
                                         <td>
                                             <div class="table-actions">
                                                 <a href="#"><i class="ik ik-eye"></i></a>
-                                                <a href="{{ route('editFarmer',$user->id) }}"><i class="ik ik-edit-2"></i></a>
-                                                <a href="{{ route('deleteFarmer',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                                <a href="{{ ($user->role == 7) ? route('editFarmer',$user->farmer_id) : route('editFarmer',$user->id) }}"><i class="ik ik-edit-2"></i></a>
+                                                {{-- <a href="{{ route('deleteFarmer',$user->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a> --}}
                                             </div>
                                         </td>
                                     </tr>

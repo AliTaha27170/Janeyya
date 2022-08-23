@@ -108,6 +108,7 @@ $a3="2";
                        
                         @foreach ($farmers as $item)
 
+                  
                         <option value="{{ $item->id }}"> {{ $item->name }}</option>
 
                     @endforeach
@@ -245,7 +246,7 @@ $a3="2";
 <h4 class="c-blue  pt-3 pb-3" id="add" >  <a href="?today=on" class="a-add" style="color: rgb(54, 118, 51)">عرض فواتير اليوم   </a></h4>
 
 @endif
-<div  id="Mybill_print" class="printPage d-none">
+{{-- <div  id="Mybill_print" class="printPage d-none">
     <div class="card m-auto text-center" style="width: 29rem;margin-top: 150px !important;">
         <img class="card-img-top m-auto mt-5" src="{{$logo->getFirstMediaUrl('logo')}}" alt="Card image cap" style="width:30%">
         <div class="card-body">
@@ -294,7 +295,7 @@ $a3="2";
         </div>
         @endif
     </div>
-</div>
+</div> --}}
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <div class="table-responsive" id="myTable">

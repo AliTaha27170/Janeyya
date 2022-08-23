@@ -28,9 +28,9 @@ class BondsController extends Controller
     // التاريخ 
     if (isset($request["start_at"]) and isset($request["end_at"]))
       $bonds  = Bond::where("company_id", $this->company_id())->where("type", 0)
-        ->whereBetween('created_at', [$request["from"], $request["to"]])->orderBy("id","DESC")->paginate(100);
+        ->whereBetween('created_at', [$request["from"], $request["to"]])->orderBy("id", "DESC")->paginate(100);
     else
-      $bonds  = Bond::where("company_id", $this->company_id())->where("type", 0)->orderBy("id","DESC")->paginate(100);
+      $bonds  = Bond::where("company_id", $this->company_id())->where("type", 0)->orderBy("id", "DESC")->paginate(100);
 
     $assets = $bonds->sum("assets");
     $pay_him  = $bonds->sum("pay_him");
@@ -45,10 +45,10 @@ class BondsController extends Controller
   {
     $company_id = $this->company_id();
     $users  = User::where("company", $company_id)->where("role", "!=", 2)
-      ->where("role", "!=", 1)->orderBy("id","DESC")->paginate(100);
-      $funds  = fund::where("company_id", $company_id)->get();
+      ->where("role", "!=", 1)->orderBy("id", "DESC")->paginate(100);
+    $funds  = fund::where("company_id", $company_id)->get();
 
-    return view("bonds.catch_receipt", compact("company_id", "users","funds"));
+    return view("bonds.catch_receipt", compact("company_id", "users", "funds"));
   }
 
 
@@ -58,11 +58,11 @@ class BondsController extends Controller
   {
     $company_id = $this->company_id();
     $users  = User::where("company", $company_id)->where("role", "!=", 2)
-      ->where("role", "!=", 1)->orderBy("id","DESC")->paginate(100);
+      ->where("role", "!=", 1)->orderBy("id", "DESC")->paginate(100);
 
-      $funds  = fund::where("company_id", $company_id)->get();
+    $funds  = fund::where("company_id", $company_id)->get();
 
-    return view("bonds.receipt", compact("company_id", "users" , "funds"));
+    return view("bonds.receipt", compact("company_id", "users", "funds"));
   }
 
   // جدول سندات القبض
@@ -70,9 +70,9 @@ class BondsController extends Controller
   {
     if (isset($request["start_at"]) and isset($request["end_at"]))
       $bonds  = Bond::where("company_id", $this->company_id())->where("type", 1)
-        ->whereBetween('created_at', [$request["from"], $request["to"]])->orderBy("id","DESC")->paginate(25);
+        ->whereBetween('created_at', [$request["from"], $request["to"]])->orderBy("id", "DESC")->paginate(25);
     else
-      $bonds  = Bond::where("company_id", $this->company_id())->where("type", 1)->orderBy("id","DESC")->paginate(25);
+      $bonds  = Bond::where("company_id", $this->company_id())->where("type", 1)->orderBy("id", "DESC")->paginate(25);
 
     $assets = $bonds->sum("assets");
     $tack_from_him  = $bonds->sum("tack_from_him");
@@ -105,67 +105,66 @@ class BondsController extends Controller
       "user_id"       => $request['user_id'],
       'role'          => $role,
       "company_id"    => $company_id,
-      "amount"       => $request['amount'] ,
-      "details"       => $request['details']  ,
+      "amount"       => $request['amount'],
+      "details"       => $request['details'],
       "name_of_user"  => $name_of_user,
       "fund_id"       => $request['fund_id'],
       "fund_name"     => fund::find($request['fund_id'])->name,
-      
+
     ]);
 
     //تفاصيل الكشف
-      $details = ($type ? "سند قبض " : "سند صرف  ") . ($type ? " إلى " : " من ")  . $fund_name  . (isset($request['details'] ) and $request['details'] !=''? " | " . $request['details']: "" );
+    $details = ($type ? "سند قبض " : "سند صرف  ") . ($type ? " إلى " : " من ")  . $fund_name  . (isset($request['details']) and $request['details'] != '' ? " | " . $request['details'] : "");
 
     $user = User::where('company', $this->company_id())->where("id", $request["user_id"])->get()->first();
     // الصندوق       
-    $fund = fund::where('company_id', $this->company_id())->where("id", $request["fund_id"] )->get()->first();
-    
+    $fund = fund::where('company_id', $this->company_id())->where("id", $request["fund_id"])->get()->first();
+
 
     if ($fund->assets < $request['amount']  and !$type) {
       return redirect()->back()->with("error", " المبلغ المطلوب أكبر من المبلغ الموجود !");
-
     }
-         //type 
-      // هي نوع  سند الصرف 0
-      // هي نوع  سند القبض 1
+    //type 
+    // هي نوع  سند الصرف 0
+    // هي نوع  سند القبض 1
 
-      // تحديث ذمة المستخدم
+    // تحديث ذمة المستخدم
 
-      $assets =  $type ?  $assets + $request['amount'] :   $assets  - $request['amount'] ;
+    $assets =  $type ?  $assets + $request['amount'] :   $assets  - $request['amount'];
 
-      $user->update(
-        [
-          "assets" =>  $assets  ,
-        ]
-      );
- 
- 
-      // تحديث ذمة الصندوق
-      $fund->update(
-        [
-          "assets" =>  $type ? $fund->assets + $request['amount'] :  $fund->assets - $request['amount']  ,
-        ]
-      );
+    $user->update(
+      [
+        "assets" =>  $assets,
+      ]
+    );
 
 
-                                  
-                //إضافة للكشوف الخاصة بالمستخدم  
-                Move::create([
+    // تحديث ذمة الصندوق
+    $fund->update(
+      [
+        "assets" =>  $type ? $fund->assets + $request['amount'] :  $fund->assets - $request['amount'],
+      ]
+    );
 
-                  "from_him" => !$type ?  $request['amount']  : 0  ,
-                  "for_him"  =>  $type ? ($request['amount'] ) : 0 ,
 
-                  "pay_him"  =>  $assets > 0 ?  $assets : 0,
-                  "tack_from_him"  => $assets < 0 ?  abs($assets) : 0 ,
 
-                  "fund_id"    => $request["fund_id"]  ,
-                  "company_id" => company::company_id() ,
-                  "user_id"    => $request['user_id'],
+    //إضافة للكشوف الخاصة بالمستخدم  
+    Move::create([
 
-                  "details" => $details  ,
-                  "user_name" => $user->name  ,
+      "from_him" => !$type ?  $request['amount']  : 0,
+      "for_him"  =>  $type ? ($request['amount']) : 0,
 
-              ]);
+      "pay_him"  =>  $assets > 0 ?  $assets : 0,
+      "tack_from_him"  => $assets < 0 ?  abs($assets) : 0,
+
+      "fund_id"    => $request["fund_id"],
+      "company_id" => company::company_id(),
+      "user_id"    => $request['user_id'],
+
+      "details" => $details,
+      "user_name" => $user->name,
+
+    ]);
 
 
     return redirect()->back()->with("msg", "تمت العملية بنجاح ");
