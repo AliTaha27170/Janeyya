@@ -22,30 +22,27 @@
                 <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
             </div>
             <?php 
-                $humanResources = \App\HumanResource::latest()->take(3)->get();
+                $humanResources = \App\HumanResource::where('review',0)->orderBy('id','DESC')->get();
             ?>
             <div class="top-menu d-flex align-items-center">
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">3</span></a>
-                    <div class="dropdown-menu dropdown-menu-right notification-dropdown" aria-labelledby="notiDropdown">
-                        <h4 class="header">{{ __('Notifications')}}</h4>
-                        <div class="notifications-wrap">
+                    <a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">{{ count($humanResources) }}</span></a>
+                    <div class="dropdown-menu dropdown-menu-right notification-dropdown text-right" aria-labelledby="notiDropdown">
+                        <h4 class="header">الاشعارات</h4>
+                        <div class="notifications-wrap ">
                             @isset($humanResources)
                                 @foreach ($humanResources as $humanResource)
                                     <a href="{{ route('humanResources.edit',$humanResource->id) }}" class="media">
-                                        <span class="d-flex">
-                                            <i class="ik ik-check"></i> 
-                                        </span>
                                         <span class="media-body">
                                             <label class="heading-font-family media-heading">{{ $humanResource->user->name }}</label> 
                                             <label class="media-content">{{ $humanResource->reason}}</label>
                                         </span>
+                                        <span class="d-flex">
+                                            <i class="ik ik-check"></i> 
+                                        </span>
                                     </a>
                                 @endforeach
                             @endisset
-                        </div>
-                        <div class="footer">
-                            <a href="javascript:void(0);">{{ __('See all activity')}}</a>
                         </div>
                     </div>
                 </div>

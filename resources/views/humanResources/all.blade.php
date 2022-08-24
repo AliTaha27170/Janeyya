@@ -54,9 +54,11 @@ $a1="2";
                             <thead class="noExl">
                                 <tr>
                                     <th>###{{ __('Id')}}</th>
+                                    <th>الموظف</th>
                                     <th>السبب</th>
                                     <th>البيان</th>
                                     <th>الحالة</th>
+                                    <th>سبب الموافقه او الرفض</th>
                                     <th>تاريخ الإضافة</th>
                                     <th>التحكم</th>
                                 </tr>
@@ -66,6 +68,7 @@ $a1="2";
                                     <tr style="   {{   $humanResource->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
                                         
                                         <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $humanResource->user->name }}</td>
                                         <td>{{ $humanResource->reason }}</td>
                                         <td>{{ $humanResource->reason_discription }}</td>
                                         @if ($humanResource->status == '0')
@@ -74,6 +77,11 @@ $a1="2";
                                             <td>مقبول</td>
                                         @else
                                             <td>مرفوض</td>
+                                        @endif
+                                        @if ($humanResource->status_discription)
+                                        <td>{{ $humanResource->status_discription }}</td>
+                                        @else
+                                            <td>قيد المعاينة لم يتم التحديد</td>
                                         @endif
                                         <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
                                         <td>

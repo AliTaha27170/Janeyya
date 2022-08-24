@@ -33,6 +33,9 @@ class HumanResourceController extends Controller
     }
     public function edit($id)
     {
+        $review = HumanResource::findorFail($id);
+        $review->review = 1;
+        $review->save();
         $humanResource = HumanResource::where('id',$id)->first();
         return view('humanResources.edit', compact('humanResource'));
     }
