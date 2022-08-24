@@ -392,3 +392,14 @@
 
     </div>
 </div>
+<div
+    class="nav-item {{ ($segment1 == 'form-components' || $segment1 == 'form-advance'||$segment1 == 'form-addon') ? 'active open' : '' }} has-sub">
+    <a href="#"><i class="ik ik-edit"></i>الموارد البشرية</a>
+    <div class="submenu-content">
+        <a href="{{ route('humanResources.getReason') }}" class="menu-item {{ ($segment1 == 'addCompany') ? 'active' : '' }}">
+            جميع الطلبات</a>
+        
+
+
+    </div>
+</div>

@@ -66,6 +66,30 @@ $a1="2";
                         </div>
                     </div>
                     <div class="table-responsive" id="myTable">
+                        @if ($logo)
+                            <div class="mb-2 d-none" id="logo">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="text-right mr-2">
+                                            <h2 class="fs-1"><small>{{ $logo->name }}</small></h2>
+                                            <h1><small>المملكةالعربيةالسعودية-القصيم-بريدة</small></h1>
+                                            <h1><small>الجوال: {{ $logo->phone1 }}</small></h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="logo-print text-center">
+                                            <img src="{{$logo->getFirstMediaUrl('logo')}}"  title="logo" class="logo-firm img-fluid" style="width: 150px; height: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-right mr-2">
+                                            <p><small>تاريخ الطباعة : {{ date('Y-m-d') }}</small></p>
+                                            <p><small>وقت الطباعة :{{ date('H:i:s') }}</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <table class="table table-bordered table-striped text-center" id="tableExcel">
                             {{-- <thead class="noExl">
                                 <tr>

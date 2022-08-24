@@ -2,24 +2,19 @@
     
 $a1="2";
 @endphp
-
 @extends('layouts.main') 
-@section('title', 'الفواتير')
+@section('title', 'المصاريف')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
         <link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
     @endpush
- <style></style>
-
-
     <div class="container-fluid big-font card-style">
     {{-- Start --}}
-
-     <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>{{ __('Users')}}</h3></div>
+                <div class="card-header"><h3>الموارد البشرية</h3></div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-4">
@@ -51,30 +46,40 @@ $a1="2";
                                         </div>
                                     </div>
                                 </div>
+                               
+                              
                             </div>
                         @endif
                         <table class="table table-bordered text-center" id="tableExcel">
                             <thead class="noExl">
                                 <tr>
                                     <th>###{{ __('Id')}}</th>
-                                    <th>صاحب الفاتورة </th>
-                                    <th> قام بتنظيمها </th>
-                                    <th> قيمة الفاتورة </th>
-                                    <th> تاريخ الإضافة </th>
+                                    <th>السبب</th>
+                                    <th>البيان</th>
+                                    <th>الحالة</th>
+                                    <th>تاريخ الإضافة</th>
+                                    <th>التحكم</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($Invoices as $item)
-                                    <tr style="   {{   $item->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
-                                        @if (auth()->user()->role == 2)
-                                            {{ $item->read($item->id) }}
+                                @foreach ($humanResources as $humanResource)
+                                    <tr style="   {{   $humanResource->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                        
+                                        <td>{{ $loop->iteration}}</td>
+                                        <td>{{ $humanResource->reason }}</td>
+                                        <td>{{ $humanResource->reason_discription }}</td>
+                                        @if ($humanResource->status == '0')
+                                            <td>قيد المعاينة</td>
+                                        @elseif ($humanResource->status == '1')
+                                            <td>مقبول</td>
+                                        @else
+                                            <td>مرفوض</td>
                                         @endif
-                                       
-                                        <td>{{ $item->code }}</td>
-                                        <td>{{ isset($item->name) ? $item->name : $item->get_dealer->name }}</td>
-                                        <td>{{ $item->get_who_write->name }}</td>
-                                        <td>{{ isset($item->total) ? $item->total : '' }} SR</td>
-                                        <td>{{ $item->created_at->format('m/d/Y') }}</td>
+                                        <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
+                                        <td>
+                                            <a href="{{ route('humanResources.edit',$humanResource->id) }}"><i class="ik ik-edit-2"></i></a>
+                                            <a href="{{ route('humanResources.delete',$humanResource->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -86,11 +91,13 @@ $a1="2";
     </div>
     {{-- End --}}
     </div>
-
-   
+    
 
     <!-- push external js -->
     @push('script')
+  
+    <script src="//cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js">
+    </script>
         <script src="{{ asset('plugins/DataTables/datatables.min.js') }}"></script>
         <script src="{{ asset('js/datatables.js') }}"></script>
     @endpush

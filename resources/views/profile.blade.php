@@ -1,8 +1,6 @@
 @extends('layouts.main') 
 @section('title', 'Profile')
 @section('content')
-    
-
     <div class="container-fluid card-style">
         <div class="page-header">
             <div class="row align-items-end">

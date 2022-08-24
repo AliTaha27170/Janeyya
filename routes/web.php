@@ -23,6 +23,8 @@ use App\Http\Controllers\FarmerController;
 use App\Http\Controllers\FirmController;
 use App\Http\Controllers\FundController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HumanResourceController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\PermissionController;
@@ -49,8 +51,17 @@ Route::get('test2', function () {
 });
 
 Route::get('/home', function () {
-	return view('landing.index');
-});
+	return view('landing.home');
+})->name('landing.home');
+Route::get('/about', function () {
+	return view('landing.about');
+})->name('landing.about');
+Route::get('/services', function () {
+	return view('landing.services');
+})->name('landing.services');
+Route::get('/contact', function () {
+	return view('landing.contact');
+})->name('landing.contact');
 
 
 Route::get('/', function () {
@@ -326,11 +337,22 @@ Route::group(['middleware' => 'auth'], function () {
 		});
 	});
 
+	// تحت اشراف الموظف الموارد البشرية//
+	Route::get('/humanResources', [HumanResourceController::class,'index'])->name('humanResources.index');
+	Route::post('/humanResources/store', [HumanResourceController::class,'store'])->name('humanResources.store');
 
+	// المعلومات التي تخص الموظف 
+	Route::get('/Information', [InformationController::class,'index'])->name('Information.index');
+	
+	
 	Route::group(['middleware' => 'company'], function () {
 
 		/******************************************************/
-
+		// تحت اشراف الشركة الموارد البشرية//
+		Route::get('/humanResources/All', [HumanResourceController::class,'getReason'])->name('humanResources.getReason');
+		Route::get('/humanResources/edit/{id}', [HumanResourceController::class,'edit'])->name('humanResources.edit');
+		Route::post('/humanResources/update', [HumanResourceController::class,'update'])->name('humanResources.update');
+		Route::get('/humanResources/delete/{id}', [HumanResourceController::class,'delete'])->name('humanResources.delete');
 		//writer
 		// المصاريف
 		Route::get('/expenses', [ExpensesController::class,'index'])->name('expenses.index');
