@@ -88,6 +88,7 @@ $a1="2";
                                     <th>البيان</th>
                                     <th>الحالة</th>
                                     <th>سبب الموافقه او الرفض</th>
+                                    <th>الملف الورقي</th>
                                     <th>تاريخ الإضافة</th>
                                 </tr>
                             </thead>
@@ -111,6 +112,13 @@ $a1="2";
                                         @else
                                             <td>قيد المعاينة لم يتم التحديد</td>
                                         @endif
+                                        <td>
+                                            @if ($humanResource->file_name)
+                                                <a href="{{ route('downloadFile',$humanResource->file_name) }}" class="text-blue"> الملف</a>
+                                            @else
+                                                لم يدرج اي ملف
+                                            @endif    
+                                        </td>
                                         <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
                                         
                                     </tr>
