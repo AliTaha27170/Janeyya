@@ -22,11 +22,17 @@
                 <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
             </div>
             <?php 
-                $humanResources = \App\HumanResource::where('review',0)->orderBy('id','DESC')->get();
+                if (\Auth::user()->role == 2) {
+                    $humanResources = \App\HumanResource::where('review',0)->orderBy('id','DESC')->get();
+                }
+                if (\Auth::user()->role == 3){
+                    $humanResources = \App\HumanResource::where('status','!=',0)->where('review_user',0)->where('user_id',\Auth::user()->id)->orderBy('id','DESC')->get();
+                }
+                
             ?>
             <div class="top-menu d-flex align-items-center">
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">{{ count($humanResources) }}</span></a>
+                    <a class="nav-link dropdown-toggle" href="#" id="notiDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-bell"></i><span class="badge bg-danger">{{ count($humanResources) == 0 ? '' : count($humanResources) }}</span></a>
                     <div class="dropdown-menu dropdown-menu-right notification-dropdown text-right" aria-labelledby="notiDropdown">
                         <h4 class="header">الاشعارات</h4>
                         <div class="notifications-wrap ">
@@ -40,7 +46,7 @@
                                         <span class="d-flex">
                                             <i class="ik ik-check"></i> 
                                         </span>
-                                    </a>
+                                    </a>  
                                 @endforeach
                             @endisset
                         </div>
