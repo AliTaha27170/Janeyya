@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\AttachFilesTrait;
 use App\HumanResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 
 class HumanResourceController extends Controller
 {
+    use AttachFilesTrait;
     public function index()
     {
         $humanResources = HumanResource::where('user_id',Auth::user()->id)->orderBy('id','DESC')->get();
@@ -21,9 +25,6 @@ class HumanResourceController extends Controller
         $humanResource->reason_discription = $request->reason_discription;
         $humanResource->user_id = Auth::user()->id;
         $humanResource->save();
-        if($request->hasFile('file') && $request->file('file')->isValid()){
-            $humanResource->addMediaFromRequest('file')->toMediaCollection('file');
-        }
         return redirect()->back()->with("msg", "تمت الإضافة بنجاح .");
     }
     public function getReason()
@@ -34,7 +35,16 @@ class HumanResourceController extends Controller
     public function edit($id)
     {
         $review = HumanResource::findorFail($id);
-        $review->review = 1;
+        if(Auth::user()->role == 2){
+            $review->review = 1;
+        }
+        if(Auth::user()->role == 3){
+            
+            $review->review_user = 1;
+            $review->save();
+            return redirect()->route('humanResources.index');
+        }
+        
         $review->save();
         $humanResource = HumanResource::where('id',$id)->first();
         return view('humanResources.edit', compact('humanResource'));
@@ -43,11 +53,15 @@ class HumanResourceController extends Controller
     {
         $humanResource = HumanResource::findorFail($request->id);
         $humanResource->status = $request->status;
+        $humanResource->file_name =  $request->file('file_name')->getClientOriginalName();
         $humanResource->status_discription = $request->status_discription;
         $humanResource->save();
-        if($request->hasFile('file') && $request->file('file')->isValid()){
-            $humanResource->addMediaFromRequest('file')->toMediaCollection('file');
-        }
+        $this->uploadFile($request,'file_name');
         return redirect()->back()->with("msg", "تمت التحديث بنجاح .");
     }
+    public function downloadFile ($filename)
+    {
+        return response()->download(public_path() . '/attachments/' . $filename);
+    }
+    
 }
