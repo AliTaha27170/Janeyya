@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email">موافقة او رفض ورقي</label>
-                                        <input type="file" class="form-control" name="file">
+                                        <input type="file" class="form-control" name="file_name">
                                     </div>
                                     <button class="btn btn-success" type="submit">تحديث</button>
                                 </form>
