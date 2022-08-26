@@ -340,6 +340,9 @@ Route::group(['middleware' => 'auth'], function () {
 	// تحت اشراف الموظف الموارد البشرية//
 	Route::get('/humanResources', [HumanResourceController::class,'index'])->name('humanResources.index');
 	Route::post('/humanResources/store', [HumanResourceController::class,'store'])->name('humanResources.store');
+	Route::get('/humanResources/downloadFile/{filename}', [HumanResourceController::class,'downloadFile'])->name('downloadFile');
+	// خليها يا علي متاحه للادمن و الموظفن انا مهندلها في controller
+	Route::get('/humanResources/edit/{id}', [HumanResourceController::class,'edit'])->name('humanResources.edit');
 
 	// المعلومات التي تخص الموظف 
 	Route::get('/Information', [InformationController::class,'index'])->name('Information.index');
@@ -350,7 +353,6 @@ Route::group(['middleware' => 'auth'], function () {
 		/******************************************************/
 		// تحت اشراف الشركة الموارد البشرية//
 		Route::get('/humanResources/All', [HumanResourceController::class,'getReason'])->name('humanResources.getReason');
-		Route::get('/humanResources/edit/{id}', [HumanResourceController::class,'edit'])->name('humanResources.edit');
 		Route::post('/humanResources/update', [HumanResourceController::class,'update'])->name('humanResources.update');
 		Route::get('/humanResources/delete/{id}', [HumanResourceController::class,'delete'])->name('humanResources.delete');
 		//writer
