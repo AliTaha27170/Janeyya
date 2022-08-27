@@ -351,7 +351,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::group(['middleware' => 'company'], function () {
 
 		/******************************************************/
-		// تحت اشراف الشركة الموارد البشرية//
+			// تحت اشراف الشركة الموارد البشرية//
 		Route::get('/humanResources/All', [HumanResourceController::class,'getReason'])->name('humanResources.getReason');
 		Route::post('/humanResources/update', [HumanResourceController::class,'update'])->name('humanResources.update');
 		Route::get('/humanResources/delete/{id}', [HumanResourceController::class,'delete'])->name('humanResources.delete');
