@@ -36,19 +36,37 @@
                     <div class="dropdown-menu dropdown-menu-right notification-dropdown text-right" aria-labelledby="notiDropdown">
                         <h4 class="header">الاشعارات</h4>
                         <div class="notifications-wrap ">
-                            @isset($humanResources)
-                                @foreach ($humanResources as $humanResource)
-                                    <a href="{{ route('humanResources.edit',$humanResource->id) }}" class="media">
-                                        <span class="media-body">
-                                            <label class="heading-font-family media-heading">{{ $humanResource->user->name }}</label> 
-                                            <label class="media-content">{{ $humanResource->reason}}</label>
-                                        </span>
-                                        <span class="d-flex">
-                                            <i class="ik ik-check"></i> 
-                                        </span>
-                                    </a>  
-                                @endforeach
-                            @endisset
+                            @if (\Auth::user()->role == 2) 
+                                @isset($humanResources)
+                                    @foreach ($humanResources as $humanResource)
+                                        <a href="{{ route('humanResources.edit',$humanResource->id) }}" class="media">
+                                            <span class="media-body">
+                                                <label class="heading-font-family media-heading">{{ $humanResource->user->name }}</label> 
+                                                <label class="media-content">{{ $humanResource->reason}}</label>
+                                            </span>
+                                            <span class="d-flex">
+                                                <i class="ik ik-check"></i> 
+                                            </span>
+                                        </a>  
+                                    @endforeach
+                                @endisset
+                            @endif
+                            @if (\Auth::user()->role == 3) 
+                                @isset($humanResources)
+                                    @foreach ($humanResources as $humanResource)
+                                        <a href="{{ route('humanResources.edit',$humanResource->id) }}" class="media">
+                                            <span class="media-body">
+                                                <label class="heading-font-family media-heading">{{ $humanResource->user->name }}</label> 
+                                                <label class="media-content">تم {{ $humanResource->status == 2 ? 'رفض' : 'قبول'}} طلبك</label>
+                                                <label class="media-content">{{ $humanResource->reason}}</label>
+                                            </span>
+                                            <span class="d-flex">
+                                                <i class="ik ik-check"></i> 
+                                            </span>
+                                        </a>  
+                                    @endforeach
+                                @endisset
+                            @endif
                         </div>
                     </div>
                 </div>
