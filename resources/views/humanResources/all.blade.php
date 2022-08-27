@@ -16,6 +16,29 @@ $a1="2";
             <div class="card">
                 <div class="card-header"><h3>الموارد البشرية</h3></div>
                 <div class="card-body">
+                    <form action="{{ route('humanResources.getReason') }}" method="get" enctype="multipart/form">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="sample-form">
+                                    <div class="form-group text-right">
+                                        <label for="">تحديد التاجر </label>
+                                        <select class="form-control select2 text-center" required name="user">
+                                            <option value="" > -اختر من القائمة -</option>
+
+                                            @foreach ($users as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 mt-3">
+                                <button class="btn btn-primary w-100" type="submit">عرض الطلبات</button>
+                            </div>
+                        
+                        </div>
+                    </form>
                     <div class="row">
                         <div class="col-sm-4">
                             <button id="myButton" class="btn btn-primary">Excel</button>
@@ -64,32 +87,62 @@ $a1="2";
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($humanResources as $humanResource)
-                                    <tr style="   {{   $humanResource->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
-                                        
-                                        <td>{{ $loop->iteration}}</td>
-                                        <td>{{ $humanResource->user->name }}</td>
-                                        <td>{{ $humanResource->reason }}</td>
-                                        <td>{{ $humanResource->reason_discription }}</td>
-                                        @if ($humanResource->status == '0')
-                                            <td>قيد المعاينة</td>
-                                        @elseif ($humanResource->status == '1')
-                                            <td>مقبول</td>
-                                        @else
-                                            <td>مرفوض</td>
-                                        @endif
-                                        @if ($humanResource->status_discription)
-                                        <td>{{ $humanResource->status_discription }}</td>
-                                        @else
-                                            <td>قيد المعاينة لم يتم التحديد</td>
-                                        @endif
-                                        <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
-                                        <td>
-                                            <a href="{{ route('humanResources.edit',$humanResource->id) }}"><i class="ik ik-edit-2"></i></a>
-                                            <a href="{{ route('humanResources.delete',$humanResource->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                @isset($humanResources)
+                                    @foreach ($humanResources as $humanResource)
+                                        <tr style="   {{   $humanResource->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                            
+                                            <td>{{ $loop->iteration}}</td>
+                                            <td>{{ $humanResource->user->name }}</td>
+                                            <td>{{ $humanResource->reason }}</td>
+                                            <td>{{ $humanResource->reason_discription }}</td>
+                                            @if ($humanResource->status == '0')
+                                                <td>قيد المعاينة</td>
+                                            @elseif ($humanResource->status == '1')
+                                                <td>مقبول</td>
+                                            @else
+                                                <td>مرفوض</td>
+                                            @endif
+                                            @if ($humanResource->status_discription)
+                                            <td>{{ $humanResource->status_discription }}</td>
+                                            @else
+                                                <td>قيد المعاينة لم يتم التحديد</td>
+                                            @endif
+                                            <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
+                                            <td>
+                                                <a href="{{ route('humanResources.edit',$humanResource->id) }}"><i class="ik ik-edit-2"></i></a>
+                                                <a href="{{ route('humanResources.delete',$humanResource->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endisset
+                                @isset($humanResourceUsers)
+                                    @foreach ($humanResourceUsers as $humanResource)
+                                        <tr style="   {{   $humanResource->notfic == '1'  ? 'background:#009688;color:#fff': ''}} ">
+                                            
+                                            <td>{{ $loop->iteration}}</td>
+                                            <td>{{ $humanResource->user->name }}</td>
+                                            <td>{{ $humanResource->reason }}</td>
+                                            <td>{{ $humanResource->reason_discription }}</td>
+                                            @if ($humanResource->status == '0')
+                                                <td>قيد المعاينة</td>
+                                            @elseif ($humanResource->status == '1')
+                                                <td>مقبول</td>
+                                            @else
+                                                <td>مرفوض</td>
+                                            @endif
+                                            @if ($humanResource->status_discription)
+                                            <td>{{ $humanResource->status_discription }}</td>
+                                            @else
+                                                <td>قيد المعاينة لم يتم التحديد</td>
+                                            @endif
+                                            <td>{{ $humanResource->created_at->format('m/d/Y') }}</td>
+                                            <td>
+                                                <a href="{{ route('humanResources.edit',$humanResource->id) }}"><i class="ik ik-edit-2"></i></a>
+                                                <a href="{{ route('humanResources.delete',$humanResource->id) }}" onclick="return confirm('هل أنت متأكد من ذلك ؟ ')"><i class="ik ik-trash-2"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endisset
                             </tbody>
                         </table>
                     </div>
