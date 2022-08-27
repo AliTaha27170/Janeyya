@@ -22,7 +22,7 @@ $a1="2";
                             <div class="col-md-6">
                                 <div class="sample-form">
                                     <div class="form-group text-right">
-                                        <label for="">تحديد التاجر </label>
+                                        <label for="">تحديد الموظف </label>
                                         <select class="form-control select2 text-center" required name="user">
                                             <option value="" > -اختر من القائمة -</option>
 
