@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\AttachFilesTrait;
 use App\HumanResource;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -27,10 +28,17 @@ class HumanResourceController extends Controller
         $humanResource->save();
         return redirect()->back()->with("msg", "تمت الإضافة بنجاح .");
     }
-    public function getReason()
+    public function getReason(Request $request)
     {
+        
+        $users = User::where('role','3')->orderBy('id','DESC')->get();
+        if($request->user){
+            $humanResourceUsers = HumanResource::where('user_id',$request->user)->orderBy('id','DESC')->get();
+            return view('humanResources.all', compact('humanResourceUsers','users'));
+    
+        }
         $humanResources = HumanResource::orderBy('id','DESC')->get();
-        return view('humanResources.all', compact('humanResources'));
+        return view('humanResources.all', compact('humanResources','users'));
     }
     public function edit($id)
     {
@@ -53,11 +61,20 @@ class HumanResourceController extends Controller
     {
         $humanResource = HumanResource::findorFail($request->id);
         $humanResource->status = $request->status;
-        $humanResource->file_name =  $request->file('file_name')->getClientOriginalName();
+        if($request->file('file_name')){
+            $humanResource->file_name =  $request->file('file_name')->getClientOriginalName();
+            $this->uploadFile($request,'file_name');
+        }
         $humanResource->status_discription = $request->status_discription;
         $humanResource->save();
-        $this->uploadFile($request,'file_name');
+        
         return redirect()->back()->with("msg", "تمت التحديث بنجاح .");
+    }
+    public function delete($id){
+        $humanResource = HumanResource::findorFail($id);
+        $this->deleteFile($humanResource->file_name);
+        $humanResource->delete();
+        return redirect()->back()->with("msg", "تمت الحذف بنجاح .");
     }
     public function downloadFile ($filename)
     {
