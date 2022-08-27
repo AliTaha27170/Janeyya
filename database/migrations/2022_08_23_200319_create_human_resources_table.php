@@ -20,6 +20,7 @@ class CreateHumanResourcesTable extends Migration
             $table->integer('status')->default(0);
             $table->boolean('review')->default(0);
             $table->longText('status_discription')->nullable();
+            $table->string('file_name')->nullable();
             $table->foreignId("user_id")->references("id")->on("users")->onDelete('cascade');
             $table->timestamps();
         });
